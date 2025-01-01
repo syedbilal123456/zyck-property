@@ -1,6 +1,10 @@
 
 export default function Home() {
   return (
-   <h1>hello world</h1>
+    <div>
+      <h1>Home Page</h1>
+      <p> zyck property</p>
+    </div>
+
   );
 }
