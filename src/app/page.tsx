@@ -7,7 +7,7 @@ export default function Home() {
     <>
     <Hero/>
     <PropertyCard
-        image="./background.jpg"
+        image="/background.jpg"
         title="Luxury Apartment"
         price="$1,200/month"
         location="Downtown, NY"

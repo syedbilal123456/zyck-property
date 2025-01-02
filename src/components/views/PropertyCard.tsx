@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
 
 export function PropertyCard({
   image,
@@ -25,7 +26,9 @@ export function PropertyCard({
       {/* Image Section */}
       <div className="relative">
         <AspectRatio ratio={16 / 9} className="bg-gray-200">
-          <img
+          <Image
+          height={400}
+          width={400}
             src={image}
             alt={title}
             className="object-cover w-full h-full rounded-t-lg"
