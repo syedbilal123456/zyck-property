@@ -25,7 +25,7 @@ export function PropertyCard({
       {/* Image Section */}
       <div className="relative">
         <AspectRatio ratio={16 / 9} className="bg-gray-200">
-          <Image
+          <img
             src={image}
             alt={title}
             width={400}

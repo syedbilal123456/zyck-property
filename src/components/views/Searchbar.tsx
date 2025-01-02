@@ -27,11 +27,11 @@ export function Searchbar() {
       {["BUY", "SELL", "RENT"].map((tab) => (
         <TabsContent key={tab} value={tab}>
           <Card className="mx-auto w-full max-w-md">
-            <CardContent className="w-full flex flex-col p-2 bg-background gap-3">
+            <CardContent className="w-full flex  p-2 bg-background text-white gap-3">
               {/* Search Input */}
               <Select>
                 <SelectTrigger className="w-full">
-                  <SelectValue color="white" placeholder="Select Property Type" />
+                  <SelectValue  placeholder="Select Property Type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="apartment">Apartment</SelectItem>
