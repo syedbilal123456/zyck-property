@@ -3,7 +3,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 // Adding image to property
-export async function POST(req : Request, { params } : { params : { id: string}}){
+export async function POST(req : Request, { params }: { params: Promise<{ id: string }> } ){
+
+    const id = (await params).id
     const {getUser} = getKindeServerSession();
     const user = await getUser();
 
@@ -23,7 +25,7 @@ export async function POST(req : Request, { params } : { params : { id: string}}
     }
 
     const imagesCount = await prisma.propertyImage.count({
-        where: { propertyId: parseInt(params.id)}
+        where: { propertyId: parseInt(id)}
     })
 
     if(imagesCount >= subscription.plan.ImagePerPropertyLimit){
@@ -33,7 +35,7 @@ export async function POST(req : Request, { params } : { params : { id: string}}
     const image = await prisma.propertyImage.create({
         data: {
             url: json.url,
-            propertyId: parseInt(params.id)
+            propertyId: parseInt(id)
         }
     });
 
@@ -46,7 +48,8 @@ export async function POST(req : Request, { params } : { params : { id: string}}
 // Delete image from property
 
 
-export async function DELETE(req: Request, { params } : { params : { id : string} }) {
+export async function DELETE(req: Request,  { params }: { params: Promise<{ id: string }> } ) {
+    const id = (await params).id
     const {getUser} = getKindeServerSession();
     const user = await getUser();
 
@@ -58,7 +61,7 @@ export async function DELETE(req: Request, { params } : { params : { id : string
         await prisma.propertyImage.delete({
             where: {
                 id: json.imageId,
-                propertyId: parseInt(params.id)
+                propertyId: parseInt(id)
             }
         });
 

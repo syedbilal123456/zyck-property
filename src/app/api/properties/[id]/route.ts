@@ -3,10 +3,11 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 // GET properties by id :
- export async function GET(req : Request, { params } : { params : { id: string}}){
+ export async function GET(req : Request, { params }: { params: Promise<{ id: string }> } ){
+    const id = (await params).id
     try {
         const property = await prisma.property.findUnique({
-            where: { id: parseInt(params.id)},
+            where: { id: parseInt(id)},
             include:{
                 type: true,
                 status: true,
@@ -27,9 +28,11 @@ import { NextResponse } from "next/server";
  }
 
 //  Delete property by id
-export async function DELETE(req : Request, { params } : { params : { id : string}}){
+export async function DELETE(req : Request,{ params }: { params: Promise<{ id: string }> } ){
+
     const {getUser} = getKindeServerSession()
     const user = await getUser();
+    const id = (await params).id
 
     if (!user.id) {
         return NextResponse.json({error: "Unauthorized"}, {status: 401});
@@ -38,7 +41,7 @@ export async function DELETE(req : Request, { params } : { params : { id : strin
     try {
         await prisma.property.delete({
             where :{
-                id :  parseInt(params.id),
+                id :  parseInt(id),
                 userId : user.id,
             }
         });
