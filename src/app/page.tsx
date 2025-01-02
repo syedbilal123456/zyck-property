@@ -15,6 +15,9 @@ export default function Home() {
         // features={["2 Bedrooms", "2 Bathrooms", "Gym Access", "Parking"]}
         // onContact={() => alert("Contacting owner...")}
       />
+      <p> something fix
+        
+      </p>
     </>
 
   );
