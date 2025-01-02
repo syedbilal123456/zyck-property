@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,15 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id            String          @id
-  firstName     String
-  lastName      String
-  email         String
-  avatarUrl     String?
-  createdAt     DateTime        @default(now())
-  Property      Property[]
+  id           String          @id
+  firstName    String
+  lastName     String
+  email        String
+  avatarUrl    String?
+  createdAt    DateTime        @default(now())
+  Property     Property[]
   subscription Subscriptions[]
 }
 
@@ -31,15 +24,15 @@ model Property {
   description String
   price       Int
   userId      String
-  user        User              @relation(fields: [userId], references: [id])
   typeId      Int
-  type        PropertyType      @relation(fields: [typeId], references: [id])
   statusId    Int
+  contact     Contact?
   status      PropertyStatus    @relation(fields: [statusId], references: [id])
-  location    PropertyLocation?
+  type        PropertyType      @relation(fields: [typeId], references: [id])
+  user        User              @relation(fields: [userId], references: [id])
   feature     PropertyFeature?
   images      PropertyImage[]
-  contact     Contact?
+  location    PropertyLocation?
 }
 
 model Contact {
@@ -47,28 +40,28 @@ model Contact {
   name       String
   phone      String
   email      String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId Int      @unique
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyImage {
   id         Int      @id @default(autoincrement())
   url        String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyFeature {
   id              Int      @id @default(autoincrement())
   bedrooms        Int
   bathrooms       Int
-  parkingSpots    Int 
+  parkingSpots    Int
   area            Int
   hasSwimmingPool Boolean
   hasGardenYard   Boolean
   hasBalcony      Boolean
-  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId      Int      @unique
+  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyLocation {
@@ -96,22 +89,22 @@ model PropertyStatus {
 }
 
 model SubscriptionPlan {
-  id Int @id @default(autoincrement())
-  name String
-  price Float
-  propertyLimit Int
+  id                    Int             @id @default(autoincrement())
+  name                  String
+  price                 Float
+  propertyLimit         Int
   ImagePerPropertyLimit Int
-  features String
-  subscription Subscriptions[]
+  features              String
+  subscription          Subscriptions[]
 }
 
 model Subscriptions {
-  id Int @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   paymentId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  plan SubscriptionPlan @relation(fields: [planId],references: [id] )
-  planId Int
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  planId    Int
+  userId    String
+  plan      SubscriptionPlan @relation(fields: [planId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
 }
