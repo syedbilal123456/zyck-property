@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import logo from "@/assets/logo.png"
+
 import { Button } from '../ui/button'
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
     <>
     <footer className="footer bg-black text-base-200 p-10">
     <aside>
-     <Image src={logo} alt='zyck' width={200} height={200}/>
+     <Image src={"/logo.png"} alt='zyck' width={200} height={200}/>
     </aside>
     <nav>
       <h6 className="footer-title">Popular Searches</h6>
@@ -30,7 +30,7 @@ const Footer = () => {
       <a className="link link-hover">Privacy policy</a>
       <a className="link link-hover">Cookie policy</a>
     </nav>
-    {/* <form>
+    <form>
     <h6 className="footer-title">Newsletter</h6>
     <fieldset className="form-control w-80">
       <label className="label">
@@ -44,7 +44,7 @@ const Footer = () => {
         <Button className="h-12 join-item">Subscribe</Button>
       </div>
     </fieldset>
-  </form> */}
+  </form>
   </footer>
   <div className='text-center bg-background text-foreground border-t-2'>
   <p className='py-5'>Copyright © 2025. Zyck – Real Estate by Zyck Technology.</p>

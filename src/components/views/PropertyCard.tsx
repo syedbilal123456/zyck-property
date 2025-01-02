@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
 
 export function PropertyCard({
   image,
@@ -25,14 +25,19 @@ export function PropertyCard({
       {/* Image Section */}
       <div className="relative">
         <AspectRatio ratio={16 / 9} className="bg-gray-200">
-          <img
+          <Image
             src={image}
             alt={title}
-            className="object-cover w-full h-full rounded-t-lg"
+            width={400}
+            height={400}
+          
           />
         </AspectRatio>
         <Badge className="absolute top-2 left-2 bg-blue-500 text-white">
           Featured
+        </Badge>
+        <Badge className="absolute top-2 left-20 bg-green-500 text-white">
+          Sale
         </Badge>
       </div>
 
@@ -42,43 +47,25 @@ export function PropertyCard({
         <CardDescription className="text-gray-500">{location}</CardDescription>
         <h3 className="text-xl font-bold text-green-600">{price}</h3>
       </CardHeader>
-      <Separator />
       <CardContent className="space-y-2">
         <p className="text-gray-700">{description}</p>
 
-        {/* Features Section
+        {/* Features Section */}
         <div className="flex flex-wrap gap-2">
-          {features.map((feature, index) => (
+          {features.map((feature :string, index:number) => (
             <Badge key={index} className="bg-gray-100 text-gray-800">
               {feature}
             </Badge>
           ))}
-        </div> */}
+        </div>
       </CardContent>
 
       {/* Footer Section */}
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" className="w-full" onClick={onContact}>
-          Contact Owner
+      <CardFooter className="mt-auto">
+        <Button className="w-full" onClick={onContact}>
+       View details
         </Button>
       </CardFooter>
     </Card>
-  );
-}
-
-// Example Usage
-export function PropertyCardDemo() {
-  return (
-    <div className="p-4">
-      <PropertyCard
-        image="https://via.placeholder.com/400x300"
-        title="Luxury Apartment"
-        price="$1,200/month"
-        location="Downtown, NY"
-        description="A spacious luxury apartment with modern amenities and stunning views."
-        features={["2 Bedrooms", "2 Bathrooms", "Gym Access", "Parking"]}
-        onContact={() => alert("Contacting owner...")}
-      />
-    </div>
   );
 }

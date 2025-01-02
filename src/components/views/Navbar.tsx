@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
-import logo from "@/assets/logo.png"
 import Image from 'next/image'
 import { Button } from '../ui/button'
 
@@ -43,25 +42,25 @@ const Navbar = () => {
       </ul>
     </div>
    <Link href={"/"}>
-   <Image src={logo} width={150} height={150} alt='zyck'/>
+   <Image src={"/logo.png"} width={150} height={150} alt='zyck'/>
    </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1 ">
-      <li><a>HOME</a></li>
+      <li><Link href={"/"}>HOME</Link></li>
       <li>
         <details>
           <summary>LISTINGS</summary>
           <ul className="p-2  bg-background">
-            <li><a>FEATURED</a></li>
-            <li><a>SALE</a></li>
-            <li><a>RENT</a></li>
+            <li><Link href={"/"}>FEATURED</Link></li>
+            <li><Link href={"/"}>SALE</Link></li>
+            <li><Link href={"/"}>RENT</Link></li>
           </ul>
         </details>
       </li>
-      <li><a>ABOUT US</a></li>
-      <li><a>Contact</a></li>
-      <li><a>FAQS</a></li>
+      <li><Link href={"/"}>ABOUT US</Link></li>
+      <li><Link href={"/"}>Contact</Link></li>
+      <li><Link href={"/"}>FAQS</Link></li>
     </ul>
   </div>
   <div className="navbar-end hidden lg:flex gap-2">
