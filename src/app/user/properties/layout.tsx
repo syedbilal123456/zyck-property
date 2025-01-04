@@ -3,10 +3,9 @@ import React, { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
-  modalDelete: ReactNode;
 }
 
-const PropertiesLayout = ({ children, modalDelete }: Props) => {
+const PropertiesLayout = ({ children}: Props) => {
   return (
     <div>
       <div className="bg-green-500 flex justify-between items-center p-2">
@@ -18,7 +17,6 @@ const PropertiesLayout = ({ children, modalDelete }: Props) => {
         </Link>
       </div>
       {children}
-      <div>{modalDelete}</div>
     </div>
   );
 };
