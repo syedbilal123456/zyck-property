@@ -7,28 +7,28 @@ export async function POST(req : Request, { params } : { params : { id: string}}
     const {getUser} = getKindeServerSession();
     const user = await getUser();
 
-    if (!user.id) {
-        return NextResponse.json({error: "Unauthorized"}, {status: 401});
-    }
+    // if (!user.id) {
+    //     return NextResponse.json({error: "Unauthorized"}, {status: 401});
+    // }
 
     try {
     const json = await req.json();
-    const subscription = await prisma.subscriptions.findFirst({
-        where:{ userId: user.id },
-        include: {plan: true}
-    })        
+    // const subscription = await prisma.subscriptions.findFirst({
+    //     where:{ userId: user.id },
+    //     include: {plan: true}
+    // })        
 
-    if(!subscription){
-        return NextResponse.json({error: "No subscription found"}, {status: 404});
-    }
+    // if(!subscription){
+    //     return NextResponse.json({error: "No subscription found"}, {status: 404});
+    // }
 
-    const imagesCount = await prisma.propertyImage.count({
-        where: { propertyId: parseInt(params.id)}
-    })
+    // const imagesCount = await prisma.propertyImage.count({
+    //     where: { propertyId: parseInt(params.id)}
+    // })
 
-    if(imagesCount >= subscription.plan.ImagePerPropertyLimit){
-        return NextResponse.json({error: "Image limit reached"}, {status: 400});
-    } 
+    // if(imagesCount >= subscription.plan.ImagePerPropertyLimit){
+    //     return NextResponse.json({error: "Image limit reached"}, {status: 400});
+    // } 
 
     const image = await prisma.propertyImage.create({
         data: {

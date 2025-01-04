@@ -1,1 +1,43 @@
 userId = kp_d583be71d75a4d41ba428b2650204e74
+
+# Recommended for most uses
+DATABASE_URL=postgres://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+
+# For uses requiring a connection without pgbouncer
+DATABASE_URL_UNPOOLED=postgresql://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+
+# Parameters for constructing your own connection string
+PGHOST=ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech
+PGHOST_UNPOOLED=ep-muddy-sunset-a17q4e3x.ap-southeast-1.aws.neon.tech
+PGUSER=neondb_owner
+PGDATABASE=neondb
+PGPASSWORD=42AMoQFeGhbU
+
+# Parameters for Vercel Postgres Templates
+POSTGRES_URL=postgres://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+POSTGRES_URL_NON_POOLING=postgres://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+POSTGRES_USER=neondb_owner
+POSTGRES_HOST=ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech
+POSTGRES_PASSWORD=42AMoQFeGhbU
+POSTGRES_DATABASE=neondb
+POSTGRES_URL_NO_SSL=postgres://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech/neondb
+POSTGRES_PRISMA_URL=postgres://neondb_owner:42AMoQFeGhbU@ep-muddy-sunset-a17q4e3x-pooler.ap-southeast-1.aws.neon.tech/neondb?pgbouncer=true&connect_timeout=15&sslmode=require
+
+
+# Kinde 
+KINDE_CLIENT_ID=0b529d71a0d849b49679faf2fe6e4458
+KINDE_CLIENT_SECRET=UOFL35yThkeFg7ayDNEGDOwrK08ztJhjcFVNbKiwfUAwRqqLX1q
+KINDE_ISSUER_URL=https://zyckrealestate.kinde.com
+KINDE_SITE_URL=http://localhost:3000
+KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/api/auth/success
+
+# Supabase
+
+NEXT_PUBLIC_SUPABASE_URL=https://hxsseprhluzlykecsodh.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4c3NlcHJobHV6bHlrZWNzb2RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3MjA5ODQsImV4cCI6MjA1MTI5Njk4NH0.G-eYhE29LqGQ8K42OgSphLbGEpbD6wIwugj7lwAI-u0
+
+# Stripe:
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = pk_test_51QcNdbP3vrRo0nKdfa9ouXYHnSoiK8fHUhtndPXsTOgMgct9wp1gm9dPWU6yMwHBg4MPSNlr8DYWto44MSS4iZ9K00HW2IOenj
+STRIPE_SECERET_KEY = sk_test_51QcNdbP3vrRo0nKdYQwWhkc2Wf9wqshKHrrpf2nBdYmTPHZiEBVl0Lgl6Uv7abgccBoHMv0BHXPDenyKKVPlHocM00n6MuL7s1
+

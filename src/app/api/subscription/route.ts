@@ -36,8 +36,6 @@ export async function GET(){
 export async function POST(req : Request){
     const {getUser} = getKindeServerSession();
     const user = await getUser();
-   
-    
     
     if (!user.id) {
         return NextResponse.json({error: "Unauthorized"}, {status: 401});
