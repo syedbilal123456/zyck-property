@@ -13,8 +13,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function PropertyCard({
-  image,
   id,
+  image,
   title,
   price,
   location,

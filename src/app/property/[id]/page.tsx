@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-const page = () => {
+const Page = ({ params }: { params: { id: string } }) => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+    
+      <p>Dynamic ID: {params.id}</p>
+      
+    </div>
+  );
+};
 
-export default page
+export default Page;
