@@ -28,68 +28,68 @@ const Location = (props: Props) => {
   return (
     <div className={`p-2 grid grid-cols-1 md:grid-cols-2 gap-3 ${props.className}`}>
       <div className="input-group">
-        <label htmlFor="streetAddress" className="block">Street Address</label>
         <input
           {...register('location.streetAddress')}
           defaultValue={getValues().location?.streetAddress}
           id="streetAddress"
-          className={`w-full p-2 border rounded-md ${errors.location?.streetAddress ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.streetAddress ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="streetAddress" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Street Address</label>
         {errors.location?.streetAddress && <div className="text-red-500">{errors.location?.streetAddress?.message}</div>}
       </div>
 
       <div className="input-group">
-        <label htmlFor="zip" className="block">Zip/Postal Code</label>
         <input
           {...register('location.zip')}
           defaultValue={getValues().location?.zip}
           id="zip"
-          className={`w-full p-2 border rounded-md ${errors.location?.zip ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.zip ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="zip" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Zip/Postal Code</label>
         {errors.location?.zip && <div className="text-red-500">{errors.location?.zip?.message}</div>}
       </div>
 
       <div className="input-group">
-        <label htmlFor="city" className="block">City</label>
         <input
           {...register('location.city')}
           defaultValue={getValues().location?.city}
           id="city"
-          className={`w-full p-2 border rounded-md ${errors.location?.city ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.city ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="city" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">City</label>
         {errors.location?.city && <div className="text-red-500">{errors.location?.city?.message}</div>}
       </div>
 
       <div className="input-group">
-        <label htmlFor="state" className="block">State</label>
         <input
           {...register('location.state')}
           defaultValue={getValues().location?.state}
           id="state"
-          className={`w-full p-2 border rounded-md ${errors.location?.state ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.state ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="state" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">State</label>
         {errors.location?.state && <div className="text-red-500">{errors.location?.state?.message}</div>}
       </div>
 
       <div className="input-group col-span-2">
-        <label htmlFor="region" className="block">Region/Neighborhood</label>
         <input
           {...register('location.region')}
           defaultValue={getValues().location?.region}
           id="region"
-          className={`w-full p-2 border rounded-md ${errors.location?.region ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.region ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="region" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Region/Neighborhood</label>
         {errors.location?.region && <div className="text-red-500">{errors.location?.region?.message}</div>}
       </div>
 
       <div className="input-group col-span-2">
-        <label htmlFor="landmark" className="block">Landmarks</label>
         <textarea
           {...register('location.landmark')}
           defaultValue={getValues().location?.landmark}
           id="landmark"
-          className={`w-full p-2 border rounded-md ${errors.location?.landmark ? 'border-red-500' : ''}`}
+          className={`absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500 ${errors.location?.landmark ? 'border-red-500' : ''}`}
         />
+        <label htmlFor="landmark" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Landmarks</label>
         {errors.location?.landmark && <div className="text-red-500">{errors.location?.landmark?.message}</div>}
       </div>
 

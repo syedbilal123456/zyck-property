@@ -29,46 +29,46 @@ const Features = (props: Props) => {
     return (
         <div className={`p-2 grid grid-cols-1 md:grid-cols-2 gap-3 ${props.className}`}>
             <div className="input-group">
-                <label htmlFor="bedrooms" className="block">Bedrooms</label>
                 <input
                     {...register('propertyFeature.bedrooms')}
                     defaultValue={defaultValues?.propertyFeature?.bedrooms?.toString()}
                     id="bedrooms"
-                    className={`w-full p-2 border rounded-md ${errors?.propertyFeature?.bedrooms ? 'border-red-500' : ''}`}
+                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.bedrooms ? 'border-red-500' : ''}`}
                 />
+                <label htmlFor="bedrooms" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Bedrooms</label>
                 {errors?.propertyFeature?.bedrooms && <div className="text-red-500">{errors?.propertyFeature?.bedrooms?.message}</div>}
             </div>
 
             <div className="input-group">
-                <label htmlFor="bathrooms" className="block">Bathrooms</label>
                 <input
                     {...register('propertyFeature.bathrooms')}
                     defaultValue={defaultValues?.propertyFeature?.bathrooms?.toString()}
                     id="bathrooms"
-                    className={`w-full p-2 border rounded-md ${errors?.propertyFeature?.bathrooms ? 'border-red-500' : ''}`}
+                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.bathrooms ? 'border-red-500' : ''}`}
                 />
+                <label htmlFor="bathrooms" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Bathrooms</label>
                 {errors?.propertyFeature?.bathrooms && <div className="text-red-500">{errors?.propertyFeature?.bathrooms?.message}</div>}
             </div>
 
             <div className="input-group">
-                <label htmlFor="parkingSpots" className="block">Parking Slots</label>
                 <input
                     {...register('propertyFeature.parkingSpots')}
                     defaultValue={defaultValues?.propertyFeature?.parkingSpots?.toString()}
                     id="parkingSpots"
-                    className={`w-full p-2 border rounded-md ${errors?.propertyFeature?.parkingSpots ? 'border-red-500' : ''}`}
+                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.parkingSpots ? 'border-red-500' : ''}`}
                 />
+                <label htmlFor="parkingSpots" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Parking Slots</label>
                 {errors?.propertyFeature?.parkingSpots && <div className="text-red-500">{errors?.propertyFeature?.parkingSpots?.message}</div>}
             </div>
 
             <div className="input-group">
-                <label htmlFor="area" className="block">Area</label>
                 <input
                     {...register('propertyFeature.area')}
                     defaultValue={defaultValues?.propertyFeature?.area?.toString()}
                     id="area"
-                    className={`w-full p-2 border rounded-md ${errors?.propertyFeature?.area ? 'border-red-500' : ''}`}
+                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.area ? 'border-red-500' : ''}`}
                 />
+                <label htmlFor="area" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Area</label>
                 {errors?.propertyFeature?.area && <div className="text-red-500">{errors?.propertyFeature?.area?.message}</div>}
             </div>
 

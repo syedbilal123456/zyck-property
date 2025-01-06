@@ -94,3 +94,16 @@ export async function deleteProperty(id: number) {
   });
   return result;
 }
+
+// export async function getProperty(id: number){
+//   const result = await prisma.property.findUnique({
+//     where: { id },
+//     include: {
+//       type : true,
+//       images : true,
+//       status: true,
+//       feature: true,
+//     }
+//   })
+//   return result;
+// }

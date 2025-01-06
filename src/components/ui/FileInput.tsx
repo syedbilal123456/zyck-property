@@ -1,59 +1,56 @@
 import React, { useState } from "react";
+import { CloudUpload } from "lucide-react";
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
-  lablText?: string;
   onSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }
 
 const FileInput = React.forwardRef<HTMLInputElement, IProps>(
-  (
-    {
-      children,
-      className,
-      lablText,
-      onChange,
-      onSelect,
-      error,
-
-      ...props
-    },
-    ref
-  ) => {
+  ({ onChange, onSelect, className, error, ...props }, ref) => {
     const [fileName, setFileName] = useState("");
-    function fileChangedHandler(e: any) {
-      const file = e.target.files[0];
-      setFileName(file.name);
+
+    function fileChangedHandler(e: React.ChangeEvent<HTMLInputElement>) {
+      const file = e.target.files?.[0];
+      setFileName(file?.name || "");
       onChange && onChange(e);
       onSelect && onSelect(e);
     }
 
     return (
-      <div className={className}>
-        {lablText && (
-          <label className="block text-gray-600 text-xs lg:text-sm xl:text-base mb-2" htmlFor="txt">
-            {lablText}
-          </label>
-        )}
-        <label className={" w-full  relative border flex  rounded-md cursor-pointer  group"}>
-          <div
-            className={` inline-block h-full  py-3 rounded-l-md px-2  text-white transition duration-500  bg-primary-500 hover:bg-primary-700 hover:bg-gra  shadow shadow-violet-600/25 hover:shadow-primary-600/75`}>
-            <input
-              className="hidden"
-              ref={ref}
-              onChange={(e) => fileChangedHandler(e)}
-              {...props}
-              type="file"
-            />
-            Upload File
-          </div>
-          <span className="mx-2">{fileName}</span>
+      <div className={`relative bg-background rounded-lg p-2 ${className}`}>
+        <label
+          htmlFor="fileInput"
+          className="outline-dashed outline-1 outline-slate-500 flex items-center justify-center flex-col p-8 w-full rounded-lg cursor-pointer"
+        >
+          <CloudUpload className="text-gray-500 w-10 h-10" />
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
+            <span className="font-semibold">Click to upload</span> or drag and drop
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            SVG, PNG, JPG or GIF
+          </p>
+          <input
+            id="fileInput"
+            type="file"
+            ref={ref}
+            className="hidden"
+            onChange={(e) => fileChangedHandler(e)}
+            {...props}
+          />
         </label>
-        {error && <p className="text-red-600 text-right animate-shake">{error}</p>}
+        {fileName && (
+          <p className="mt-2 text-sm text-gray-700">
+            Selected File: <span className="font-semibold">{fileName}</span>
+          </p>
+        )}
+        {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
       </div>
     );
   }
 );
+
 FileInput.displayName = "FileInput";
+
 export default FileInput;

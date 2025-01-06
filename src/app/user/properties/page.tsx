@@ -47,7 +47,29 @@
 
 // export default PropertiesPage;
 
-import React from 'react'
+import * as react from 'react'
+
+
+const [data, setData] = react.useState([])
+const [error, setError] = react.useState("");
+
+react.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/properties')
+      if (!response) {
+        throw new Error(`Error Status 505`)
+      }
+      const data = await response.json()
+      setData(data);
+    } catch (err) {
+      return err
+    }
+  }
+
+  fetchData();
+}, [])
+
 
 const PropertiesPage = () => {
 
