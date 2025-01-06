@@ -7,33 +7,33 @@ import Link from 'next/link'
 const Footer = () => {
   return (
     <>
-    <footer className="footer bg-black text-base-200 p-10">
+    <footer className="footer mt-5 bg-black text-base-200 p-10">
     <aside>
      <Image src={"/logo.png"} alt='zyck' width={200} height={200}/>
     </aside>
     <nav>
       <h6 className="footer-title">Popular Searches</h6>
-      <Link href={'/'} className="link link-hover">Appartment For Sale</Link>
-      <Link href={'/'} className="link link-hover">Appartment For Rent</Link>
-      <Link  href={'/'} className="link link-hover">House For Sale</Link>
-      <Link href={'/'} className="link link-hover">Office For Rent</Link>
+      <a className="link link-hover">Appartment For Sale</a>
+      <a className="link link-hover">Appartment For Rent</a>
+      <a className="link link-hover">House For Sale</a>
+      <a className="link link-hover">Office For Rent</a>
     
     </nav>
     <nav>
       <h6 className="footer-title">Company</h6>
-      <Link href={'/'} className="link link-hover">About us</Link>
-      <Link  href={'/'} className="link link-hover">Contact</Link>
-      <Link  href={'/'} className="link link-hover">FAQs</Link>
+      <a className="link link-hover">About us</a>
+      <a className="link link-hover">Contact</a>
+      <a className="link link-hover">FAQs</a>
     </nav>
     <nav>
       <h6 className="footer-title">Legal</h6>
-      <Link  href={'/'} className="link link-hover">Terms of use</Link>
-      <Link  href={'/'} className="link link-hover">Privacy policy</Link>
-      <Link href={'/'} className="link link-hover">Cookie policy</Link>
+      <a className="link link-hover">Terms of use</a>
+      <a className="link link-hover">Privacy policy</a>
+      <a className="link link-hover">Cookie policy</a>
     </nav>
-    <form>
+    {/* <form>
     <h6 className="footer-title">Newsletter</h6>
-    <fieldset className="form-control w-80">
+    <fieldset className="form-control">
       <label className="label">
         <span >Enter your email address</span>
       </label>
@@ -45,7 +45,7 @@ const Footer = () => {
         <Button className="h-12 join-item">Subscribe</Button>
       </div>
     </fieldset>
-  </form>
+  </form> */}
   </footer>
   <div className='text-center bg-background text-foreground border-t-2'>
   <p className='py-5'>Copyright © 2025. Zyck  Real Estate by Zyck Technology.</p>

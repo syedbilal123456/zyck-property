@@ -25,12 +25,12 @@ export function PropertyCard({
       {/* Image Section */}
       <div className="relative">
         <AspectRatio ratio={16 / 9} className="bg-gray-200">
-          <img
+          <Image
             src={image}
             alt={title}
             width={400}
             height={400}
-          
+           className="object-cover"
           />
         </AspectRatio>
         <Badge className="absolute top-2 left-2 bg-blue-500 text-white">
