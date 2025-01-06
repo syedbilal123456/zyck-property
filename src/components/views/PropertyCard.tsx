@@ -10,9 +10,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
+import Link from "next/link";
 
 export function PropertyCard({
   image,
+  id,
   title,
   price,
   location,
@@ -63,7 +65,9 @@ export function PropertyCard({
       {/* Footer Section */}
       <CardFooter className="mt-auto">
         <Button className="w-full" onClick={onContact}>
+          <Link href={`/property/${id}`}>
        View details
+          </Link>
         </Button>
       </CardFooter>
     </Card>
