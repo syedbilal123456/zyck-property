@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import Heading from './Heading';
 
 const cities = [
   { name: "Karachi", image: "/Karachi.jpg" },
@@ -12,8 +13,10 @@ const cities = [
 
 const Cities = () => {
   return (
+    
+    <div>
+      <Heading title="Properties By Cities"/>
     <div className="w-full px-4 sm:px-10 lg:w-4/5 my-10 mx-auto">
-     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cities.map((city, index) => (
           <div
@@ -38,6 +41,7 @@ const Cities = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

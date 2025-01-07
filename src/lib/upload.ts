@@ -1,3 +1,41 @@
+// import { createClient } from "@supabase/supabase-js";
+
+// export async function uploadImages(images: File[]) {
+//   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+//   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+//   const supabase = createClient(supabaseUrl, supabaseKey);
+
+//   const data = await Promise.all(
+//     images.map((file) =>
+//       supabase.storage.from("propertyimages").upload(`${file.name}_${Date.now()}`, file)
+//     )
+//   );
+
+//   const urls = data.map(
+//     (item) =>
+//       supabase.storage.from("propertyimages").getPublicUrl(item.data?.path ?? "").data.publicUrl
+//   );
+
+//   return urls;
+// }
+
+// export async function uploadAvatar(image: File) {
+//   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+//   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+//   const supabase = createClient(supabaseUrl, supabaseKey);
+
+//   const data = await supabase.storage.from("avatars").upload(`${image.name}_${Date.now()}`, image);
+
+//   console.log({ data });
+
+//   const urlData = await supabase.storage.from("avatars").getPublicUrl(data.data?.path!);
+
+//   return urlData.data.publicUrl;
+// }
+
+
 import { createClient } from "@supabase/supabase-js";
 
 export async function uploadImages(images: File[]) {
@@ -6,18 +44,26 @@ export async function uploadImages(images: File[]) {
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const data = await Promise.all(
-    images.map((file) =>
-      supabase.storage.from("propertyImages").upload(`${file.name}_${Date.now()}`, file)
-    )
-  );
+  try {
+    const uploadResults = await Promise.allSettled(
+      images.map((file) =>
+        supabase.storage.from("propertyimages").upload(`${file.name}_${Date.now()}`, file)
+      )
+    );
 
-  const urls = data.map(
-    (item) =>
-      supabase.storage.from("propertyImages").getPublicUrl(item.data?.path ?? "").data.publicUrl
-  );
+    const urls = uploadResults.map((result) => {
+      if (result.status === "fulfilled" && result.value.data) {
+        return supabase.storage.from("propertyimages").getPublicUrl(result.value.data.path).data.publicUrl;
+      }
+      console.error("Error uploading file:", result);
+      return null;
+    }).filter((url) => url !== null); // Remove null values from failed uploads
 
-  return urls;
+    return urls;
+  } catch (error) {
+    console.error("Error uploading images:", error);
+    throw new Error("Failed to upload images.");
+  }
 }
 
 export async function uploadAvatar(image: File) {
@@ -26,13 +72,21 @@ export async function uploadAvatar(image: File) {
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const data = await supabase.storage.from("avatars").upload(`${image.name}_${Date.now()}`, image);
+  try {
+    const { data, error } = await supabase.storage.from("avatars").upload(
+      `${image.name}_${Date.now()}`,
+      image
+    );
 
-  console.log({ data });
+    if (error) {
+      throw new Error(error.message);
+    }
 
-  const urlData = await supabase.storage.from("avatars").getPublicUrl(data.data?.path!);
+    const urlData = await supabase.storage.from("avatars").getPublicUrl(data?.path!);
 
-  return urlData.data.publicUrl;
+    return urlData.data.publicUrl;
+  } catch (error) {
+    console.error("Error uploading avatar:", error);
+    throw new Error("Failed to upload avatar.");
+  }
 }
-
-

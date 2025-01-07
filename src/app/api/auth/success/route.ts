@@ -23,7 +23,7 @@ export async function GET() {
 
     // If the user exists, redirect to the homepage (or dashboard)
     if (dbUser) {
-      return NextResponse.redirect('http://localhost:3000');
+      return NextResponse.redirect(process.env.BASE_URL!);
     }
 
     // If the user doesn't exist, create a new user
@@ -38,7 +38,7 @@ export async function GET() {
     });
 
     // After creating a new user, redirect to the homepage
-    return NextResponse.redirect('http://localhost:3000');
+    return NextResponse.redirect(process.env.BASE_URL!);
   } catch (error) {
     console.error("Error during authentication:", error);
     return new NextResponse("An error occurred", { status: 500 });

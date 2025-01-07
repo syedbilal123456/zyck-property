@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/views/Footer";
-import Appbar from "@/components/views/Navbar";
+import Navbar from "@/components/views/Navbar";
 import SignInPanel from "@/components/ui/SignInPanel";
 import { ToastContainer } from "react-toastify";
 
@@ -31,11 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Appbar>
+        <Navbar>
           <SignInPanel/>
-        </Appbar>
+        </Navbar>
         {children}
-        <ToastContainer />
+          <ToastContainer />
         <Footer/>
       </body>
     </html>

@@ -6,10 +6,10 @@ interface Props {
   modalDelete: ReactNode;
 }
 
-const PropertiesLayout = ({ children, modalDelete }: Props) => {
+const PropertiesLayout = ({ children }: Props) => {
   return (
     <div>
-      <div className="bg-blue-500 flex justify-between items-center p-2">
+      <div className="bg-green-500 flex justify-between items-center p-2">
         <h2 className="text-white text-xl font-semibold px-2">User Properties</h2>
         <Link href="/user/properties/add">
           <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
@@ -18,7 +18,6 @@ const PropertiesLayout = ({ children, modalDelete }: Props) => {
         </Link>
       </div>
       {children}
-      <div>{modalDelete}</div>
     </div>
   );
 };

@@ -3,33 +3,33 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 
-// GET subscriptions
-export async function GET(){
-    // const {getUser} = getKindeServerSession();
-    // const user = await getUser();
+// // GET subscriptions
+// export async function GET(){
+//     // const {getUser} = getKindeServerSession();
+//     // const user = await getUser();
 
-    const user = {
-        id: "test-user-id",
-        email: "testuser@example.com",
-    };
+//     const user = {
+//         id: "test-user-id",
+//         email: "testuser@example.com",
+//     };
 
-    if (!user.id) {
-        return NextResponse.json({error: "Unauthorized"}, {status: 401});
-    }
+//     if (!user.id) {
+//         return NextResponse.json({error: "Unauthorized"}, {status: 401});
+//     }
 
-    try{
-        const subscriptions = await prisma.subscriptions.findMany({
-            where:{
-                userId: user.id
-            },
-            include: {plan: true}
-        });
+//     try{
+//         const subscriptions = await prisma.subscriptions.findMany({
+//             where:{
+//                 userId: user.id
+//             },
+//             include: {plan: true}
+//         });
 
-        return NextResponse.json(subscriptions);
-    } catch (error) {
-        return NextResponse.json({error: "Error Fetching Subscriptions"}, {status: 500});
-    }
-}
+//         return NextResponse.json(subscriptions);
+//     } catch (error) {
+//         return NextResponse.json({error: "Error Fetching Subscriptions"}, {status: 500});
+//     }
+// }
 
 // POST subscriptions
 
