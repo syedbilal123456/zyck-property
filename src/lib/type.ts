@@ -40,7 +40,7 @@
     location : {
       city : string
       region : string
-      State : string
+      state : string
     }
     contact : Contact
   

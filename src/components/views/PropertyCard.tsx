@@ -33,7 +33,7 @@ export function PropertyCard({
   title,
   price,
   location,
-  description,
+  status,
   features,
   onContact,
 }: {
@@ -41,7 +41,7 @@ export function PropertyCard({
   title: string;
   price: string;
   location: string;
-  description: string;
+  status: string;
   features: Features; // Use the `Features` type here
   onContact: Contact
 }) {
@@ -50,7 +50,7 @@ export function PropertyCard({
 
   console.log(features);
   return (
-    <Card className="max-w-sm mx-auto border rounded-lg shadow flex flex-col">
+    <Card className="w-full mx-auto border rounded-lg shadow flex flex-col">
   {/* Image Section */}
   <div className="relative">
     <AspectRatio ratio={16 / 9} className="bg-gray-200">
@@ -63,7 +63,7 @@ export function PropertyCard({
       />
     </AspectRatio>
     <Badge className="absolute top-2 left-2 bg-blue-500 text-white">Featured</Badge>
-    <Badge className="absolute top-2 left-20 bg-green-500 text-white">Sale</Badge>
+    <Badge className="absolute top-2 left-20 bg-green-500 text-white">{status}</Badge>
   </div>
 
   {/* Content Section */}

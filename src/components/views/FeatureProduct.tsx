@@ -23,7 +23,7 @@ const FeatureProduct = () => {
         }
         fetchData()
       }, [])
-
+      console.log(properties)
       const proepertiesSlice = properties.slice(0, 4)
       
   return (
@@ -38,9 +38,10 @@ const FeatureProduct = () => {
             title={property.name}
             price={property.price}
             location={property.location.city}
-            description={property.description}
+            status={property.status.value}
             features={property.feature} 
-            onContact={property.contact}          />
+            onContact={property.contact}  
+          />
         ))}
       </div>
     </div>
