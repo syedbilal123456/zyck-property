@@ -1,24 +1,60 @@
 import Heading from '@/components/views/Heading'
+import Image from 'next/image'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
-    <div >
-        <div className='my-5' style={{
-      backgroundImage: "url(/about.jpg)",
-    }}>
-<div className='bg-blue-900 bg-opacity-60'>
-
-        <Heading title='About ZYCK Property'/>
-</div>
+    <div>
+      {/* Hero Section */}
+      <div
+        className="my-5 bg-cover bg-center"
+        style={{
+          backgroundImage: "url(/about.jpg)",
+        }}
+      >
+        <div className="bg-blue-900 p-10 bg-opacity-70 text-white">
+          <h1 className="text-4xl font-bold mb-4">About Us</h1>
+          <p className="md:w-1/2">
+            Zyck Property is Pakistan’s Largest Online Real Estate Portal Connecting Buyers with Sellers within & outside the country.
+          </p>
         </div>
-      <div className='flex flex-col gap-4 md:px-10 px-5'>
-      <p  >Sahand Estate is a leading real estate agency that specializes in helping clients buy, sell, and rent properties in the most desirable neighborhoods. Our team of experienced agents is dedicated to providing exceptional service and making the buying and selling process as smooth as possible.</p>
-      <p className='text-[14px]'>Our mission is to help our clients achieve their real estate goals by providing expert advice, personalized service, and a deep understanding of the local market. Whether you are looking to buy, sell, or rent a property, we are here to help you every step of the way.</p>
-      <p className='text-[14px]'>Our team of agents has a wealth of experience and knowledge in the real estate industry, and we are committed to providing the highest level of service to our clients. We believe that buying or selling a property should be an exciting and rewarding experience, and we are dedicated to making that a reality for each and every one of our clients.</p>
+      </div>
+
+      {/* Content Section */}
+      <div className="w-full lg:w-3/4 p-10">
+        <h2 className="text-2xl font-semibold mb-4">About</h2>
+        <p className="mb-4">
+          Founded in 2012, RealProperty focuses on luxury real estate services, including sales and rentals in Lahore, Islamabad, Rawalpindi, Karachi, and other residential and commercial areas. RealProperty is known for its professional expertise, excellent customer support, and property consultation by senior experts in the locality. We are a modern, dynamic company that combines technical know-how and knowledge of international and local property markets with a customer-first philosophy.
+        </p>
+
+        {/* Repeated Sections */}
+        <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
+        <p className="mb-4">
+          Our mission is to provide top-tier real estate services while focusing on customer satisfaction and excellence.
+        </p>
+
+        <h2 className="text-2xl font-semibold mb-4">Our Vision</h2>
+        <p className="mb-4">
+          To become the most trusted and innovative real estate platform in the country.
+        </p>
+
+        <h2 className="text-2xl font-semibold mb-4">Our Philosophy</h2>
+        <p className="mb-4">
+          Combining technical know-how with a customer-first philosophy to redefine the real estate experience.
+        </p>
+
+        <h2 className="text-2xl font-semibold mb-4">Property Investment Consultation</h2>
+        <p className="mb-4">
+          We offer expert consultation services for property investments, ensuring informed decisions and optimal returns.
+        </p>
+
+        <h2 className="text-2xl font-semibold mb-4">Property Legal Advice</h2>
+        <p className="mb-4">
+          Our experienced legal advisors provide guidance on property-related legal matters for a seamless experience.
+        </p>
       </div>
     </div>
   )
 }
 
-export default page
+export default Page
