@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Cards } from "@/lib/type";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -81,7 +82,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         <section className="text-gray-300 body-font overflow-hidden bg-black">
             <div className="container px-5 py-24 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                    <img
+                    <Image
                         alt={property.name}
                         className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                         src={property.images[0]?.url || "https://dummyimage.com/400x400"}
