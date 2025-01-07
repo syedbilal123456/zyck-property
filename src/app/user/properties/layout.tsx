@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 
 
-const PropertiesLayout = () => {
+const PropertiesLayout = ({children}:{children:React.ReactNode}) => {
   return (
     <div>
       <div className="bg-green-500 flex justify-between items-center p-2">
@@ -13,6 +13,9 @@ const PropertiesLayout = () => {
           </button>
         </Link>
       </div>
+      {
+        children
+      }
     </div>
   );
 };
