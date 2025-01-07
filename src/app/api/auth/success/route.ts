@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     // Get the user session from Kinde
-    const { getUser, isAuthenticated } = await getKindeServerSession();
+    const { getUser, isAuthenticated, } = await getKindeServerSession();
     const isAuthenticatedUser = await isAuthenticated();
     const user = await getUser();
 
@@ -33,6 +33,7 @@ export async function GET() {
         firstName: user.given_name ?? "",  // Fallback to empty if no given name
         lastName: user.family_name ?? "",  // Fallback to empty if no family name
         email: user.email ?? "",           // Fallback to empty if no email
+        avatarUrl: user.picture ?? "",       // Fallback to empty if no picture
       },
     });
 

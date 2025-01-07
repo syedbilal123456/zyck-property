@@ -112,7 +112,6 @@ const search = ({searchParams}:any) => {
               location={property.location}
               description={property.description}
               features={property.features}
-              id={index}
             />
           ))}
         </div>

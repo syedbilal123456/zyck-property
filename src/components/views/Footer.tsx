@@ -48,7 +48,7 @@ const Footer = () => {
   </form> */}
   </footer>
   <div className='text-center bg-background text-foreground border-t-2'>
-  <p className='py-5'>Copyright © 2025. Zyck – Real Estate by Zyck Technology.</p>
+  <p className='py-5'>Copyright © 2025. Zyck  Real Estate by Zyck Technology.</p>
   </div>
   </>
   )
