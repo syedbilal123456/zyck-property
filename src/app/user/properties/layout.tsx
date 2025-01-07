@@ -1,12 +1,8 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
-interface Props {
-  children: ReactNode;
-  modalDelete: ReactNode;
-}
 
-const PropertiesLayout = ({ children }: Props) => {
+const PropertiesLayout = () => {
   return (
     <div>
       <div className="bg-green-500 flex justify-between items-center p-2">
@@ -17,7 +13,6 @@ const PropertiesLayout = ({ children }: Props) => {
           </button>
         </Link>
       </div>
-      {children}
     </div>
   );
 };
