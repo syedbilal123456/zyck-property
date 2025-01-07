@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Cards } from "@/lib/type";
+import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -117,26 +118,46 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                             <Badge>
                                 {property.feature.bathrooms} Bathrooms
                             </Badge>
-                            <Badge>
-                                {property.feature?.hasBalcony ? "haveBalcony" : null}
-                            </Badge>
+
+                            {/* Display the Balcony badge only if it exists */}
+                            {property.feature?.hasBalcony && (
+                                <Badge>
+                                    Has Balcony
+                                </Badge>
+                            )}
+
+                            {/* Display the Garage badge only if it exists */}
                             {property.feature?.hasGarage && (
                                 <Badge>
                                     Has Garage
                                 </Badge>
                             )}
 
-                            <Badge>
-                                {property.feature?.hasSwimmingPool ? "haveSwimmingPool" : ""}
-                            </Badge>
+                            {/* Display the Swimming Pool badge only if it exists */}
+                            {property.feature?.hasSwimmingPool && (
+                                <Badge>
+                                    Has Swimming Pool
+                                </Badge>
+                            )}
+                            {property.feature?.parkingSpots && (
+                                <Badge>
+                                    ParkingSlot
+                                </Badge>
+                            )}
+                            {property.feature?.hasSwimmingPool && (
+                                <Badge>
+                                    Has Swimming Pool
+                                </Badge>
+                            )}
+
                         </div>
                         <div className="flex">
                             <span className="title-font font-medium text-2xl text-white">
                                 PKR {property.price}
                             </span>
-                            <button className="flex ml-auto text-black bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
-                                Contact
-                            </button>
+                            <Button className="flex ml-auto text-black bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
+                            Contact
+                            </Button>
                             <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
                                 <svg
                                     fill="currentColor"
