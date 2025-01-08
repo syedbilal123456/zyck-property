@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/ui/loader";
 import { Cards } from "@/lib/type";
 import Link from "next/link";
 import React from "react";
@@ -71,14 +72,16 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     if (!property) {
         return (
             <section className="text-center py-24 bg-black text-green-500">
-                <h1 className="text-2xl font-bold">Loading...</h1>
+                <div className="w-full h-full flex justify-center items-center">
+                <Loader/>
+                </div>
             </section>
         );
     }
 
     console.log(property);
     return (
-        <section className="text-gray-300 body-font overflow-hidden bg-black">
+        <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black">
             <div className="container px-5 py-24 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
                     <img
