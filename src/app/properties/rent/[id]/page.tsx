@@ -178,7 +178,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
             </div>
         </section>
-
     );
 };
 

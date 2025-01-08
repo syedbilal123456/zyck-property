@@ -31,7 +31,7 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -40,7 +40,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const id = params.id;
+  const id = (await params).id;
 
   try {
     const property = await prisma.property.findUnique({
@@ -76,7 +76,7 @@ export async function DELETE(
 // Edit Property
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -85,7 +85,7 @@ export async function PUT(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const id = params.id;
+  const id = (await params).id;
 
   try {
     const property = await prisma.property.findUnique({
