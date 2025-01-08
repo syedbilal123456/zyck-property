@@ -16,6 +16,9 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
     getValues,
   } = useFormContext<AddPropertyInputType>();
 
+
+
+
   return (
     <div className={`grid grid-cols-1 md:grid-cols-3 gap-3 p-2 ${className || ""}`}>
       <div className="input-group relative">
@@ -88,6 +91,7 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
           <ChevronLeftIcon className="w-6 h-6" /> Previous
         </button>
         <button
+        
           type="submit"
           className="bg-green-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
         >

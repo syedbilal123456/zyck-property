@@ -31,10 +31,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar>
-          <SignInPanel/>
-        </Navbar>
-        {children}
+      <Navbar>
+        <SignInPanel/>
+          </Navbar>
+            {children}
           <ToastContainer />
         <Footer/>
       </body>

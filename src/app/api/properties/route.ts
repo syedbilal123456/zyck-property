@@ -24,7 +24,8 @@ export async function GET() {
             select: {
                 bathrooms: true,
                 bedrooms: true,
-                area: true
+                area: true,
+                propertyId: true,
             }
         }
          // Add other fields you want to include
