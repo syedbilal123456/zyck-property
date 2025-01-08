@@ -3,7 +3,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Cards } from "@/lib/type";
-import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 
