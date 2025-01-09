@@ -92,7 +92,7 @@ export default function Search() {
               filteredProperties.map((property, index) => (
                 <PropertyCard
                   key={index}
-                  image={property.images[0]?.url} // Use first image or placeholder
+                  image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
                   title={property.name}
                   price={property.price}
                   location={property.location.city}
