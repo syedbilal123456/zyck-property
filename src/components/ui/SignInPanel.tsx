@@ -9,16 +9,21 @@ import { prisma } from "@/lib/prisma";
 import { Button } from "./button";
 
 const SignInPanel = async () => {
-    const { isAuthenticated, getUser } = await getKindeServerSession();
+    const { isAuthenticated, getUser } = getKindeServerSession();
     if (await isAuthenticated()) {
         const user = await getUser();
-        const dbUser = await prisma.user.findUnique({
-            where: {
-                id: user?.id,
-            },
-        });
+        try {
+            const dbUser = await prisma.user.findUnique({
+                where: {
+                    id: user?.id,
+                },
+            });
 
-        return <>{dbUser!! && <UserProfilePanel user={dbUser} />}</>;
+            return <>{dbUser && <UserProfilePanel user={dbUser} />}</>;
+        } catch (error) {
+            console.error("Database connection error:", error);
+            return <div>Error connecting to the database. Please try again later.</div>;
+        }
     }
 
     return (
@@ -26,12 +31,9 @@ const SignInPanel = async () => {
             <Button>
                 <LoginLink>Sign In</LoginLink>
             </Button>
-            <Button>
-
+            {/* <Button>
                 <RegisterLink>Sign Up</RegisterLink>
-            </Button>
-
-
+            </Button> */}
         </div>
     );
 };

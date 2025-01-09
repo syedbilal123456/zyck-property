@@ -1,49 +1,34 @@
 import { prisma } from "@/lib/prisma";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/dist/server/web/spec-extension/response";
 
-const PAGE_SIZE = 12;
+// Fetching Properties API
+export async function GET(req: Request){
+    try {
+        const { searchParams } = new URL(req.url);
+        const typeId = searchParams.get('typeId');
+        const statusId = searchParams.get('statusId');
+        const minPrice = searchParams.get('minPrice');
+        const maxPrice = searchParams.get('maxPrice');
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { getUser } = await getKindeServerSession();
-    const user = await getUser();
+        const whereClause: any = {};
+        if(typeId)  whereClause.typeId = parseInt(typeId);
+        if(statusId)  whereClause.statusId = parseInt(statusId);    
+        if(minPrice)  whereClause.price = parseInt(minPrice);    
+        if(maxPrice)  whereClause.price =  parseInt(maxPrice);
 
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
+        const properties = await prisma.property.findMany({
+            where: whereClause,
+            include: {
+                type: true,
+                status: true,
+                location: true,
+                feature: true,
+                images: true,
+                contact: true,
+            }
+        })
+        return NextResponse.json(properties) 
+    } catch (error) {
+        return NextResponse.json({error: "Error Fetching Properties"}, {status: 404})
     }
-
-    const { pagenum = 0 } = req.query;
-
-    const propertiesPromise = prisma.property.findMany({
-      where: {
-        userId: user.id,
-      },
-      include: {
-        type: true,
-        status: true,
-        images: true,
-      },
-      skip: +pagenum * PAGE_SIZE,
-      take: PAGE_SIZE,
-    });
-
-    const totalPropertiesPromise = prisma.property.count({
-      where: {
-        userId: user.id,
-      },
-    });
-
-    const [properties, totalProperties] = await Promise.all([
-      propertiesPromise,
-      totalPropertiesPromise,
-    ]);
-
-    const totalPages = Math.ceil(totalProperties / PAGE_SIZE);
-
-    res.status(200).json({ properties, totalPages, currentPage: +pagenum });
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
 }

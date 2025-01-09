@@ -32,14 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar>
-
-          <SignInPanel />
-
+          <SignInPanel/>
         </Navbar>
-
         {children}
-        <ToastContainer />
-        <Footer />
+          <ToastContainer />
+        <Footer/>
       </body>
     </html>
   );

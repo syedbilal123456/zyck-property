@@ -160,7 +160,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { editProperty, saveProperty } from "@/lib/actions/property";
 import clsx from "clsx";
-import { CloudUpload } from "lucide-react";
 
 interface Props {
   types: PropertyType[];

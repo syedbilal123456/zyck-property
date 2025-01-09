@@ -3,38 +3,39 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 
-// Fetching Properties API
-export async function GET(req: Request){
-    try {
-        const { searchParams } = new URL(req.url);
-        const typeId = searchParams.get('typeId');
-        const statusId = searchParams.get('statusId');
-        const minPrice = searchParams.get('minPrice');
-        const maxPrice = searchParams.get('maxPrice');
+export async function GET() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
 
-        const whereClause: any = {};
-        if(typeId)  whereClause.typeId = parseInt(typeId);
-        if(statusId)  whereClause.statusId = parseInt(statusId);    
-        if(minPrice)  whereClause.price = parseInt(minPrice);    
-        if(maxPrice)  whereClause.price =  parseInt(maxPrice);
+  if (!user || !user.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-        const properties = await prisma.property.findMany({
-            where: whereClause,
-            include: {
-                type: true,
-                status: true,
-                location: true,
-                feature: true,
-                images: true,
-                contact: true
+  try {
+    const properties = await prisma.property.findMany({
+      where: { userId: user.id },
+      select: {
+        id: true,
+        name: true,
+        type: true,
+        status: true,
+        price: true,
+        feature :{
+            select: {
+                bathrooms: true,
+                bedrooms: true,
+                area: true
             }
-        })
-        return NextResponse.json(properties) 
-    } catch (error) {
-        return NextResponse.json({error: "Error Fetching Properties"}, {status: 404})
-    }
-}
+        }
+         // Add other fields you want to include
+      },
+    });
 
+        return NextResponse.json(properties);
+      } catch (error) {
+        return NextResponse.json({ error: "Error Fetching properties" }, { status: 500 });
+      }
+    }
 // Creating Property API
 
 export async function POST(req: Request){

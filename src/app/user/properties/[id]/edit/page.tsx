@@ -4,8 +4,13 @@ import { notFound, redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface Props {
+<<<<<<< HEAD
   params: { id: string };
 }
+=======
+   params: Promise<{ id: string }>
+    }
+>>>>>>> main
 
 const EditPropertyPage = async ({ params }: Props) => {
   const [propertyTypes, propertyStatuses, property] = await Promise.all([
@@ -13,7 +18,11 @@ const EditPropertyPage = async ({ params }: Props) => {
     prisma.propertyStatus.findMany(),
     prisma.property.findUnique({
       where: {
+<<<<<<< HEAD
         id: +params.id,
+=======
+        id: +(await params).id,
+>>>>>>> main
       },
       include: {
         location: true,
