@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/views/PropertyCard";; // Import the Loader component
 import { Cards } from "@/lib/type";
 import Loader from "@/components/ui/loader";
+import PropertyCardsecond from "@/components/views/secondPropertyCard";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -87,10 +88,10 @@ export default function Search() {
             <Loader /> {/* Show loader while fetching data */}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredProperties.length > 0 ? (
               filteredProperties.map((property, index) => (
-                <PropertyCard
+                <PropertyCardsecond
                   key={index}
                   image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
                   title={property.name}
@@ -98,8 +99,9 @@ export default function Search() {
                   location={property.location.city}
                   status={property.status.value}
                   features={property.feature}
-                  onContact={property.contact}
-                />
+                  onContact={property.contact} 
+                  id={property.feature.propertyId}
+                                  />
               ))
             ) : (
               <p className="col-span-full text-center">No results found.</p>
