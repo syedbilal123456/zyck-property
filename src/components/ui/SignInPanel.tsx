@@ -27,11 +27,11 @@ const SignInPanel = async () => {
     }
 
     return (
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
             <Button>
                 <LoginLink>Sign In</LoginLink>
             </Button>
-            <Button>
+            <Button className="lg:block hidden">
                 <RegisterLink>Sign Up</RegisterLink>
             </Button>
         </div>

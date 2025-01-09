@@ -34,6 +34,7 @@ export default function RootLayout({
       <Navbar>
         <SignInPanel/>
           </Navbar>
+          
             {children}
           <ToastContainer />
         <Footer/>

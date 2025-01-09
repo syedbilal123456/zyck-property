@@ -10,40 +10,25 @@ const Footer = () => {
      <Image src={"/logo.png"} alt='zyck' width={200} height={200}/>
     </aside>
     <nav>
-      <h6 className="footer-title">Popular Searches</h6>
-      <Link href={"/"} className="link link-hover">Appartment For Sale</Link>
-      <Link href={"/"} className="link link-hover">Appartment For Rent</Link>
-      <Link href={"/"} className="link link-hover">House For Sale</Link>
-      <Link href={"/"} className="link link-hover">Office For Rent</Link>
+      <h6 className="footer-title text-white">Popular Searches</h6>
+      <Link href={"/search"} className="link link-hover text-gray-300">Appartment For Sale</Link>
+      <Link href={"/search"} className="link link-hover text-gray-300">Appartment For Rent</Link>
+      <Link href={"/search"} className="link link-hover text-gray-300">House For Sale</Link>
+      <Link href={"/search"} className="link link-hover text-gray-300">Office For Rent</Link>
     
     </nav>
     <nav>
-      <h6 className="footer-title">Company</h6>
-      <Link href={"/"} className="link link-hover">About us</Link>
-      <Link href={"/"} className="link link-hover">Contact</Link>
-      <Link href={"/"} className="link link-hover">FAQs</Link>
+      <h6 className="footer-title text-white">Company</h6>
+      <Link href={"/about"} className="link link-hover text-gray-300">About us</Link>
+      <Link href={"/contact"} className="link link-hover text-gray-300">Contact</Link>
+      <Link href={"/FAQs"} className="link link-hover text-gray-300">FAQs</Link>
     </nav>
     <nav>
-      <h6 className="footer-title">Legal</h6>
-      <Link href={"/"} className="link link-hover">Terms of use</Link>
-      <Link href={"/"} className="link link-hover">Privacy policy</Link>
-      <Link href={"/"} className="link link-hover">Cookie policy</Link>
+      <h6 className="footer-title text-white">Legal</h6>
+      <Link href={"/FAQs"} className="link link-hover text-gray-300">Terms of use</Link>
+      <Link href={"/FAQs"} className="link link-hover text-gray-300">Privacy policy</Link>
+      <Link href={"/FAQs"} className="link link-hover text-gray-300">Cookie policy</Link>
     </nav>
-    {/* <form>
-    <h6 className="footer-title">Newsletter</h6>
-    <fieldset className="form-control">
-      <label className="label">
-        <span >Enter your email address</span>
-      </label>
-      <div className="join">
-        <input
-          type="text"
-          placeholder="username@site.com"
-          className="input input-bordered join-item" />
-        <Button className="h-12 join-item">Subscribe</Button>
-      </div>
-    </fieldset>
-  </form> */}
   </footer>
   <div className='text-center bg-background text-foreground border-t-2'>
   <p className='py-5'>Copyright © 2025. Zyck  Real Estate by Zyck Technology.</p>

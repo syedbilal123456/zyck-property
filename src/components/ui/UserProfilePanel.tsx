@@ -13,12 +13,13 @@ interface Props {
 
 const UserProfilePanel = ({ user }: Props) => {
   return (
-    <DropdownMenu>
+   <div className="flex items-center gap-1">
+      <span>
+          <p className="hidden md:block">{`${user.firstName} ${user.lastName}`}</p>
+        </span>
+   <DropdownMenu>
       {/* Trigger button */}
 
-      <span>
-          <p>{`${user.firstName} ${user.lastName}`}</p>
-        </span>
       <DropdownMenuTrigger className="flex items-center gap-2 w-10 rounded-full">
       
         <Image
@@ -51,6 +52,11 @@ const UserProfilePanel = ({ user }: Props) => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+   
+   
+   </div>
+   
+   
   );
 };
 
