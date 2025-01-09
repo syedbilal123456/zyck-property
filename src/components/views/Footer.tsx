@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-
-import { Button } from '../ui/button'
 import Link from 'next/link'
 
 const Footer = () => {
@@ -13,23 +11,23 @@ const Footer = () => {
     </aside>
     <nav>
       <h6 className="footer-title">Popular Searches</h6>
-      <a className="link link-hover">Appartment For Sale</a>
-      <a className="link link-hover">Appartment For Rent</a>
-      <a className="link link-hover">House For Sale</a>
-      <a className="link link-hover">Office For Rent</a>
+      <Link href={"/"} className="link link-hover">Appartment For Sale</Link>
+      <Link href={"/"} className="link link-hover">Appartment For Rent</Link>
+      <Link href={"/"} className="link link-hover">House For Sale</Link>
+      <Link href={"/"} className="link link-hover">Office For Rent</Link>
     
     </nav>
     <nav>
       <h6 className="footer-title">Company</h6>
-      <a className="link link-hover">About us</a>
-      <a className="link link-hover">Contact</a>
-      <a className="link link-hover">FAQs</a>
+      <Link href={"/"} className="link link-hover">About us</Link>
+      <Link href={"/"} className="link link-hover">Contact</Link>
+      <Link href={"/"} className="link link-hover">FAQs</Link>
     </nav>
     <nav>
       <h6 className="footer-title">Legal</h6>
-      <a className="link link-hover">Terms of use</a>
-      <a className="link link-hover">Privacy policy</a>
-      <a className="link link-hover">Cookie policy</a>
+      <Link href={"/"} className="link link-hover">Terms of use</Link>
+      <Link href={"/"} className="link link-hover">Privacy policy</Link>
+      <Link href={"/"} className="link link-hover">Cookie policy</Link>
     </nav>
     {/* <form>
     <h6 className="footer-title">Newsletter</h6>
