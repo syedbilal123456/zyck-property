@@ -40,8 +40,7 @@ const FeatureProduct = () => {
             location={property.location.city}
             status={property.status.value}
             features={property.feature} 
-            onContact={property.contact}  
-            id={3}
+            onContact={property.contact}
           />
         ))}
       </div>

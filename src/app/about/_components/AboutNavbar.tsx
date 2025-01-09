@@ -3,6 +3,7 @@ import React from 'react'
 
 const AboutNavbar = () => {
   return (
+
       <nav>
       <div className="flex justify-center items-center flex-wrap p-5">
         <div className="flex justify-center items-center w-36 border-b border-primary">
