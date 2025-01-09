@@ -31,7 +31,7 @@ const FeatureProduct = () => {
     fetchData();
   }, []);
 
-  const propertiesSlice = properties.slice(0, 3);
+  const propertiesSlice = properties.slice(0, 4);
   const propertiesForSale = properties
     .filter((item) => item.status.value === 'For Sale')
     .slice(0, 4);
@@ -49,7 +49,7 @@ const FeatureProduct = () => {
       <div>
         <Heading title="Featured Properties" />
         <div className="p-4 mx-auto">
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5">
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
             {propertiesSlice.map((property) => (
               <PropertyCardsecond
                 key={property.feature.propertyId}
@@ -70,7 +70,7 @@ const FeatureProduct = () => {
       <div>
         <Heading title="Recent Properties For Rent" />
         <div className="p-4">
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5">
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
             {propertiesSlice.map((property) => (
               <PropertyCardsecond
                 key={property.feature.propertyId}
