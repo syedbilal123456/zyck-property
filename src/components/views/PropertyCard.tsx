@@ -37,7 +37,6 @@ export function PropertyCard({
   status,
   features,
   onContact,
-  id,
 }: {
   image: string;
   title: string;
@@ -46,14 +45,14 @@ export function PropertyCard({
   status: string;
   features: Features; // Use the `Features` type here
   onContact: Contact
-  id : number
 }) {
 
+  console.log(image)
 
-  console.log("=======================",features);
+  console.log(features);
   return (
     <Card className="w-full mx-auto border rounded-lg shadow flex flex-col">
-  {/* Image Section */}
+  
   <div className="relative">
     <AspectRatio ratio={16 / 9} className="bg-gray-200">
       <Image
@@ -75,6 +74,8 @@ export function PropertyCard({
     <h3 className="text-xl font-bold text-green-600">{price} PKR</h3>
   </CardHeader>
 
+   <CardContent className="space-y-2">
+  </CardContent>
 
   {/* Footer Section */}
   <CardFooter className="mt-auto">

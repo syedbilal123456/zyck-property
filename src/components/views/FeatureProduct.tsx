@@ -32,31 +32,23 @@ const FeatureProduct = () => {
 
   return (
     <div>
-      <Heading title="Featured Properties" />
-      <div className="p-4">
-        {/* Show loader while loading */}
-        {loading ? (
-          <div className="flex justify-center text-green-700 items-center">
-            <Loader /> {/* Your loader component */}
-          </div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {propertiesSlice.map((property, index) => (
-              <PropertyCard
-                key={index}
-                image={property.images[0]?.url}
-                title={property.name}
-                price={property.price}
-                location={property.location.city}
-                status={property.status.value}
-                features={property.feature}
-                onContact={property.contact}
-                id={3}
-              />
-            ))}
-          </div>
-        )}
+        <Heading title="Featured Properties"/>
+    <div className="p-4">
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        {propertiesSlice.map((property, index) => (
+          <PropertyCard
+            key={index}
+            image={property.images[0]?.url}
+            title={property.name}
+            price={property.price}
+            location={property.location.city}
+            status={property.status.value}
+            features={property.feature} 
+            onContact={property.contact}
+          />
+        ))}
       </div>
+    </div>
     </div>
   );
 };
