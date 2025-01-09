@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import Link from 'next/link'
+import Loader from '@/components/ui/loader';
 
 interface Property {
     id:number;
@@ -43,7 +44,8 @@ export default function PropertiesPage() {
 
   const deleteProperty = async (id: number) => {
     try {
-      const response = await fetch(`/api/properties/${id}`, {
+      const url = `/api/properties/${id}`
+      const response = await fetch(url , {
         method: 'DELETE',
       })
       if (response.ok) {
@@ -55,7 +57,9 @@ export default function PropertiesPage() {
   }
 
   if (!isAuthenticated) {
-    return <div>Please log in to view your properties.</div>
+    return <div className='w-full h-full text-green-600 flex justify-center items-center bg-opacity-30'>
+      <Loader/>
+    </div>
   }
 
   console.log(properties);

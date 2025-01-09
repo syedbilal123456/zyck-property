@@ -11,8 +11,7 @@ import { useEffect, useState } from "react";
 
 // Fetch property function
 async function fetchProperty(id: string): Promise<Cards> {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const url = `${baseUrl}/api/properties/${id}`;
+    const url = `/api/properties/${id}`;
 
     const response = await fetch(url);
 

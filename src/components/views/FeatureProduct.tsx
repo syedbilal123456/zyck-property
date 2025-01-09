@@ -30,6 +30,11 @@ const FeatureProduct = () => {
   console.log(properties);
   const propertiesSlice = properties.slice(0, 4);
 
+  if (loading) {
+    return <div className='w-full h-full flex justify-center items-center bg-opacity-30'> 
+      <Loader/>
+    </div>
+  }
   return (
     <div>
         <Heading title="Featured Properties"/>
