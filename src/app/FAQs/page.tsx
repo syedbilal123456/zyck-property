@@ -64,7 +64,7 @@ export default function FAQPage() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-7">
-            <AccordionTrigger className="ttext-lg md:text-xl  flex items-center gap-2 hover:no-underline ">
+            <AccordionTrigger className="text-lg md:text-xl  flex items-center gap-2 hover:no-underline ">
             How can I contact with seller?
             </AccordionTrigger>
             <AccordionContent className="text-gray-600">
