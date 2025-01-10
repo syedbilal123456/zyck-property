@@ -5,7 +5,7 @@ import Heading from './Heading';
 const cities = [
   { name: "Karachi", image: "/Karachi.jpg" },
   { name: "Lahore", image: "/Lahore.jpeg" },
-  { name: "Islamabad", image: "/islamabd.jpg" },
+  { name: "Islamabad", image: "/Islamabd.jpg" },
   { name: "Peshawar", image: "/Peshawar.jpg" },
   { name: "Quetta", image: "/quetta.jpeg" },
 ];
