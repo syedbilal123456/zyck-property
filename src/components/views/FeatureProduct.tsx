@@ -68,7 +68,7 @@ const FeatureProduct = () => {
       </div>
 
       <div>
-        <Heading title="Recent Properties For Rent" />
+      <Heading title="Recent Properties For Rent" />
         <div className="p-4">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
             {propertiesSlice.map((property) => (

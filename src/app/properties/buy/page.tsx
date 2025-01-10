@@ -1,9 +1,173 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Loader from "@/components/ui/loader";
+import PropertyCardsecond from "@/components/views/secondPropertyCard";
+import { Cards } from "@/lib/type";
 
-const Sale = () => {
+const ITEMS_PER_PAGE = 6; // Set items per page to 3
+
+const PropertySalePage = () => {
+  const [data, setData] = useState<Cards[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  // const [searchTerm, setSearchTerm] = useState<string>("");
+  // const [sortOption, setSortOption] = useState<string>("priceLowToHigh");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/properties/list?statusId=2`);
+        if (!response.ok) {
+          throw new Error(`Error Response ${response.statusText}`);
+        }
+        const result = await response.json();
+        setData(result);
+        setTotalPages(Math.ceil(result.length / ITEMS_PER_PAGE)); // Calculate total pages
+      } catch (error) {
+        console.error("Error Status:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [currentPage]); // Include currentPage in the dependency array
+
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // const handleSearch = () => {
+  //   console.log("Search term:", searchTerm);
+  //   console.log("Sort by:", sortOption);
+  // };
+
+  // Filter and sort properties
+  // const filteredProperties = data
+  //   .filter(
+  //     (property) =>
+  //       property.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Match property name
+  //       property.location.city.toLowerCase().includes(searchTerm.toLowerCase()) // Match city
+  //   )
+  //   .sort((a, b) => {
+  //     if (sortOption === "priceLowToHigh") {
+  //       return parseInt(a.price) - parseInt(b.price);
+  //     }
+  //     if (sortOption === "priceHighToLow") {
+  //       return parseInt(b.price) - parseInt(a.price);
+  //     }
+  //     return 0; // Default case, no sorting
+  //   });
+
+  // Paginate the filtered properties
+  const paginatedProperties = data.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  if (loading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-opacity-30 text-green-700 text-2xl">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div>Sale</div>
-  )
-}
+    <>
+      <div>
+        <div
+          className="w-full flex items-center"
+          style={{
+            backgroundImage: "url(/about.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed", // Ensures the background is fixed during scrolling
+            backgroundSize: "cover", // Ensures the image covers the entire div
+          }}
+        >
 
-export default Sale
+          <div className="flex justify-center flex-col bg-black bg-opacity-50 px-[10%] py-[3%] " >
+            {/* Heading */}
+            <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
+              Property For Sale:
+            </h1>
+            {/* Paragraph */}
+            <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
+              Explore a diverse range of properties designed to suit every lifestyle and budget.
+              From modern apartments to luxurious estates, find your dream home with ease.
+              Discover your next chapter in life with our curated selection of properties.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 h-full mx-auto w-3/4">
+          {/* Property Grid */}
+          <div className="p-5 mx-auto">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {paginatedProperties.length > 0 ? (
+                paginatedProperties.map((property, index) => (
+                  <PropertyCardsecond
+                    key={index}
+                    image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
+                    title={property.name}
+                    price={property.price}
+                    location={property.location.city}
+                    status={property.status.value}
+                    features={property.feature}
+                    onContact={property.contact}
+                    id={property.feature.propertyId}
+                  />
+                ))
+              ) : (
+                <p className="col-span-full text-center">No results found.</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center items-center gap-4 my-8">
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="flex items-center gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" /> Previous
+          </Button>
+
+          <div className="flex items-center gap-2">
+            {[...Array(totalPages)].map((_, index) => (
+              <Button
+                key={index + 1}
+                variant={currentPage === index + 1 ? "default" : "outline"}
+                onClick={() => handlePageChange(index + 1)}
+                className="w-10 h-10 p-0"
+              >
+                {index + 1}
+              </Button>
+            ))}
+          </div>
+
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="flex items-center gap-2"
+          >
+            Next <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PropertySalePage;

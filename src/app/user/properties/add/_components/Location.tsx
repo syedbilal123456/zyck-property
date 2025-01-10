@@ -14,7 +14,7 @@ const Location = (props: Props) => {
     register,
     formState: { errors },
     trigger,
-    getValues
+    getValues,
   } = useFormContext<AddPropertyInputType>();
 
   const handleNext = async () => {
@@ -25,7 +25,7 @@ const Location = (props: Props) => {
         'location.city',
         'location.state',
         'location.region',
-        'location.landmark'
+        'location.landmark',
       ])
     ) {
       props.next();
@@ -35,9 +35,9 @@ const Location = (props: Props) => {
   const handlePrevious = () => props.prev();
 
   return (
-    <div className={`p-4 gap-3 grid grid-cols-1 md:grid-cols-2 ${props.className}`}>
+    <div className={`p-4 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${props.className}`}>
       {/* Street Address */}
-      <div className="relative mb-5">
+      <div className="relative mb-5 col-span-1 md:col-span-2">
         <input
           {...register('location.streetAddress')}
           defaultValue={getValues().location?.streetAddress}
@@ -125,7 +125,7 @@ const Location = (props: Props) => {
       </div>
 
       {/* Region */}
-      <div className="relative md:col-span-2 mb-5">
+      <div className="relative mb-5 col-span-1 md:col-span-2 lg:col-span-3">
         <input
           {...register('location.region')}
           defaultValue={getValues().location?.region}
@@ -147,7 +147,7 @@ const Location = (props: Props) => {
       </div>
 
       {/* Landmark */}
-      <div className="relative md:col-span-2 mb-5">
+      <div className="relative mb-5 col-span-1 md:col-span-2">
         <textarea
           {...register('location.landmark')}
           defaultValue={getValues().location?.landmark}
@@ -169,7 +169,7 @@ const Location = (props: Props) => {
       </div>
 
       {/* Buttons */}
-      <div className="mt-3 flex justify-center col-span-2 gap-3">
+      <div className="mt-3 flex justify-center col-span-1 md:col-span-2 lg:col-span-3 gap-3">
         <button
           onClick={handlePrevious}
           className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2 transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"

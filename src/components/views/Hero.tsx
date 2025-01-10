@@ -20,7 +20,9 @@ const Hero = () => {
             <h1 className="mb-5 text-4xl font-bold">The Best Way To</h1>
             <h1 className="mb-5 text-5xl font-bold">Find Your Dream Home.</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem eligendi dolor consectetur labore, explicabo repellat ab eaque suscipit. Itaque quas quos exercitationem dolor qui quidem laudantium cumque quod dicta impedit.</p>
-            <Link href={'/search'} className='flex justify-center items-center gap-2 w-auto h-auto p-3 bg-primary rounded-lg mt-3  '>Search <Search/></Link>
+            <div className='w-full flex justify-center items-center'>
+            <Link href={'/search'} className='flex justify-center items-center gap-2 w-1/2 h-auto p-3 bg-primary rounded-lg mt-3  '>Search <Search/></Link>
+            </div>
           </div>
         </div>
       </div>

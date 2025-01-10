@@ -42,7 +42,7 @@ const Navbar = ({ children }: Props) => {
         <div className="navbar-center">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/">HOME</Link>
+              <Link className="text-primary" href="/">HOME</Link>
             </li>
             <li>
               <Link href="/properties/buy">BUY</Link>

@@ -7,7 +7,7 @@ export default function FAQPage() {
       <h1 className="md:text-5xl text-3xl text-primary font-bold text-center mb-5">Still Have Questions?</h1>
       <h1 className="text-xl  text-center mb-3">Check out our FAQs.</h1>
 
-      <Card className="w-full p-6">
+      <Card className="w-full p-6 bg-background text-foreground">
         <Accordion type="single" collapsible>
       
           <AccordionItem value="item-1">

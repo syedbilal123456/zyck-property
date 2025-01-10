@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { PropertyCard } from "@/components/views/PropertyCard";; // Import the Loader component
 import { Cards } from "@/lib/type";
+// Import the Loader component
 import Loader from "@/components/ui/loader";
 import PropertyCardsecond from "@/components/views/secondPropertyCard";
 

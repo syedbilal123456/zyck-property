@@ -10,7 +10,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import Link from "next/link";
 
 interface Contact {
   email: string
@@ -81,20 +80,6 @@ export function PropertyCard({
 
     {/* Features Section */}
     <div className="flex flex-wrap gap-2">
-      {/* {Object.entries(features) */}
-        {/* .filter(([key, value]) => */}
-          {/* // Display only these keys when their value is true */}
-          {/* ['hasSwimmingPool', 'hasGardenYard', 'hasBalcony'].includes(key) */}
-            {/* ? value === true */}
-            {/* : ['bedrooms', 'bathrooms', 'area'].includes(key) */}
-        {/* ) */}
-        {/* .map(([key, value], index) => ( */}
-          {/* <Badge key={index} className="bg-gray-100 text-gray-800"> */}
-            {/* {key === 'area' */}
-              {/* ? `Area: ${value} sqft` */}
-              {/* : `${key.charAt(0).toUpperCase() + key.slice(1)}`} */}
-          {/* </Badge> */}
-        {/* ))} */}
     </div>
   </CardContent>
 
