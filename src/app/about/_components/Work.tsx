@@ -9,7 +9,7 @@ const Work = () => {
         {/* Left Column - Image */}
         <div className="relative">
           <div className="rounded-lg overflow-hidden">
-            <Image 
+            <Image
               src="/hyderabad.jpeg"
               width={800}
               height={500}
@@ -18,9 +18,9 @@ const Work = () => {
             />
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-              <h3 className="text-white text-2xl font-semibold">
-                Pets Friendly Office
-              </h3>
+              <h2 className="text-white text-2xl font-semibold">
+                Working with Us
+              </h2>
             </div>
           </div>
         </div>
@@ -31,13 +31,12 @@ const Work = () => {
             Working with Us
           </h2>
           <p className="text-xl text-gray-200">
-            Come be a part of a truly amazing, open, collaborative, and innovative culture.
+            Join a team that's inspired by creativity, collaboration, and innovation in everything we do.
           </p>
 
           <p className="text-gray-600 leading-relaxed">
-            Our people are always working together to build the next big thing, and that really keeps this place buzzing. Whether we're planning projects or grabbing a beer at our monthly Happy Hours, we all have a great time here.
+            Come build meaningful solutions, support each other, and push what's possible at ZYCK Property. From generating new ideas to celebrating successes, we cultivate a dynamic, inspiring work environment that helps everyone feel valued and empowered to deliver an impact every day.          
           </p>
-
           <div className="mt-8">
             <div className="text-lg font-medium text-gray-400 mb-4">
               Want to join our team?

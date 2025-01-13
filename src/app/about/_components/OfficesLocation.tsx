@@ -2,33 +2,33 @@
 import React, { useState } from 'react';
 
 const OfficeLocations = () => {
-  const [activeLocation, setActiveLocation] = useState<'Headquarter' | 'NewYork' | 'California'>('Headquarter');
+  const [activeLocation, setActiveLocation] = useState<'Headquarter' | 'DHA' | 'Yaseenabad'>('Headquarter');
 
-  const locationContent: { [key in 'Headquarter' | 'NewYork' | 'California']: { text: string; inquiryType: string; email: string; mapUrl: string } } = {
+  const locationContent: { [key in 'Headquarter' | 'DHA' | 'Yaseenabad']: { text: string; inquiryType: string; email: string; mapUrl: string } } = {
     Headquarter: {
-      text: "Morbi mollis elit vitae elit molestie lobortis. Cras eu purus ipsum. Aliquam et ullamcorper nisl. Nam sem justo, sagittis sit amet sem at, mollis congue eros. Quisque vel mattis eros. Proin euismod massa id est finibus, rutrum ornare velit pellentesque. Ut arcu magna, interdum eget egestas eget, sagittis a libero. Donec felis tellus, vehicula at purus condimentum, hendrerit dictum odio. Vivamus et condimentum sapien.",
+      text: "Our mission is to help people find a home and community where they can feel comfortable, meaningful, and attached to a place where they can come and make connections. Every day, we are working toward making the world more neighborly and connected.",
       inquiryType: "Press & Media Inquiries",
-      email: "info@stylemixthemes.com",
+      email: "info@zyck.com",
       mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25280814725!2d-74.11976341508278!3d40.70583158628177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus"
     },
-    NewYork: {
-      text: "Donec et tincidunt eros. Nunc auctor justo eu ante laoreet malesuada. Maecenas euismod, quam in semper rhoncus, orci nunc egestas diam, nec ultrices urna turpis vel neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam interdum justo sed faucibus ullamcorper. Duis ut leo vitae lacus mattis vulputate. Morbi elit felis, auctor eu tempor pretium, fringilla sed metus.",
+    DHA: {
+      text: "You may also visit our DHA office at [Address] for customized service and advisory. Our dedicated team of professionals is here to assist you with all your real estate requirements - buying, selling, or renting.",
       inquiryType: "Business Inquiries",
-      email: "info@stylemixthemes.com",
+      email: "info@zyck.com",
       mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596552044!2d-74.25987701513004!3d40.69714941680757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s"
     },
-    California: {
-      text: "Etiam placerat, nunc et consequat ullamcorper, risus ligula luctus nibh, quis ultrices felis massa varius odio. Pellentesque feugiat mi congue vehicula pellentesque. Aliquam sagittis velit tellus, cursus porttitor turpis fringilla quis. Donec venenatis tincidunt sapien, at porta nisl consectetur ac. Aliquam maximus lectus id neque dignissim, nec molestie magna consequat. Sed convallis sem diam.",
+    Yaseenabad: {
+      text: "You can also visit our Yaseenabad office at [Address] where local experts are here to assist you in all your property needs in this vibrant and growing area.",
       inquiryType: "Vacancies Inquiries",
-      email: "info@stylemixthemes.com",
+      email: "info@zyck.com",
       mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6502594.616364798!2d-123.79641085736093!3d37.19308893317917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2s"
     }
   };
 
-  const locations: { id: 'Headquarter' | 'NewYork' | 'California'; label: string }[] = [
+  const locations: { id: 'Headquarter' | 'DHA' | 'Yaseenabad'; label: string }[] = [
     { id: 'Headquarter', label: 'Headquarter' },
-    { id: 'NewYork', label: 'New York Office' },
-    { id: 'California', label: 'California Office' }
+    { id: 'DHA', label: 'DHA Office' },
+    { id: 'Yaseenabad', label: 'Yaseenabad Office' }
   ];
 
   return (

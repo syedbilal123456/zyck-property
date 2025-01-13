@@ -4,7 +4,7 @@ import React from 'react';
 
 const Cards = [
     {img : "/payment.png", desc : "Our Property"},
-    {img : "/robotic-hand.png", desc : "Our Technologoy"},
+    {img : "/robotic-hand.png", desc : "Our Technology"},
     {img : "/social-life.png", desc : "Our Blogs"},
 ]
 

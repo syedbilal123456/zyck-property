@@ -43,29 +43,6 @@ const PropertySalePage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // const handleSearch = () => {
-  //   console.log("Search term:", searchTerm);
-  //   console.log("Sort by:", sortOption);
-  // };
-
-  // Filter and sort properties
-  // const filteredProperties = data
-  //   .filter(
-  //     (property) =>
-  //       property.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Match property name
-  //       property.location.city.toLowerCase().includes(searchTerm.toLowerCase()) // Match city
-  //   )
-  //   .sort((a, b) => {
-  //     if (sortOption === "priceLowToHigh") {
-  //       return parseInt(a.price) - parseInt(b.price);
-  //     }
-  //     if (sortOption === "priceHighToLow") {
-  //       return parseInt(b.price) - parseInt(a.price);
-  //     }
-  //     return 0; // Default case, no sorting
-  //   });
-
-  // Paginate the filtered properties
   const paginatedProperties = data.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -93,17 +70,14 @@ const PropertySalePage = () => {
           }}
         >
 
-          <div className="flex justify-center flex-col bg-black bg-opacity-50 px-[10%] py-[3%] " >
+          <div className="flex justify-center flex-col bg-black bg-opacity-50 w-screen px-[10%] py-[3%] " >
             {/* Heading */}
             <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
-              Property For Sale:
+              Properties for Sale – Find Your Perfect Investment
             </h1>
             {/* Paragraph */}
             <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
-              Explore a diverse range of properties designed to suit every lifestyle and budget.
-              From modern apartments to luxurious estates, find your dream home with ease.
-              Discover your next chapter in life with our curated selection of properties.
-            </p>
+              Looking to buy your dream home or make a smart real estate investment? ZYCK Property offers a wide selection of residential and commercial properties across Pakistan and beyond, carefully curated to meet your needs and budget.</p>
           </div>
         </div>
 

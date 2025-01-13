@@ -15,7 +15,7 @@ const OurLeadership = () => {
     <section id='our-leadership' className="text-gray-600 body-font">
         <div className="container px-5 py-16 mx-auto w-3/4 ">
             <h2 className="text-3xl font-semibold text-gray-100 mb-24">
-                Our Leadership:
+            Our leadership
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mx-auto">
                     {teamCard.map((item, index) => (

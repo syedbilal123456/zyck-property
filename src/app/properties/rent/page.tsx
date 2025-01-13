@@ -60,16 +60,14 @@ const RentModule = () => {
         }}
       >
 
-        <div className="flex justify-center flex-col bg-black bg-opacity-50 px-[10%] py-[3%] " >
+        <div className="flex justify-center flex-col bg-black w-screen bg-opacity-50 px-[10%] py-[3%] " >
           {/* Heading */}
           <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
-            Property For Rent:
+            Property for Rent – Find Your Ideal Space
           </h1>
           {/* Paragraph */}
           <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
-            Explore a diverse range of properties designed to suit every lifestyle and budget.
-            From modern apartments to luxurious estates, find your dream home with ease.
-            Discover your next chapter in life with our curated selection of properties.
+            We are looking for a house to rent that is perfect in every sense for our lifestyles and budget. Pakistan and other countries offer a wide range of residential and commercial properties available for rent. ZYCK Property has everything, from a cozy apartment to a spacious house or a prime office space.
           </p>
         </div>
       </div>
@@ -101,7 +99,7 @@ const RentModule = () => {
 
 
       <div className="flex justify-center items-center gap-4 my-8">
-      <Button
+        <Button
           variant="outline"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}

@@ -2,7 +2,6 @@
 
 import { Cards } from '@/lib/type';
 import React, { useEffect, useState } from 'react';
-import Heading from '@/components/views/Heading';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';
 import Loader from '../ui/loader';
 
@@ -47,7 +46,11 @@ const FeatureProduct = () => {
   return (
     <>
       <div>
-        <Heading title="Featured Properties" />
+      <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+          Featured Properties
+        </h2>
+      </div>
         <div className="p-4 mx-auto">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
             {propertiesSlice.map((property) => (
@@ -68,7 +71,11 @@ const FeatureProduct = () => {
       </div>
 
       <div>
-      <Heading title="Recent Properties For Rent" />
+      <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+          Recent properties for rent
+        </h2>
+      </div>
         <div className="p-4">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
             {propertiesSlice.map((property) => (
@@ -89,7 +96,11 @@ const FeatureProduct = () => {
       </div>
 
       <div>
-        <Heading title="Recent Properties For Sale" />
+      <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+          Recent properties for sale
+        </h2>
+      </div>
         <div className="p-4">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-5">
             {propertiesForSale.map((property) => (
