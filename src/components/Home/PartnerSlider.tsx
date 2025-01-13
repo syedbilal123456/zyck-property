@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 
 
-const PartnerSlider = () => {
+const  PartnerSlider = () => {
   const partners = [
     { id: 1, src: "/logo.png", alt: "Real Estate Experts" },
     { id: 2, src: "/logo.png", alt: "Real Estate Experts" },

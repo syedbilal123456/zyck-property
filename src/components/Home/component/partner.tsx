@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { MdRealEstateAgent } from "react-icons/md";// Import Button from shadcn/ui
 import PartnerSlider from "../PartnerSlider";
 
