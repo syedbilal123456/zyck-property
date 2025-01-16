@@ -7,6 +7,7 @@ import React from "react";
 import UserProfilePanel from "./UserProfilePanel";
 import { prisma } from "@/lib/prisma";
 import { Button } from "./button";
+import Link from "next/link";
 
 const SignInPanel = async () => {
     const { isAuthenticated, getUser } = getKindeServerSession();
@@ -28,9 +29,11 @@ const SignInPanel = async () => {
 
     return (
         <div className="flex gap-3 items-center">
-            <Button>
-                <LoginLink>Sign In</LoginLink>
-            </Button>
+            <Link href="/user/properties/add">
+                <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                    Add Property
+                </button>
+            </Link>
             <Button className="lg:block hidden">
                 <RegisterLink>Sign Up</RegisterLink>
             </Button>

@@ -15,7 +15,6 @@ const Footer = () => {
       <Link href={"/search"} className="link link-hover text-gray-300">Appartment For Rent</Link>
       <Link href={"/search"} className="link link-hover text-gray-300">House For Sale</Link>
       <Link href={"/search"} className="link link-hover text-gray-300">Office For Rent</Link>
-    
     </nav>
     <nav>
       <h6 className="footer-title text-white">Company</h6>
