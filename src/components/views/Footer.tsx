@@ -25,8 +25,8 @@ const Footer = () => {
     <nav>
       <h6 className="footer-title text-white">Legal</h6>
       <Link href={"/terms-conditions"} className="link link-hover text-gray-300">Terms of use</Link>
-      <Link href={"/FAQs"} className="link link-hover text-gray-300">Privacy policy</Link>
-      <Link href={"/FAQs"} className="link link-hover text-gray-300">Cookie policy</Link>
+      <Link href={"/privacy-policy"} className="link link-hover text-gray-300">Privacy policy</Link>
+      <Link href={"/blogs"} className="link link-hover text-gray-300">Blogs</Link>
     </nav>
   </footer>
   <div className='text-center bg-background text-foreground border-t-2'>
