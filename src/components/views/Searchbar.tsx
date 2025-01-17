@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,16 +16,17 @@ export function Searchbar() {
   return (
     <Tabs defaultValue="BUY" className="w-full">
       {/* Tabs List */}
-      <TabsList className="w-full grid grid-cols-3">
+      <TabsList className="w-full grid grid-cols-4">
         <TabsTrigger value="BUY" className="text-sm">BUY</TabsTrigger>
         <TabsTrigger value="SELL" className="text-sm">SELL</TabsTrigger>
         <TabsTrigger value="RENT" className="text-sm">RENT</TabsTrigger>
+        <TabsTrigger value="PROJECT" className="text-sm">PROJECT</TabsTrigger>
       </TabsList>
 
       {/* Tabs Content */}
-      {["BUY", "SELL", "RENT"].map((tab) => (
+      {["BUY", "SELL", "RENT", "PROJECT"].map((tab) => (
         <TabsContent key={tab} value={tab}>
-          <Card className="mx-auto w-full max-w-md">
+          <Card className="w-full max-w">
             <CardContent className="w-full flex flex-col p-2 bg-background text-white gap-3">
               {/* Search Input */}
               <Select>
