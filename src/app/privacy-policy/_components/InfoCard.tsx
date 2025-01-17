@@ -51,66 +51,111 @@ const PolicySection: React.FC<PolicySectionProps> = ({
 const PrivacyPolicy: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <PolicySection image="/pp-1.png" icon={Shield} title="Security Measures">
-        We have implemented security policies, rules and technical measures to
-        protect the personal data that we have under our control from
-        unauthorised access, improper use and disclosure, unauthorised
-        destruction or accidental loss.
+      <PolicySection
+        image="/pp-1.png"
+        icon={Shield}
+        title="Robust Security Measures"
+      >
+        We prioritize the protection of your facts with enterprise-main security
+        features. These include encryption protocols, stable servers, firewalls,
+        and regular vulnerability assessments. Our team continuously video
+        displays units and updates our structures to stay in advance of
+        potential threats, ensuring your information remains secure.
       </PolicySection>
 
-      <PolicySection image="/pp-2.png" icon={CheckCircle} title="Payment Data">
-        We employ a third-party provider for processing credit card payments.
-        They have access to personal information needed to perform their
-        functions but may not use it for other purposes. We do not have access
-        to or retain any of your payment information.
+      <PolicySection
+        image="/pp-2.png"
+        icon={CheckCircle}
+        title="Handling Payment Information Securely"
+      >
+        All charge transactions on our platform are processed through stable and
+        trusted charge gateways. Your financial information is encrypted all
+        through transmission, adhering to PCI-DSS compliance standards. We no
+        longer shop touchy price data on our servers until required for precise
+        ordinary transactions, and best together with your specific consent.
       </PolicySection>
 
-      <PolicySection image="/pp-3.png" icon={RefreshCw} title="Updates To Policy">
-        We reserve the right to vary this policy from time to time. Our updated
-        policy will be displayed on the Website, and by continuing to use and
-        access the Platform, following such changes, you agree to be bound by
-        any variation made by us.
+      <PolicySection
+        image="/pp-3.png"
+        icon={RefreshCw}
+        title="Changes and Updates to This Privacy Policy"
+      >
+        This Privacy Policy can be updated periodically to reflect new
+        practices, services, or prison necessities. All updates can be published
+        on this web page with a revised "ultimate up to date" date. Continued
+        use of our platform after modifications signifies your popularity of the
+        updated policy.
       </PolicySection>
 
-      <PolicySection image="/pp-4.png" icon={Clock} title="Cookies">
-        We may send a small file to your computer or device when you visit our
-        Website (a cookie). This will enable us to identify your computer, track
-        your behaviour on our Website and to identify your particular areas of
-        interest so as to personalise and enhance your experience on this
-        Website.
+      <PolicySection
+        image="/pp-4.png"
+        icon={Clock}
+        title="Use of Cookies and Tracking Technologies"
+      >
+        We use cookies and comparable technologies to enhance your browsing
+        experience, understand consumer behaviour, and offer customized hints.
+        Cookies assist us don't forget your possibilities and optimize internet
+        site performance. You can control or disable cookies via your browser
+        settings, however doing so may also restriction some functionality.
       </PolicySection>
 
-      <PolicySection icon={X} title="Data Deletion Request">
-        You may request that we delete your personal data by emailing us at
-        contactus@zameen.com. We will endeavour to comply with such deletion
-        requests but in certain circumstances we will be unable to delete your
-        personal data as we may be required to retain it for legal, regulatory
-        and/or compliance reasons
+      <PolicySection icon={X} title="Requesting Data Deletion">
+        You have the right to request the deletion of your records at any time.
+        Please submit your request by contacting us at privacy@zyckproperty.Com.
+        Please note that we may keep positive statistics to fulfill criminal
+        duties or clear up disputes, as required by law.
       </PolicySection>
 
-      <PolicySection icon={ShoppingCart} title="Disclosure Of Information">
-        In the unlikely event that a liquidator, administrator or receiver is
-        appointed over us or all or any part of our assets that insolvency
-        practitioner may transfer your information to a third party purchaser of
-        the business provided that purchaser undertakes to use your information
-        for the same purposes as set out in this policy.
+      <PolicySection
+        icon={ShoppingCart}
+        title="Information Disclosure Practices"
+      >
+        <p>We might also disclose your statistics to:</p>
+        <ul className="list-disc pl-5">
+          <li>Comply with criminal requirements or regulatory authorities.</li>
+          <li>Protect our rights, assets, or the protection of our users.</li>
+          <li>
+            Prevent fraud, cope with security issues, or implement our Terms of
+            Use.
+          </li>
+        </ul>
+        <p>
+          Any disclosures could be carried out in keeping with relevant felony
+          frameworks to ensure transparency and integrity.
+        </p>
       </PolicySection>
 
-      <PolicySection icon={Target} title="Who We Share Your Personal Information With">
-        Your personal information (which includes your name, address and any
-        other details you provide to us which concern you as an individual) may
-        be processed both by us. We may also share your information with: (i)
-        third parties we use to help deliver our products and services to you
-        (for example, payment service providers).
+      <PolicySection
+        icon={Target}
+        title="Sharing Your Personal Information with Trusted Entities"
+      >
+        We only percentage your facts with cautiously selected 1/3 events, along with:
+        <ul className="list-disc pl-5">
+          <li><strong>Service Providers:</strong> For fee processing, web hosting, and analytics.</li>
+          <li><strong>Business Partners:</strong> With your consent, for joint promotional activities.</li>
+          <li>
+          <strong>Legal Authorities:</strong> When mandated by using regulation or to guard our rights and customers.
+          </li>
+        </ul>
+        Your facts are shared best as essential and with sturdy privacy safeguards in the region.
       </PolicySection>
 
-      <PolicySection icon={Target} title="Purpose Of Processing">
-        Your information will allow us to provide you with access to the
-        particular parts of the Platform relevant to you and allow us to supply
-        the Services you require. We will use your information for the purpose
-        of informing you of special offers and providing other marketing
-        information to you which we think you may find of interest, undertaking
-        services or customer research/development.
+      <PolicySection icon={Target} title="Purpose and Scope of Data Processing">
+      The non-public data we accumulate is processed for specific purposes, such as:
+      <ul className="list-disc pl-5">
+          <li><strong>Providing Services:</strong> Enabling belongings listings, purchases, leases, and related sports.</li>
+          <li><strong>Improving User Experience:</strong> Tailoring content material and capabilities based on your alternatives.</li>
+          <li>
+          <strong>Compliance:</strong> Meeting felony and regulatory requirements.
+          </li>
+          <li>
+          <strong>Marketing and Communications:</strong> Sending you gives, updates, and guidelines aligned with your pursuits.
+          </li>
+          <li>
+          <strong>Fraud Prevention:</strong> Monitoring for and mitigating fraudulent sports to protect our customers and platform.
+          </li>
+        </ul>
+        Our purpose is to ensure that facts processing remains transparent, lawful, and aligned with the expectations of our users.
       </PolicySection>
     </div>
   );

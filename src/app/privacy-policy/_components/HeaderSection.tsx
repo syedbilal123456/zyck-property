@@ -17,8 +17,7 @@ const HeaderSection = () => {
               Privacy Policy
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl">
-              Understand what information we are collecting, where it is used,
-              and who has access to it.
+            "Your Privacy, Our Priority – Safeguarding Your Data, Empowering Your Trust."
             </p>
           </div>
         </div>
