@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 
 const NotFound: React.FC = () => {
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white">
       <div className="text-center px-4 py-10 md:px-10 md:py-20 max-w-lg w-full">
         <h1 className="text-5xl font-extrabold mb-4 animate__animated animate__fadeIn">Oops! Page Not Found</h1>
         <p className="text-xl mb-6 animate__animated animate__fadeIn animate__delay-1s">
@@ -17,6 +18,7 @@ const NotFound: React.FC = () => {
         </Link>
       </div>
     </div>
+
   );
 };
 

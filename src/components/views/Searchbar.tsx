@@ -25,7 +25,7 @@ export function Searchbar() {
       </TabsList>
 
       {/* Tabs Content */}
-      {["BUY", "SELL", "RENT", "PROJECT"].map((tab) => (
+      {["BUY", "SELL", "RENT","CO-WORK SPACE", "PROJECT"].map((tab) => (
         <TabsContent key={tab} value={tab}>
           <Card className="w-full max-w">
             <CardContent className="w-full flex flex-col p-2 bg-background text-white gap-3">
