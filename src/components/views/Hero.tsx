@@ -20,7 +20,7 @@ const Hero = () => {
             <h1 className="mb-5 text-3xl font-bold">Welcome to ZYCK Property – Your Gateway to Exceptional Property Marketplace Opportunities</h1>
           </div>
           <div className='max-w-lg'>
-            <h2 className="mb-5 text-5xl font-bold">Find the Perfect Space That You Need</h2>
+            <h2 className="mb-5 text-5xl font-bold">Find the Perfect Property That You Need</h2>
           </div>
           <Searchbar/>
         </div>

@@ -16,10 +16,11 @@ export function Searchbar() {
   return (
     <Tabs defaultValue="BUY" className="w-full">
       {/* Tabs List */}
-      <TabsList className="w-full grid grid-cols-4">
+      <TabsList className="w-full grid grid-cols-5">
         <TabsTrigger value="BUY" className="text-sm">BUY</TabsTrigger>
         <TabsTrigger value="SELL" className="text-sm">SELL</TabsTrigger>
         <TabsTrigger value="RENT" className="text-sm">RENT</TabsTrigger>
+        <TabsTrigger value="CO-WORK SPACE" className="text-sm">CO-WORK SPACE</TabsTrigger>
         <TabsTrigger value="PROJECT" className="text-sm">PROJECT</TabsTrigger>
       </TabsList>
 
