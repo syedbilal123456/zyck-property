@@ -1,6 +1,6 @@
 const ContentCard = () => {
     return (
-      <div className="max-w-screen-lg mx-auto bg-gradient-to-r from-gray-100 to-gray-200 border border-gray-300 rounded-lg p-8 shadow-lg my-14">
+      <div className="max-w-screen-lg mx-auto bg-card border border-gray-300 rounded-lg p-8 shadow-lg my-14">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Privacy Policy</h2>
         <p className="mb-4 leading-relaxed text-gray-700">
           We take your privacy very seriously and are committed to protecting the
@@ -9,7 +9,7 @@ const ContentCard = () => {
             href="https://www.zameen.com"
             className="text-blue-600 font-semibold hover:underline"
           >
-            www.zameen.com
+            www.zyckproperty.com
           </a>{" "}
           (the <span className="font-semibold">"Website"</span>) or any mobile
           application we make available via an app store (the{" "}
