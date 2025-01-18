@@ -2,12 +2,9 @@ import Image from 'next/image';
 import React from 'react';
 
 const teamCard = [
-    { img: "/staff-1.jpg", passion: "Co-Founder and Executive Chairman", name: "Rich Wacksman", phone: "(866) 234-5678" },
-    { img: "/staff-2.jpg", passion: "Senior Vice President, Product", name: "Jennifer Barton", phone: "(866) 234-5678" },
-    { img: "/staff-3.jpg", passion: "Chief Technology Officer", name: "Nick Swift", phone: "(866) 234-5678" },
-    { img: "/staff-4.jpg", passion: "Chief Operating Officer", name: "Kathleen Myers", phone: "(866) 234-5678" },
-    { img: "/staff-5.jpg", passion: "Chief Analytics Officer", name: "Donald Lloyd", phone: "(866) 234-5678" },
-    { img: "/staff-6.jpg", passion: "Co-Founder and Executive Chairman", name: "Amanda Reiter", phone: "(866) 234-5678" },
+    { img: "/unknown.jpeg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "(+92) 234-5678" },
+    { img: "/unknown.jpeg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "(+92) 234-5678" },
+    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "(+92) 234-5678" },
 ];
 
 const OurLeadership = () => {

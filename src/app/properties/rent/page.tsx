@@ -7,6 +7,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 const ITEMS_PER_PAGE = 6;
+
+export const metadata = {
+  title: "Find Properties for Rent – ZYCK Rent Property",
+  description:
+    "Looking for houses for hire? ZYCK Property offers an extensive range of flats, houses, and industrial areas for hire across Pakistan.",
+};
+
 const RentModule = () => {
   const [properties, setProperties] = useState<Cards[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

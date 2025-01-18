@@ -6,6 +6,13 @@ import OurLeaderShip from './_components/OurLeaderShip'
 import OfficeLocations from './_components/OfficesLocation'
 import WorkingwithUs from './_components/WorkingwithUs'
 
+// SEO metadata
+export const metadata = {
+  title: "About Us",
+  description:
+    "Learn more about ZYCK Property and our venture to provide trusted real estate services across Pakistan. Discover our story and values, and hire homes.",
+};
+
 const page = () => {
   return (
     <div className='overflow-x-hidden'>

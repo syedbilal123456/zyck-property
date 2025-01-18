@@ -8,6 +8,13 @@ import { Cards } from "@/lib/type";
 
 const ITEMS_PER_PAGE = 6; // Set items per page to 3
 
+export const metadata = {
+  title: "Buy Property in Pakistan – Find Your Dream Home",
+  description:
+    "Discover the fine properties on the market with ZYCK Property. Browse houses, residences, and plots to buy in your desired place effortlessly and securely.",
+};
+
+
 const PropertySalePage = () => {
   const [data, setData] = useState<Cards[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
