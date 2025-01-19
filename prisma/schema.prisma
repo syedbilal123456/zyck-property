@@ -19,17 +19,19 @@ model User {
 }
 
 model Property {
-  id          Int               @id @default(autoincrement())
+  id          Int                @id @default(autoincrement())
   name        String
   description String
   price       Int
   userId      String
   typeId      Int
   statusId    Int
+  DetailId    Int
   contact     Contact?
-  status      PropertyStatus    @relation(fields: [statusId], references: [id])
-  type        PropertyType      @relation(fields: [typeId], references: [id])
-  user        User              @relation(fields: [userId], references: [id])
+  status      PropertyStatus     @relation(fields: [statusId], references: [id])
+  type        PropertyType       @relation(fields: [typeId], references: [id])
+  user        User               @relation(fields: [userId], references: [id])
+  typeDetail  PropertyTypeDetail @relation(fields: [DetailId], references: [id])
   feature     PropertyFeature?
   images      PropertyImage[]
   location    PropertyLocation?
@@ -77,6 +79,12 @@ model PropertyLocation {
 }
 
 model PropertyType {
+  id       Int        @id @default(autoincrement())
+  value    String
+  Property Property[]
+}
+
+model PropertyTypeDetail {
   id       Int        @id @default(autoincrement())
   value    String
   Property Property[]

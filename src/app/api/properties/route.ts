@@ -37,3 +37,5 @@ export async function GET() {
         return NextResponse.json({ error: "Error Fetching properties" }, { status: 500 });
       }
     }
+
+

@@ -16,6 +16,7 @@ export async function saveProperty(
     statusId: propertyData.statusId,
     typeId: propertyData.typeId,
     userId,
+    DetailId: propertyData.DetailId
   };
   const result = await prisma.property.create({
     data: {
@@ -56,6 +57,7 @@ export async function editProperty(
       statusId: propertyData.statusId,
       typeId: propertyData.typeId,
       description: propertyData.description,
+      DetailId: propertyData.DetailId,
       contact: {
         update: {
           ...propertyData.contact,

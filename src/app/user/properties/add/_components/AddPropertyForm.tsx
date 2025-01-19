@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
-import { Prisma, PropertyImage, PropertyStatus, PropertyType } from "@prisma/client";
+import { Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail } from "@prisma/client";
 import Location from "./Location";
 import Features from "./Features";
 import Picture from "./Picture";
@@ -19,6 +19,11 @@ import { editProperty, saveProperty } from "@/lib/actions/property";
 import clsx from "clsx";
 import Loader from "@/components/ui/loader";
 
+
+type Details = {
+  id: number;
+  value: string;
+}[];
 interface Props {
   types: PropertyType[];
   statuses: PropertyStatus[];
@@ -56,15 +61,28 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       propertyFeature: props.property?.feature ?? undefined,
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
+      DetailId: props.property?.DetailId ?? undefined
     },
   });
+
 
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();
   const [images, setImages] = useState<File[]>([]);
   const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(props.property?.images ?? []);
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [details, setDetails] = useState<{ id: number; value: string }[]>([]);
 
+  // If details are fetched, make sure to update the state
+  useEffect(() => {
+    async function fetchDetails() {
+      const response = await fetch('/api/properties/details');
+      const data = await response.json();
+      setDetails(data);
+    }
+    fetchDetails();
+  }, []);
+  
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
     const imageUrls = await uploadImages(images);
@@ -108,8 +126,8 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
             className={clsx({ hidden: step !== 0 })}
             statuses={props.statuses}
             types={props.types}
-            next={() => setStep((prev) => prev + 1)}
-          />
+            next={() => setStep((prev) => prev + 1)} 
+            details={details}         />
           <Location
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}
