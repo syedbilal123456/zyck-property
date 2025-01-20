@@ -69,8 +69,10 @@ model PropertyFeature {
 model PropertyLocation {
   id            Int      @id @default(autoincrement())
   streetAddress String
-  city          String
-  state         String
+  cityId        Int
+  city          City     @relation(fields: [cityId], references: [id])
+  stateId       Int
+  state         State    @relation(fields: [stateId], references: [id])
   zip           String
   region        String
   landmark      String
@@ -78,11 +80,26 @@ model PropertyLocation {
   property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
+model State {
+  id               Int                @id @default(autoincrement())
+  value            String
+  cities           City[]
+  PropertyLocation PropertyLocation[]
+}
+
+model City {
+  id               Int      @id @default(autoincrement())
+  value            String
+  stateId          Int
+  state            State    @relation(fields: [stateId], references: [id])
+  PropertyLocation PropertyLocation[]
+}
+
 model PropertyType {
-  id                 Int                  @id @default(autoincrement())
-  value              String
-  Property           Property[]
-  Details PropertyTypeDetail[]
+  id       Int                  @id @default(autoincrement())
+  value    String
+  Property Property[]
+  Details  PropertyTypeDetail[]
 }
 
 model PropertyTypeDetail {
@@ -90,7 +107,7 @@ model PropertyTypeDetail {
   value          String
   propertyTypeId Int
   propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
-  Property Property[]
+  Property       Property[]
 }
 
 model PropertyStatus {

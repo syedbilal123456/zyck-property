@@ -15,14 +15,22 @@ export async function saveProperty(
     price: propertyData.price,
     statusId: propertyData.statusId,
     typeId: propertyData.typeId,
+    DetailId: propertyData.DetailId,
     userId,
-    DetailId: propertyData.DetailId
   };
   const result = await prisma.property.create({
     data: {
       ...basic,
       location: {
-        create: propertyData.location,
+        create: {
+          ...propertyData.location,
+          city: {
+            connect: { id: parseInt(propertyData.location.city) }
+          },
+          state: {
+            connect: { id: parseInt(propertyData.location.state) }
+          }
+        },
       },
       feature: {
         create: propertyData.propertyFeature,
@@ -71,6 +79,12 @@ export async function editProperty(
       location: {
         update: {
           ...propertyData.location,
+          city: {
+            connect: { id: parseInt(propertyData.location.city) }
+          },
+          state: {
+            connect: { id: parseInt(propertyData.location.state) }
+          }
         },
       },
       images: {

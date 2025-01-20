@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
-import { Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail } from "@prisma/client";
+import { City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
 import Location from "./Location";
 import Features from "./Features";
 import Picture from "./Picture";
@@ -23,6 +23,8 @@ import Loader from "@/components/ui/loader";
 
 interface Props {
   details : PropertyTypeDetail[]
+  city: City[];
+  state: State[]
   types: PropertyType[];
   statuses: PropertyStatus[];
   property?: Prisma.PropertyGetPayload<{
@@ -59,7 +61,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       propertyFeature: props.property?.feature ?? undefined,
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
-      DetailId: props.property?.DetailId ?? undefined
+      DetailId: props.property?.DetailId ?? undefined,
     },
   });
 
@@ -112,6 +114,8 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
           )}
 
           <Basic
+            cities={props.city}
+            states={props.state}
             className={clsx({ hidden: step !== 0 })}
             statuses={props.statuses}
             types={props.types}
