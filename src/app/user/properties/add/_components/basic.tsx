@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { PropertyStatus, PropertyType } from "@prisma/client";
+import React, { useState } from "react";
+import { PropertyStatus, PropertyType, PropertyTypeDetail } from "@prisma/client";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { useFormContext } from "react-hook-form";
 import { AddPropertyInputType } from "./AddPropertyForm";
@@ -11,9 +11,8 @@ interface Props {
   statuses: PropertyStatus[];
   types: PropertyType[];
   next: () => void;
-  details: { id: number; value: string }[] ; // Add the details prop
+  details: PropertyTypeDetail[];
 }
-
 
 const Basic = (props: Props) => {
   const {
@@ -21,168 +20,108 @@ const Basic = (props: Props) => {
     formState: { errors },
     trigger,
     getValues,
+    setValue,
+    watch,
   } = useFormContext<AddPropertyInputType>();
 
+  // Watch the selected typeId
+  const selectedTypeId = watch("typeId");
+  const TypeId = Number(selectedTypeId)
+  // Filter details based on the selected typeId
+  const filteredDetails = props.details.filter(
+    (detail) => detail.propertyTypeId === TypeId
+  );
+
   const handleNext = async () => {
-    if (await trigger(["name", "description", "typeId", "statusId", "price"]))
-      props.next();
+    if (await trigger(["typeId", "statusId", "price", "DetailId"])) props.next();
   };
 
-  if (!props.details) {
-    return <p>Loading details...</p>;
-  }
-  
   return (
-
-    <div
-      className={clsx("p-4 gap-3 grid grid-cols-1 md:grid-cols-3", props.className)}
-    >
-      {/* Name Input */}
-      <div className="md:col-span-3 relative mb-5">
-        <input
-          {...register("name")}
-          defaultValue={getValues().name}
-          id="name"
-          placeholder="Your Name"
-          type="text"
-          className="peer w-full bg-transparent  placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600"
-        />
-        <label
-          htmlFor="name"
-          className="absolute hidden -ml-10 cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left 
-                 peer-focus:block peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-        >
-          Enter Your Name:
-        </label>
-        {errors.name && (
-          <p className="text-sm text-red-500">{errors.name?.message}</p>
-        )}
-      </div>
-
-      {/* Description Input */}
-      <div className="md:col-span-3 relative mb-5">
-        <textarea
-          {...register("description")}
-          defaultValue={getValues().description}
-          id="description"
-          placeholder="Your Description"
-          className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        />
-        <label
-          htmlFor="description"
-          className="absolute hidden cursor-text px-1 left-2.5 top-2 text-slate-400 text-sm transition-all transform origin-left 
-                 peer-focus:block peer-focus:-top-7 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-        >
-          Enter Your Description:
-        </label>
-        {errors.description && (
-          <p className="text-sm text-red-500">{errors.description?.message}</p>
-        )}
-      </div>
-
+    <div className={clsx("p-4 gap-3 flex justify-center flex-col space-y-10", props.className)}>
       {/* Type Input */}
-      <div className="relative mb-5">
-        <select
-          {...register("typeId")}
-          id="typeId"
-          defaultValue={getValues().typeId?.toString() ?? ""}
-          className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        >
-          {props.types?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.value}
-            </option>
-          ))}
-        </select>
-        <label
-          htmlFor="typeId"
-          className="absolute hidden cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left 
-                 peer-focus:block peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-        >
-          Property Type:
+      <div>
+        <label htmlFor="statusId" className="text-white block">
+          Property Status
         </label>
+        <div className="flex items-center gap-2 mt-5">
+          {props.statuses?.map((item) => (
+            <label key={item.id} className="flex items-center cursor-pointer">
+              <input
+                {...register("statusId", { required: "Status is required" })}
+                type="radio"
+                value={item.id.toString()}
+                className="hidden peer"
+              />
+              <span className="bg-black font-semibold text-white border rounded-lg p-3 peer-checked:bg-green-500 peer-checked:text-white">
+                {item.value}
+              </span>
+            </label>
+          ))}
+        </div>
+        {errors.statusId && <p className="text-sm text-red-500">{errors.statusId?.message}</p>}
+      </div>
+
+      <div className="relative mb-5">
+        <label htmlFor="typeId" className="cursor-text">
+          Property Type
+        </label>
+        <div className="flex mt-2 gap-1 bg-transparent text-black">
+          {props.types?.map((item) => (
+            <label key={item.id} className="flex items-center cursor-pointer">
+              <input
+              {...register("typeId", { required: "Type is required" })}
+                type="radio"
+                value={item.id}
+                className="hidden peer"
+              />
+              <span className="bg-black text-white border-b font-semibold rounded-lg p-3 peer-checked:bg-green-500 peer-checked:text-white">
+                {item.value}
+              </span>
+            </label>
+          ))}
+        </div>
         {errors.typeId && (
           <p className="text-sm text-red-500">{errors.typeId?.message}</p>
         )}
       </div>
 
-   {/* Details Dropdown */}
-<div className="relative mb-5">
-  <select
-    {...register("DetailId")}
-    id="detailId"
-    defaultValue=""
-    className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-  >
-    <option value="" disabled>
-      Select Detail Type
-    </option>
-    {(props.details || []).map((item) => (
-      <option key={item.id} value={item.id}>
-        {item.value}
-      </option>
-    ))}
-  </select>
-  <label
-    htmlFor="detailId"
-    className="absolute hidden cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left 
-             peer-focus:block peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-  >
-    Detail Type:
-  </label>
-  {errors.DetailId && (
-    <p className="text-sm text-red-500">{errors.DetailId?.message}</p>
-  )}
-</div>
-
-
-
-      {/* Status Input */}
-      <div className="relative mb-5">
-        <select
-          {...register("statusId")}
-          id="statusId"
-          defaultValue={getValues().statusId?.toString() ?? ""}
-          className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        >
-          {props.statuses?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.value}
-            </option>
-          ))}
-        </select>
-        <label
-          htmlFor="statusId"
-          className="absolute hidden cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left 
-                 peer-focus:block peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-        >
-          Property Status:
+      <div className="relative">
+        <label htmlFor="DetailId" className="text-white">
+          Property Details
         </label>
-        {errors.statusId && (
-          <p className="text-sm text-red-500">{errors.statusId?.message}</p>
-        )}
+        <div className="peer w-full bg-transparent flex space-x-2 mt-2">
+          {filteredDetails.map((item) => (
+            <label key={item.id} className="cursor-pointer">
+              <input
+                {...register("DetailId", { required: "Detail is required" })}
+                type="radio"
+                value={item.id.toString()}
+                className="hidden peer"
+              />
+              <span className="bg-black text-white border p-2 rounded-md peer-checked:bg-green-500 peer-checked:text-white transition duration-300 ease-in-out">
+                {item.value}
+              </span>
+            </label>
+          ))}
+        </div>
+        {errors.DetailId && <p className="text-sm text-red-500">{errors.DetailId?.message}</p>}
       </div>
 
       {/* Price Input */}
       <div className="relative mb-5">
-        <input
-          {...register("price")}
-          defaultValue={getValues().price?.toString()}
-          id="price"
-          type="number"
-          placeholder="Price"
-          className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        />
-        <label
-          htmlFor="price"
-          className="absolute hidden cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left 
-                 peer-focus:block peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500"
-        >
-          Enter Property Price:
+        <label htmlFor="price" className="text-white">
+          City
         </label>
-        {errors.price && (
-          <p className="text-sm text-red-500">{errors.price?.message}</p>
-        )}
+        <input
+          {...register('location.city')}
+          defaultValue={getValues().location?.city}
+          id="city"
+          placeholder=" "
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
+            errors.location?.city ? 'border-red-500' : ''
+          }`}
+        />
+        {errors.location?.city && <p className="text-sm text-red-500">{errors.location?.city?.message}</p>}
       </div>
 
       {/* Buttons */}
@@ -205,10 +144,7 @@ const Basic = (props: Props) => {
         </button>
       </div>
     </div>
-
-
   );
-}
+};
 
-
-export default Basic
+export default Basic;

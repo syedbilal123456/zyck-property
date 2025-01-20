@@ -79,14 +79,17 @@ model PropertyLocation {
 }
 
 model PropertyType {
-  id       Int        @id @default(autoincrement())
-  value    String
-  Property Property[]
+  id                 Int                  @id @default(autoincrement())
+  value              String
+  Property           Property[]
+  Details PropertyTypeDetail[]
 }
 
 model PropertyTypeDetail {
-  id       Int        @id @default(autoincrement())
-  value    String
+  id             Int          @id @default(autoincrement())
+  value          String
+  propertyTypeId Int
+  propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
   Property Property[]
 }
 

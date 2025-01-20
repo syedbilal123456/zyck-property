@@ -20,11 +20,9 @@ import clsx from "clsx";
 import Loader from "@/components/ui/loader";
 
 
-type Details = {
-  id: number;
-  value: string;
-}[];
+
 interface Props {
+  details : PropertyTypeDetail[]
   types: PropertyType[];
   statuses: PropertyStatus[];
   property?: Prisma.PropertyGetPayload<{
@@ -71,18 +69,9 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const [images, setImages] = useState<File[]>([]);
   const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(props.property?.images ?? []);
   const [isLoading, setIsLoading] = useState(false); // Loading state
-  const [details, setDetails] = useState<{ id: number; value: string }[]>([]);
 
   // If details are fetched, make sure to update the state
-  useEffect(() => {
-    async function fetchDetails() {
-      const response = await fetch('/api/properties/details');
-      const data = await response.json();
-      setDetails(data);
-    }
-    fetchDetails();
-  }, []);
-  
+
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
     const imageUrls = await uploadImages(images);
@@ -127,7 +116,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
             statuses={props.statuses}
             types={props.types}
             next={() => setStep((prev) => prev + 1)} 
-            details={details}         />
+            details={props.details}         />
           <Location
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}

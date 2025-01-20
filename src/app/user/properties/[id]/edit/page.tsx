@@ -8,9 +8,10 @@ interface Props {
     }
 
 const EditPropertyPage = async ({ params }: Props) => {
-  const [propertyTypes, propertyStatuses, property] = await Promise.all([
+  const [propertyTypes, propertyStatuses,PropertyTypeDetail, property] = await Promise.all([
     prisma.propertyType.findMany(),
     prisma.propertyStatus.findMany(),
+    prisma.propertyTypeDetail.findMany(),
     prisma.property.findUnique({
       where: {
         id: +(await params).id,
@@ -31,6 +32,7 @@ const EditPropertyPage = async ({ params }: Props) => {
   if (!user || property.userId !== user.id) redirect("/unauthorized");
   return (
     <AddPropertyForm
+      details={PropertyTypeDetail}
       types={propertyTypes}
       statuses={propertyStatuses}
       property={property}
