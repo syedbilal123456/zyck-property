@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 const ITEMS_PER_PAGE = 6;
+
 const RentModule = () => {
   const [properties, setProperties] = useState<Cards[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

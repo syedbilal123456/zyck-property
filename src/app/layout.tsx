@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zyck property",
-  description: "Created by Zyck technology",
+  title: "Zyck Property – Your Trusted Real Estate Partner",
+  description: "Explore properties for sale, rent, and real estate services with Zyck Property. Simplifying real estate across Pakistan.",
 };
 
 export default function RootLayout({
@@ -28,16 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Any global <head> elements can go here */}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Navbar>
-        <SignInPanel/>
-          </Navbar>
-          
-            {children}
-          <ToastContainer />
-        <Footer/>
+        <Navbar>
+          <SignInPanel />
+        </Navbar>
+        {children}
+        <ToastContainer />
+        <Footer />
       </body>
     </html>
   );
