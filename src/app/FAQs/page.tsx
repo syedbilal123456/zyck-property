@@ -1,13 +1,6 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"; // ShadCN Accordion
 import { Card } from "@/components/ui/card"; // ShadCN Card for styling
 
-// SEO metadata for the FAQs page
-export const metadata = {
-  title: "Frequently Asked Questions – ZYCK Property",
-  description:
-    "Find solutions to common questions about buying, selling, and renting residences with ZYCK Property. Get help you need to navigate real property effortlessly.",
-};
-
 export default function FAQPage() {
   return (
     <div className="w-full px-4 sm:px-10 lg:px-16 mt-10">
