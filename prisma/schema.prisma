@@ -73,9 +73,6 @@ model PropertyLocation {
   city          City     @relation(fields: [cityId], references: [id])
   stateId       Int
   state         State    @relation(fields: [stateId], references: [id])
-  zip           String
-  region        String
-  landmark      String
   propertyId    Int      @unique
   property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
