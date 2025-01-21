@@ -89,7 +89,7 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6">
         <button
           onClick={prev}
-          className="w-full sm:w-36 bg-blue-500 text-white rounded-md py-2 px-4 flex items-center justify-center gap-2"
+          className="w-full sm:w-36 bg-green-500 text-white rounded-md py-2 px-4 flex items-center justify-center gap-2"
         >
           <ChevronLeftIcon className="w-5 h-5" />
           <span>Previous</span>

@@ -1,125 +1,130 @@
-import React from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid'
-import { useFormContext } from 'react-hook-form'
-import { AddPropertyInputType } from './AddPropertyForm'
+import React from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
+import { useFormContext } from 'react-hook-form';
+import { AddPropertyInputType } from './AddPropertyForm';
+import { Bed, Bath, Car, ChartArea } from 'lucide-react';
 
 interface Props {
-    next: () => void
-    prev: () => void
-    className?: string
+  next: () => void;
+  prev: () => void;
+  className?: string;
 }
 
 const Features = (props: Props) => {
-    const {
-        register,
-        formState: { errors },
-        trigger,
-        getValues,
-    } = useFormContext<AddPropertyInputType>();
+  const {
+    register,
+    formState: { errors },
+    trigger,
+    getValues,
+  } = useFormContext<AddPropertyInputType>();
 
-    const handleNext = async () => {
-        if (await trigger(['propertyFeature.bedrooms', 'propertyFeature.bathrooms', 'propertyFeature.parkingSpots', 'propertyFeature.area'])) {
-            props.next()
-        }
+  const handleNext = async () => {
+    if (
+      await trigger([
+        'propertyFeature.bedrooms',
+        'propertyFeature.bathrooms',
+        'propertyFeature.parkingSpots',
+        'propertyFeature.area',
+      ])
+    ) {
+      props.next();
     }
+  };
 
-    const handlePrev = () => props.prev()
-    const defaultValues = getValues();
+  const handlePrev = () => props.prev();
+  const defaultValues = getValues();
 
-    return (
-        <div className={`p-2 grid grid-cols-1 md:grid-cols-2 gap-3 ${props.className}`}>
-            <div className="input-group">
-                <input
-                    {...register('propertyFeature.bedrooms')}
-                    defaultValue={defaultValues?.propertyFeature?.bedrooms?.toString()}
-                    id="bedrooms"
-                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.bedrooms ? 'border-red-500' : ''}`}
-                />
-                <label htmlFor="bedrooms" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Bedrooms</label>
-                {errors?.propertyFeature?.bedrooms && <div className="text-red-500">{errors?.propertyFeature?.bedrooms?.message}</div>}
-            </div>
+  // Generate radio button options
+ // Generate radio button options
+const generateRadioButtons = (name: any, defaultValue?: number) => {
+    return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => {
 
-            <div className="input-group">
-                <input
-                    {...register('propertyFeature.bathrooms')}
-                    defaultValue={defaultValues?.propertyFeature?.bathrooms?.toString()}
-                    id="bathrooms"
-                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.bathrooms ? 'border-red-500' : ''}`}
-                />
-                <label htmlFor="bathrooms" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Bathrooms</label>
-                {errors?.propertyFeature?.bathrooms && <div className="text-red-500">{errors?.propertyFeature?.bathrooms?.message}</div>}
-            </div>
+        console.log(value,typeof value,"value",defaultValue,typeof defaultValue);
+        
+       return <label key={value} className="relative">
+        <input
+          {...register(name, { valueAsNumber: true })}
+          type="radio"
+          value={value}
+          defaultChecked={defaultValue ? defaultValue.toString() === value.toString() : value === 1}
+          className="hidden peer" // Hide the radio button but still keep it accessible
+        />
+        <span
+          className="px-5 py-3 text-black rounded-3xl bg-white border border-gray-300 peer-checked:bg-green-400 peer-checked:text-white transition"
+        >
+          {value}
+        </span>
+      </label>
+    });
+  };
+  
 
-            <div className="input-group">
-                <input
-                    {...register('propertyFeature.parkingSpots')}
-                    defaultValue={defaultValues?.propertyFeature?.parkingSpots?.toString()}
-                    id="parkingSpots"
-                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.parkingSpots ? 'border-red-500' : ''}`}
-                />
-                <label htmlFor="parkingSpots" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Parking Slots</label>
-                {errors?.propertyFeature?.parkingSpots && <div className="text-red-500">{errors?.propertyFeature?.parkingSpots?.message}</div>}
-            </div>
+  return (
+    <div className={`p-2 flex flex-col gap-3 ${props.className}`}>
+      {/* Bedrooms */}
+      <div className="input-group">
+        <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6">
+          <Bed className="w-6 h-6 text-green-500" />
+          Bedrooms
+        </label>
+        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.bedrooms', defaultValues?.propertyFeature?.bedrooms)}</div>
+        {errors.propertyFeature?.bedrooms &&( <p className="text-red-500">{errors.propertyFeature?.bedrooms?.message}</p>)}
+      </div>
 
-            <div className="input-group">
-                <input
-                    {...register('propertyFeature.area')}
-                    defaultValue={defaultValues?.propertyFeature?.area?.toString()}
-                    id="area"
-                    className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none hover:border-slate-300 shadow-sm focus:shadow focus:border-green-600 ${errors?.propertyFeature?.area ? 'border-red-500' : ''}`}
-                />
-                <label htmlFor="area" className="absolute cursor-text px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-8 peer-focus:left-2.5 peer-focus:text-xl peer-focus:bg-transparent peer-focus:text-green-400 peer-focus:scale-500">Area</label>
-                {errors?.propertyFeature?.area && <div className="text-red-500">{errors?.propertyFeature?.area?.message}</div>}
-            </div>
+      {/* Bathrooms */}
+      <div className="input-group">
+        <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6 mt-4">
+          <Bath className="w-6 h-6 text-green-500" />
+          Bathrooms
+        </label>
+        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.bathrooms', defaultValues?.propertyFeature?.bathrooms)}</div>
+        {errors.propertyFeature?.bathrooms && <p className="text-red-500">{errors.propertyFeature?.bathrooms?.message}</p>}
+      </div>
 
-            <div className="mt-3 flex items-center justify-between">
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        {...register('propertyFeature.hasSwimmingPool')}
-                        defaultChecked={defaultValues?.propertyFeature?.hasSwimmingPool}
-                        id="hasSwimmingPool"
-                    />
-                    <label htmlFor="hasSwimmingPool" className="ml-2">Has Swimming Pool</label>
-                </div>
+      {/* Parking Spots */}
+      <div className="input-group">
+        <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6 mt-4">
+          <Car className="w-6 h-6 text-green-500" />
+          Parking Spots
+        </label>
+        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.parkingSpots', defaultValues?.propertyFeature?.parkingSpots)}</div>
+        {errors.propertyFeature?.parkingSpots && <p className="text-red-500">{errors.propertyFeature?.parkingSpots?.message}</p>}
+      </div>
 
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        {...register('propertyFeature.hasGardenYard')}
-                        defaultChecked={defaultValues?.propertyFeature?.hasGardenYard}
-                        id="hasGardenYard"
-                    />
-                    <label htmlFor="hasGardenYard" className="ml-2">Has Garden/Yard</label>
-                </div>
+      {/* Area */}
+      <div className="input-group">
+        <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6 mt-4">
+          <ChartArea className="w-6 h-6 text-green-500" />
+          Area
+        </label>
+        <input
+            {...register("propertyFeature.area")}
+            id="contact-name"
+            defaultValue={getValues("propertyFeature.area")}
+            placeholder="Aera"
+            className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
+              errors.contact?.name ? "border-red-500" : ""
+            }`}
+          />
+        {errors.propertyFeature?.area && <p className="text-red-500">{errors.propertyFeature?.area?.message}</p>}
+      </div>
 
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        {...register('propertyFeature.hasBalcony')}
-                        defaultChecked={defaultValues?.propertyFeature?.hasBalcony}
-                        id="hasBalcony"
-                    />
-                    <label htmlFor="hasBalcony" className="ml-2">Has Balcony/Patio</label>
-                </div>
-            </div>
+      <div className="mt-3 flex justify-center col-span-2 gap-3">
+        <button
+          onClick={handlePrev}
+          className="bg-green-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
+        >
+          <ChevronLeftIcon className="w-6" /> Previous
+        </button>
+        <button
+          onClick={handleNext}
+          className="bg-green-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
+        >
+          <ChevronRightIcon className="w-6" /> Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
-            <div className="mt-3 flex justify-center col-span-2 gap-3">
-                <button
-                    onClick={handlePrev}
-                    className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
-                >
-                    <ChevronLeftIcon className="w-6" /> Previous
-                </button>
-                <button
-                    onClick={handleNext}
-                    className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
-                >
-                    <ChevronRightIcon className="w-6" /> Next
-                </button>
-            </div>
-        </div>
-    )
-}
-
-export default Features
+export default Features;
