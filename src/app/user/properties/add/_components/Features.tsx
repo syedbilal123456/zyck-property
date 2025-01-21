@@ -3,7 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid'
 import { useFormContext } from 'react-hook-form'
 import { AddPropertyInputType } from './AddPropertyForm'
 
-interface Props {
+interface Props { 
     next: () => void
     prev: () => void
     className?: string
