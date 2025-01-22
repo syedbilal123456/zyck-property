@@ -6,19 +6,17 @@ import {FaFacebook, FaGoogle} from "react-icons/fa"; // Make sure to install rea
 
 const AuthPage: React.FC = () => {
     return (
-        <div className={styles.container}>
-            <div className={styles.card}>
-                <div className={styles.logo}>
-                    {/* Update the logo to use Google's logo or your own brand logo */}
-                    <img
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                        src="../favicon.ico"
-                        alt="Logo"
-                    />
-                </div>
-                <h1 className={styles.title}>Custom Sign In</h1>
+        <>
+        <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: 'url(/bg-login.jpeg)' }}
+    >
+      <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
+        <h1 className="text-2xl font-bold text-center mb-4 text-green-700">Log In</h1>
+        <p className="text-sm text-center mb-6 text-gray-500">Login here using Email and password</p>
+
+        <div className="space-y-4">
+          <EmailInput />
                 <div className={styles.authMethods}>
                     <LoginLink
                         className={styles.googleButton}
@@ -38,17 +36,18 @@ const AuthPage: React.FC = () => {
                         <FaFacebook className={styles.googleIcon} />
                         Sign in with Facebook
                     </LoginLink>
-                    {/* Use the client component for email input */}
-                    <EmailInput />
                 </div>
                 <div className={styles.footer}>
-                    <span>
-                        Don&apos;t have an account?{" "}
+                    <span className="flex flex-col justify-center items-center">
+                        <p className="text-black">Don&apos;t have an account?</p>
                         <RegisterLink className="btn btn-dark">Create account</RegisterLink>
                     </span>
                 </div>
             </div>
         </div>
+      </div>
+        
+        </>
     );
 };
 
