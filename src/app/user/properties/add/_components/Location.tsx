@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useFormContext } from 'react-hook-form';
 import { AddPropertyInputType } from './AddPropertyForm';
 import { City, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
