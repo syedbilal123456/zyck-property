@@ -57,7 +57,7 @@ const Basic = (props: Props) => {
   };
 
   return (
-    <div className={clsx("p-4 gap-3 flex justify-center flex-col space-y-10", props.className)}>
+    <div className={clsx("p-4 gap-3 flex justify-center flex-col space-y-10 bg-neutral-900 border border-green-200 ", props.className)}>
       {/* Type Input */}
 
       <div className="relative mb-5 border-b border-green-400 ">

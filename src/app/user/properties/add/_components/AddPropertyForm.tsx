@@ -54,10 +54,10 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     resolver: zodResolver(AddPropertyFormSchema),
     defaultValues: {
       contact: props.property?.contact ?? undefined,
-      description: props.property?.description ?? undefined,
       location: props.property?.location ?? undefined,
-      name: props.property?.name ?? undefined,
-      price: props.property?.price ?? undefined,
+      name: props?.property?.name ?? undefined,
+      price: props?.property?.price ?? undefined,
+      description: props?.property?.description ?? undefined,
       propertyFeature: props.property?.feature ?? undefined,
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
@@ -73,6 +73,8 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const [isLoading, setIsLoading] = useState(false); // Loading state
 
   // If details are fetched, make sure to update the state
+  console.log('Default Values:', methods.getValues());
+
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
@@ -121,11 +123,18 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
             types={props.types}
             next={() => setStep((prev) => prev + 1)} 
             details={props.details}         />
+         
           <Location
+           cities={props.city}
+           states={props.state}
+           statuses={props.statuses}
+           types={props.types}
+           details={props.details}   
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}
             className={clsx({ hidden: step !== 1 })}
           />
+       
           <Features
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}

@@ -2,6 +2,8 @@ import React from "react";
 import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { useFormContext } from "react-hook-form";
 import { AddPropertyInputType } from "./AddPropertyForm";
+import { Mail, Phone, User } from "lucide-react";
+import { MdEmail } from "react-icons/md";
 
 interface Props {
   prev: () => void;
@@ -20,6 +22,9 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Contact Name */}
         <div className="relative">
+        <span className="text-green-300 flex items-center  mb-2 text-sm">
+      <User className="mr-2"  />
+           Contact Name</span>
           <input
             {...register("contact.name")}
             id="contact-name"
@@ -29,12 +34,7 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
               errors.contact?.name ? "border-red-500" : ""
             }`}
           />
-          <label
-            htmlFor="contact-name"
-            className="absolute hidden cursor-text px-1 left-3 top-3 text-slate-400 text-sm transition-all transform origin-left peer-focus:block peer-focus:-top-7 peer-focus:text-xs peer-focus:bg-transparent peer-focus:text-green-400"
-          >
-            Contact Name
-          </label>
+        
           {errors.contact?.name && (
             <div className="text-red-500 text-xs mt-1">{errors.contact.name.message}</div>
           )}
@@ -42,6 +42,9 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
 
         {/* Phone */}
         <div className="relative">
+        <span className="text-green-300 flex items-center  mb-2 text-sm">
+      <Phone className="mr-2"  />
+           Phone</span>
           <input
             {...register("contact.phone")}
             id="contact-phone"
@@ -51,12 +54,7 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
               errors.contact?.phone ? "border-red-500" : ""
             }`}
           />
-          <label
-            htmlFor="contact-phone"
-            className="absolute hidden cursor-text px-1 left-3 top-3 text-slate-400 text-sm transition-all transform origin-left peer-focus:block peer-focus:-top-7 peer-focus:text-xs peer-focus:bg-transparent peer-focus:text-green-400"
-          >
-            Phone
-          </label>
+          
           {errors.contact?.phone && (
             <div className="text-red-500 text-xs mt-1">{errors.contact.phone.message}</div>
           )}
@@ -64,21 +62,20 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
 
         {/* Email */}
         <div className="relative col-span-full sm:col-span-2">
+        <span className="text-green-300 flex items-center  mb-2 text-sm">
+        <Mail className="mr-2" />
+           Email</span>
           <input
             {...register("contact.email")}
             id="contact-email"
+            type="email"
             defaultValue={getValues("contact.email")}
             placeholder="Email"
             className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
               errors.contact?.email ? "border-red-500" : ""
             }`}
           />
-          <label
-            htmlFor="contact-email"
-            className="absolute hidden cursor-text px-1 left-3 top-3 text-slate-400 text-sm transition-all transform origin-left peer-focus:block peer-focus:-top-7 peer-focus:text-xs peer-focus:bg-transparent peer-focus:text-green-400"
-          >
-            Email
-          </label>
+          
           {errors.contact?.email && (
             <div className="text-red-500 text-xs mt-1">{errors.contact.email.message}</div>
           )}

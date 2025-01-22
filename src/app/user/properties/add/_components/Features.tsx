@@ -25,6 +25,9 @@ const Features = (props: Props) => {
         'propertyFeature.bathrooms',
         'propertyFeature.parkingSpots',
         'propertyFeature.area',
+       'propertyFeature.hasSwimmingPool',
+       'propertyFeature.hasGardenYard',
+       'propertyFeature.hasBalcony'
       ])
     ) {
       props.next();
@@ -39,14 +42,13 @@ const Features = (props: Props) => {
 const generateRadioButtons = (name: any, defaultValue?: number) => {
     return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => {
 
-        console.log(value,typeof value,"value",defaultValue,typeof defaultValue);
         
        return <label key={value} className="relative">
         <input
           {...register(name, { valueAsNumber: true })}
           type="radio"
           value={value}
-          defaultChecked={defaultValue ? defaultValue.toString() === value.toString() : value === 1}
+          defaultChecked={defaultValue ? defaultValue === value : value === 1}
           className="hidden peer" // Hide the radio button but still keep it accessible
         />
         <span
@@ -60,8 +62,73 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
   
 
   return (
-    <div className={`p-2 flex flex-col gap-3 ${props.className}`}>
+    <div className={`p-6 border border-green-200 flex flex-col gap-3 bg-neutral-900 border-green-200  ${props.className}`}>
       {/* Bedrooms */}
+         {/* Title Code */}
+         <div className="input-group">
+        <label
+          htmlFor="name"
+          className="text-white"
+        >
+          Title
+        </label>
+        <input
+          {...register('name')}
+          defaultValue={getValues().name}
+          id="name"
+          placeholder="Enter Your Title"
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.name ? 'border-red-500' : ''
+            }`}
+        />
+
+        {errors.name && (
+          <p className="text-sm text-red-500">{errors.name?.message}</p>
+        )}
+      </div>
+      <div className="input-group">
+        <label
+          htmlFor="name"
+          className="text-white"
+        >
+          Price in RS
+        </label>
+        <input
+          {...register('price')}
+          defaultValue={getValues().price}
+          id="price"
+          type='number'
+          placeholder="Enter Your Title"
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.price ? 'border-red-500' : ''
+            }`}
+        />
+
+        {errors.price && (
+          <p className="text-sm text-red-500">{errors.price?.message}</p>
+        )}
+      </div>
+
+      {/* deciption Code */}
+      <div className="input-group">
+        <label
+          htmlFor="zip"
+          className="text-white"
+        >
+          Description
+        </label>
+        <input
+          {...register('description')}
+          defaultValue={getValues().description}
+          id="zip"
+          placeholder="Enter Your Descripton"
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.description ? 'border-red-500' : ''
+            }`}
+        />
+
+        {errors.description && (
+          <p className="text-sm text-red-500">{errors.description?.message}</p>
+        )}
+      </div>
+
       <div className="input-group">
         <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6">
           <Bed className="w-6 h-6 text-green-500" />
@@ -70,6 +137,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
         <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.bedrooms', defaultValues?.propertyFeature?.bedrooms)}</div>
         {errors.propertyFeature?.bedrooms &&( <p className="text-red-500">{errors.propertyFeature?.bedrooms?.message}</p>)}
       </div>
+      
 
       {/* Bathrooms */}
       <div className="input-group">
@@ -95,19 +163,52 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
       <div className="input-group">
         <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6 mt-4">
           <ChartArea className="w-6 h-6 text-green-500" />
-          Area
+          Area In SQ/F
         </label>
         <input
             {...register("propertyFeature.area")}
             id="contact-name"
             defaultValue={getValues("propertyFeature.area")}
             placeholder="Aera"
+            type='number'
             className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
               errors.contact?.name ? "border-red-500" : ""
             }`}
           />
         {errors.propertyFeature?.area && <p className="text-red-500">{errors.propertyFeature?.area?.message}</p>}
       </div>
+      <div className="mt-3 flex items-center justify-between">
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        {...register('propertyFeature.hasSwimmingPool')}
+                        defaultChecked={defaultValues?.propertyFeature?.hasSwimmingPool}
+                        id="hasSwimmingPool"
+                    />
+                    <label htmlFor="hasSwimmingPool" className="ml-2">Has Swimming Pool</label>
+                </div>
+
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        {...register('propertyFeature.hasGardenYard')}
+                        defaultChecked={defaultValues?.propertyFeature?.hasGardenYard}
+                        id="hasGardenYard"
+                    />
+                    <label htmlFor="hasGardenYard" className="ml-2">Has Garden/Yard</label>
+                </div>
+
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        {...register('propertyFeature.hasBalcony')}
+                        defaultChecked={defaultValues?.propertyFeature?.hasBalcony}
+                        id="hasBalcony"
+                    />
+                    <label htmlFor="hasBalcony" className="ml-2">Has Balcony/Patio</label>
+                </div>
+            </div>
+
 
       <div className="mt-3 flex justify-center col-span-2 gap-3">
         <button
