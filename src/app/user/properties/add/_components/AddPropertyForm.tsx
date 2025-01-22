@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
 import { City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
