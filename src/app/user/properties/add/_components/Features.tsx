@@ -45,7 +45,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
         
        return <label key={value} className="relative">
         <input
-          {...register(name, { valueAsNumber: true })}
+          {...register(name)}
           type="radio"
           value={value}
           defaultChecked={defaultValue ? defaultValue === value : value === 1}
@@ -62,7 +62,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
   
 
   return (
-    <div className={`p-6 border border-green-200 flex flex-col gap-3 bg-neutral-900 border-green-200  ${props.className}`}>
+    <div className={`p-6 border  flex flex-col gap-3 bg-neutral-900 border-green-200  ${props.className}`}>
       {/* Bedrooms */}
          {/* Title Code */}
          <div className="input-group">
@@ -94,7 +94,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
         </label>
         <input
           {...register('price')}
-          defaultValue={getValues().price}
+          defaultValue={Number(getValues().price)}
           id="price"
           type='number'
           placeholder="Enter Your Title"
@@ -134,7 +134,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           <Bed className="w-6 h-6 text-green-500" />
           Bedrooms
         </label>
-        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.bedrooms', defaultValues?.propertyFeature?.bedrooms)}</div>
+        <div className="flex flex-wrap items-center justify-center  gap-4 max-sm:gap-6">{generateRadioButtons('propertyFeature.bedrooms', defaultValues?.propertyFeature?.bedrooms)}</div>
         {errors.propertyFeature?.bedrooms &&( <p className="text-red-500">{errors.propertyFeature?.bedrooms?.message}</p>)}
       </div>
       
@@ -145,7 +145,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           <Bath className="w-6 h-6 text-green-500" />
           Bathrooms
         </label>
-        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.bathrooms', defaultValues?.propertyFeature?.bathrooms)}</div>
+        <div className="flex flex-wrap items-center justify-center  gap-4 max-sm:gap-6">{generateRadioButtons('propertyFeature.bathrooms', defaultValues?.propertyFeature?.bathrooms)}</div>
         {errors.propertyFeature?.bathrooms && <p className="text-red-500">{errors.propertyFeature?.bathrooms?.message}</p>}
       </div>
 
@@ -155,7 +155,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           <Car className="w-6 h-6 text-green-500" />
           Parking Spots
         </label>
-        <div className="flex flex-wrap gap-3">{generateRadioButtons('propertyFeature.parkingSpots', defaultValues?.propertyFeature?.parkingSpots)}</div>
+        <div className="flex flex-wrap items-center justify-center  gap-4 max-sm:gap-6">{generateRadioButtons('propertyFeature.parkingSpots', defaultValues?.propertyFeature?.parkingSpots)}</div>
         {errors.propertyFeature?.parkingSpots && <p className="text-red-500">{errors.propertyFeature?.parkingSpots?.message}</p>}
       </div>
 

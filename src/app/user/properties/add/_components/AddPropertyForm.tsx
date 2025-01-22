@@ -22,7 +22,7 @@ import Loader from "@/components/ui/loader";
 
 
 interface Props {
-  details : PropertyTypeDetail[]
+  details: PropertyTypeDetail[]
   city: City[];
   state: State[]
   types: PropertyType[];
@@ -53,12 +53,25 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const methods = useForm<AddPropertyInputType>({
     resolver: zodResolver(AddPropertyFormSchema),
     defaultValues: {
-      contact: props.property?.contact ?? undefined,
+      contact: props.property?.contact ?? {
+        name:"",
+        phone:"",
+        email:""
+      },
       location: props.property?.location ?? undefined,
-      name: props?.property?.name ?? undefined,
-      price: props?.property?.price ?? undefined,
-      description: props?.property?.description ?? undefined,
-      propertyFeature: props.property?.feature ?? undefined,
+      name: props?.property?.name ?? "",
+      price: props?.property?.price ?? 0,
+      description: props?.property?.description ?? "",
+      propertyFeature: props.property?.feature ?? {
+        hasBalcony: false,
+        hasSwimmingPool: false,
+        hasGardenYard: false,
+        bedrooms: 1,
+        bathrooms: 1,
+        parkingSpots: 1,
+        area: 1,
+
+      },
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
       DetailId: props.property?.DetailId ?? undefined,
@@ -106,7 +119,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       <Stepper items={steps} activeItem={step} setActiveItem={setStep} />
       <FormProvider {...methods}>
         <form
-          className="mt-3 p-6 bg-transparent shadow-md rounded-lg space-y-8"
+          className="mt-3 p-6 max-md:p-2 bg-transparent shadow-md rounded-lg space-y-8"
           onSubmit={methods.handleSubmit(onsubmit, (error) => console.log({ error }))}
         >
           {isLoading && (
@@ -121,20 +134,20 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
             className={clsx({ hidden: step !== 0 })}
             statuses={props.statuses}
             types={props.types}
-            next={() => setStep((prev) => prev + 1)} 
-            details={props.details}         />
-         
+            next={() => setStep((prev) => prev + 1)}
+            details={props.details} />
+
           <Location
-           cities={props.city}
-           states={props.state}
-           statuses={props.statuses}
-           types={props.types}
-           details={props.details}   
+            cities={props.city}
+            states={props.state}
+            statuses={props.statuses}
+            types={props.types}
+            details={props.details}
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}
             className={clsx({ hidden: step !== 1 })}
           />
-       
+
           <Features
             next={() => setStep((prev) => prev + 1)}
             prev={() => setStep((prev) => prev - 1)}

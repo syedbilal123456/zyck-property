@@ -162,7 +162,7 @@ const Basic = (props: Props) => {
             return (
               <label
                 key={item.id}
-                className={`flex border flex-col items-center justify-center w-28   h-20  transition duration-300 cursor-pointer ${isSelected
+                className={`flex border flex-col items-center justify-center w-28 max-sm:h-16   h-20  transition duration-300 cursor-pointer ${isSelected
                   ? "bg-green-100 border-green-400 text-green-600"
                   : "bg-white border-slate-200 hover:bg-slate-50"
                   }`}
@@ -258,18 +258,19 @@ const Basic = (props: Props) => {
               return (
                 <label
                   key={item.id}
-                  className={`flex items-center justify-center px-7 py-3 border rounded-md cursor-pointer transition duration-300 ${isSelected
+                  className={`flex items-center justify-center px-7 py-3 max-sm:px-4 max-sm:py-2 border rounded-md border-green-300 cursor-pointer transition duration-300 ${isSelected
                     ? "bg-green-100 border-green-400 text-green-600 "
                     : "bg-white border-slate-200 hover:bg-slate-50"
                     }`}
                 >
                   <input
+                  
                     type="radio"
                     value={item.id}
                     {...register("DetailId")}
-                    className="hidden"
+                    className="hidden border border-green-200"
                   />
-                  <span className="text-sm text-black ">{item.value}</span>
+                  <span className="text-sm text-black   ">{item.value}</span>
                 </label>
               );
             })}
