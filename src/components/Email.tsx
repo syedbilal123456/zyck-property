@@ -11,21 +11,21 @@ export default function EmailInput() {
     };
 
     return (
-        <div className={styles.inputWrapper}>
+        <div className='flex gap-3'>
             <input
                 type="email"
                 placeholder="Email"
                 required
                 value={email}
                 onChange={handleEmailChange}
-                className={styles.input}
+                className='w-full text-black pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-300'
             />
             <LoginLink
                 authUrlParams={{
                     connection_id: "conn_01941e216db373f68fc43cefc6347bbe",
                     login_hint: email
                 }}
-                className={styles.button}
+                className='w-[18%] p-3 bg-green-500 hover:bg-green-600 rounded-md'
             >
                 NEXT
             </LoginLink>
