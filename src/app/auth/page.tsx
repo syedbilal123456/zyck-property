@@ -39,7 +39,7 @@ const AuthPage: React.FC = () => {
                 </div>
                 <div className={styles.footer}>
                     <span className="flex flex-col justify-center items-center">
-                        <p className="text-black">Don&apos;t have an account?</p>
+                        <p className="text-black">Don&apos;t have an account? </p>
                         <RegisterLink className="btn btn-dark">Create account</RegisterLink>
                     </span>
                 </div>
