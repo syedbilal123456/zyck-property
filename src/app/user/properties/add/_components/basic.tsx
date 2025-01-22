@@ -29,6 +29,11 @@ const Basic = (props: Props) => {
 
   // Watch the selected typeId
   const selectedTypeId = watch("typeId");
+  const selectedStatus = watch("statusId");
+  const selectedDetailId = watch('DetailId');
+
+
+
   const typeId = Number(selectedTypeId);
 
   // Filter details based on the selected typeId
@@ -38,6 +43,7 @@ const Basic = (props: Props) => {
 
   const selectedStateId = watch("location.state");
   const stateType = Number(selectedStateId);
+  console.log(props, "all porops");
 
   // Update cities whenever the state changes
   useEffect(() => {
@@ -47,130 +53,238 @@ const Basic = (props: Props) => {
   }, [stateType, props.cities]);
 
   const handleNext = async () => {
-    if (await trigger(["typeId", "statusId", "DetailId", "location.city", "location.state"])) props.next();
+    if (await trigger(["typeId", "statusId", "DetailId"])) props.next();
   };
 
   return (
-    <div className={clsx("p-4 gap-3 flex justify-center flex-col space-y-10", props.className)}>
+    <div className={clsx("p-4 gap-3 flex justify-center flex-col space-y-10 bg-neutral-900 border border-green-200 ", props.className)}>
       {/* Type Input */}
-      <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-        <label htmlFor="statusId" className="text-white block">
-          Property Status
-        </label>
-        <div className="flex items-center gap-2 mt-5 flex-wrap">
-          {props.statuses?.map((item) => (
-            <label key={item.id} className="flex items-center cursor-pointer">
-              <input
-                {...register("statusId", { required: "Status is required" })}
-                type="radio"
-                value={item.id.toString()}
-                className="hidden peer"
-              />
-              <span className="bg-black font-semibold text-white border rounded-lg p-3 peer-checked:bg-green-500 peer-checked:text-white">
-                {item.value}
-              </span>
-            </label>
-          ))}
+
+      <div className="relative mb-5 border-b border-green-400 ">
+        <span className="text-green-300 flex items-center pl-2 mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 mr-2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Property Type</span>
+        {/* */}
+        <div className="flex  m-5  rounded-xl mb-5 text-black">
+          {props.statuses?.map((item) => {
+            const isSelected = selectedStatus?.toString() === item.id.toString();
+
+            return (
+              <label
+                key={item.id}
+                className={`flex flex-col items-center  justify-center w-20 h-20 border transition duration-300 cursor-pointer ${isSelected
+                  ? "bg-green-100 border-green-400 text-green-600"
+                  : "bg-white border-slate-200 hover:bg-slate-50"
+                  }`}
+              >
+                <input
+                  type="radio"
+
+                  value={item.id}
+                  {...register("statusId")}
+                  className="hidden "
+                />
+                {/* SVG Icons */}
+                {item.value === "Sell" && (
+                  <span className="flex items-center justify-center flex-col text-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                      />
+                    </svg>
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+                {item.value === "Rent" && (
+                  <span className="flex items-center justify-center flex-col text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64" />
+                    </svg>
+
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+
+
+                {/* Button Text */}
+              </label>
+            );
+          })}
+          {errors.typeId && (
+            <p className="text-sm text-red-500">{errors.typeId?.message}</p>
+          )}
         </div>
-        {errors.statusId && <p className="text-sm text-red-500">{errors.statusId?.message}</p>}
+
+
+
       </div>
 
       {/* Property Type Input */}
-      <div className="relative mb-5 w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-        <label htmlFor="typeId" className="cursor-text">
-          Property Type
-        </label>
-        <div className="flex mt-2 gap-1 bg-transparent text-black flex-wrap">
-          {props.types?.map((item) => (
-            <label key={item.id} className="flex items-center cursor-pointer">
-              <input
-                {...register("typeId", { required: "Type is required" })}
-                type="radio"
-                value={item.id}
-                className="hidden peer"
-              />
-              <span className="bg-black text-white border-b font-semibold rounded-lg p-3 peer-checked:bg-green-500 peer-checked:text-white">
-                {item.value}
-              </span>
-            </label>
-          ))}
+      <div className="relative mb-5 w-full  max-sm:w-full border-b border-green-400">
+        <span className="text-green-300 text-base flex items-center pl-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 mr-2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
+            />
+          </svg>
+          Property Details
+        </span>
+
+        {/* */}
+        <div className="flex flex-wrap    w-full   m-5 max-md:m-1 gap-0 mb-2 text-black">
+          {props.types?.map((item) => {
+            const isSelected = selectedTypeId?.toString() === item.id.toString();
+
+            return (
+              <label
+                key={item.id}
+                className={`flex border flex-col items-center justify-center w-28 max-sm:h-16   h-20  transition duration-300 cursor-pointer ${isSelected
+                  ? "bg-green-100 border-green-400 text-green-600"
+                  : "bg-white border-slate-200 hover:bg-slate-50"
+                  }`}
+              >
+                <input
+                  type="radio"
+
+                  value={item.id}
+                  {...register("typeId")}
+                  className="hidden "
+                />
+                {/* SVG Icons */}
+                {item.value === "Home" && (
+                  <span className="flex  items-center justify-center flex-col text-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                      />
+                    </svg>
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+                {item.value === "Plot" && (
+                  <span className="flex items-center justify-center flex-col text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64" />
+                    </svg>
+
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+                {item.value === "Commercial" && (
+                  <span className="flex items-center justify-center flex-col text-sm mx-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
+                    </svg>
+
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+                {item.value === "Co-Work Space" && (
+                  <span className="flex items-center justify-center text-nowrap  flex-col text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
+                    </svg>
+
+                    {
+                      item.value
+                    }
+                  </span>
+                )}
+
+                {/* Button Text */}
+              </label>
+            );
+          })}
+          {errors.typeId && (
+            <p className="text-sm text-red-500">{errors.typeId?.message}</p>
+          )}
         </div>
-        {errors.typeId && <p className="text-sm text-red-500">{errors.typeId?.message}</p>}
+
+
       </div>
 
       {/* Property Details Input */}
-      <div className="relative w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-        <label htmlFor="DetailId" className="text-white">
-          Property Details
-        </label>
-        <div className="peer w-full bg-transparent flex space-x-2 mt-2 flex-wrap">
-          {filteredDetails.map((item) => (
-            <label key={item.id} className="cursor-pointer">
-              <input
-                {...register("DetailId", { required: "Detail is required" })}
-                type="radio"
-                value={item.id.toString()}
-                className="hidden peer"
-              />
-              <span className="bg-black text-white border p-2 rounded-md peer-checked:bg-green-500 peer-checked:text-white transition duration-300 ease-in-out">
-                {item.value}
-              </span>
-            </label>
-          ))}
+
+
+      <div className="relative mb-5   w-full">
+
+        <div className="flex flex-wrap w-full gap-4">
+          {(filteredDetails || [])
+            // Show only the first item if selectedType is 1
+            .map((item) => {
+              console.log("Selected Type:", selectedTypeId);
+
+              const isSelected = selectedDetailId?.toString() === item.id.toString();
+
+              return (
+                <label
+                  key={item.id}
+                  className={`flex items-center justify-center px-7 py-3 max-sm:px-4 max-sm:py-2 border rounded-md border-green-300 cursor-pointer transition duration-300 ${isSelected
+                    ? "bg-green-100 border-green-400 text-green-600 "
+                    : "bg-white border-slate-200 hover:bg-slate-50"
+                    }`}
+                >
+                  <input
+                  
+                    type="radio"
+                    value={item.id}
+                    {...register("DetailId")}
+                    className="hidden border border-green-200"
+                  />
+                  <span className="text-sm text-black   ">{item.value}</span>
+                </label>
+              );
+            })}
         </div>
-        {errors.DetailId && <p className="text-sm text-red-500">{errors.DetailId?.message}</p>}
+
+
+
+
+        {errors.DetailId && (
+          <p className="text-sm text-red-500">{errors.DetailId?.message}</p>
+        )}
       </div>
 
-      {/* State Selection */}
-      <div className="relative mb-5 w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-        <label htmlFor="state" className="text-white">
-          State
-        </label>
-        <select
-          {...register("location.state")}
-          defaultValue={getValues().location?.state}
-          id="state"
-          className={`peer w-full bg-transparent text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
-            errors.location?.state ? "border-red-500" : ""
-          }`}
-        >
-          <option value="" disabled>
-            Select a State
-          </option>
-          {props.states.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.value}
-            </option>
-          ))}
-        </select>
-        {errors.location?.state && <p className="text-sm text-red-500">{errors.location?.state?.message}</p>}
-      </div>
 
-      {/* City Selection */}
-      <div className="relative mb-5 w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-        <label htmlFor="city" className="text-white">
-          City
-        </label>
-        <select
-          {...register("location.city")}
-          defaultValue={getValues().location?.city}
-          id="city"
-          className={`peer w-full bg-transparent text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
-            errors.location?.city ? "border-red-500" : ""
-          }`}
-          style={{ position: "relative", zIndex: 10 }}
-        >
-          <option value="" disabled>
-            Select a City
-          </option>
-          {filteredCities.map((city) => (
-            <option key={city.id} value={city.id}>
-              {city.value}
-            </option>
-          ))}
-        </select>
-        {errors.location?.city && <p className="text-sm text-red-500">{errors.location?.city?.message}</p>}
-      </div>
 
       {/* Buttons */}
       <div className="flex justify-center col-span-3 gap-3">
