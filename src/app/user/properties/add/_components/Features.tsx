@@ -1,9 +1,9 @@
 import React from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import { useFormContext } from 'react-hook-form'
 import { AddPropertyInputType } from './AddPropertyForm'
 
-interface Props {
+interface Props { 
     next: () => void
     prev: () => void
     className?: string

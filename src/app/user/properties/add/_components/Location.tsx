@@ -1,6 +1,6 @@
 
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { AddPropertyInputType } from './AddPropertyForm';

@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/solid";
 import { useFormContext } from "react-hook-form";
 import { AddPropertyInputType } from "./AddPropertyForm";
 

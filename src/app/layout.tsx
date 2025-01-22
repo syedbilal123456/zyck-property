@@ -5,6 +5,7 @@ import Footer from "@/components/views/Footer";
 import Navbar from "@/components/views/Navbar";
 import SignInPanel from "@/components/ui/SignInPanel";
 import { ToastContainer } from "react-toastify";
+import {Providers} from "./provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +38,10 @@ export default function RootLayout({
         <Navbar>
           <SignInPanel />
         </Navbar>
-        {children}
+
+        <Providers>
+          {children}
+        </Providers>
         <ToastContainer />
         <Footer />
       </body>
