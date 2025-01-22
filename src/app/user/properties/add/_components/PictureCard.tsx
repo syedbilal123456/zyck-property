@@ -1,4 +1,4 @@
-import { TrashIcon } from "@heroicons/react/16/solid";
+import { TrashIcon } from "@heroicons/react/solid";
 import React from "react";
 import Image from "next/image";
 
