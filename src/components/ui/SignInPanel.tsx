@@ -1,6 +1,4 @@
 import {
-    LoginLink,
-    RegisterLink,
     getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import React from "react";
@@ -29,13 +27,21 @@ const SignInPanel = async () => {
 
     return (
         <div className="flex gap-3 items-center">
-            <Link href="/user/properties/add">
-                <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
-                    Add Property
-                </button>
-            </Link>
+            {!await isAuthenticated() ? (
+                <Link href="/auth">
+                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                        Add Property
+                    </button>
+                </Link>
+            ) : (
+                <Link href="/user/properties/add">
+                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                        Add Property
+                    </button>
+                </Link>
+            )}
             <Button className="lg:block hidden">
-                <RegisterLink>Sign Up</RegisterLink>
+                <Link href={'/auth'}>Sign Up</Link>
             </Button>
         </div>
     );

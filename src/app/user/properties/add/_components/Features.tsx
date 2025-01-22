@@ -4,12 +4,12 @@ import { useFormContext } from 'react-hook-form';
 import { AddPropertyInputType } from './AddPropertyForm';
 import { Bed, Bath, Car, ChartArea } from 'lucide-react';
 
+
 interface Props {
   next: () => void;
   prev: () => void;
   className?: string;
 }
-
 const Features = (props: Props) => {
   const {
     register,
