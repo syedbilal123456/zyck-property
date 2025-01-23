@@ -43,7 +43,6 @@ const Basic = (props: Props) => {
 
   const selectedStateId = watch("location.state");
   const stateType = Number(selectedStateId);
-  console.log(props, "all porops");
 
   // Update cities whenever the state changes
   useEffect(() => {
@@ -251,8 +250,6 @@ const Basic = (props: Props) => {
           {(filteredDetails || [])
             // Show only the first item if selectedType is 1
             .map((item) => {
-              console.log("Selected Type:", selectedTypeId);
-
               const isSelected = selectedDetailId?.toString() === item.id.toString();
 
               return (

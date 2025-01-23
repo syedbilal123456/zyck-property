@@ -10,6 +10,7 @@ export async function saveProperty(
   userId: string
 ) {
   const basic: Omit<Property, "id"> = {
+    createdAt : propertyData.createdAt,
     name: propertyData.name,
     description: propertyData.description,
     price: propertyData.price,
@@ -45,7 +46,6 @@ export async function saveProperty(
       },
     },
   });
-  console.log({ result });
   return result;
 }
 
