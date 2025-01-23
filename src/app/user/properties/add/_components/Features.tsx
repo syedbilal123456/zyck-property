@@ -39,7 +39,7 @@ const Features = (props: Props) => {
   const defaultValues = getValues();
 
   const price = watch('price');
-  const formatPriceWithCommas = (price) => {
+  const formatPriceWithCommas = (price:any) => {
     if (price === null || price === undefined) return "";
     return new Intl.NumberFormat('en-US').format(price);
   };
