@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id           String          @id
   firstName    String
@@ -16,6 +17,7 @@ model User {
   createdAt    DateTime        @default(now())
   Property     Property[]
   subscription Subscriptions[]
+  isAdmin      Boolean         @default(false)
 }
 
 model Property {
@@ -28,6 +30,7 @@ model Property {
   statusId    Int
   DetailId    Int
   contact     Contact?
+  createdAt   DateTime           @default(now())
   status      PropertyStatus     @relation(fields: [statusId], references: [id])
   type        PropertyType       @relation(fields: [typeId], references: [id])
   user        User               @relation(fields: [userId], references: [id])
@@ -85,10 +88,10 @@ model State {
 }
 
 model City {
-  id               Int      @id @default(autoincrement())
+  id               Int                @id @default(autoincrement())
   value            String
   stateId          Int
-  state            State    @relation(fields: [stateId], references: [id])
+  state            State              @relation(fields: [stateId], references: [id])
   PropertyLocation PropertyLocation[]
 }
 

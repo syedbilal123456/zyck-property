@@ -97,9 +97,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                         <p className="text-sm text-gray-400 mt-2">
                             State: {property.location.state}
                         </p>
-                        <p className="text-sm text-gray-400 mt-2">
-                            Region: {property.location.region}
-                        </p>
                         <div className="flex flex-wrap mt-6 gap-2 items-center pb-5 border-b-2 border-gray-700 mb-5">
                             <Badge>
                                 Area {property.feature.area} sqft
@@ -133,7 +130,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                             )}
                             {property.feature?.parkingSpots && (
                                 <Badge>
-                                    ParkingSlot
+                                    ParkingSlot {property.feature.parkingSpots}
                                 </Badge>
                             )}
                             {property.feature?.hasSwimmingPool && (

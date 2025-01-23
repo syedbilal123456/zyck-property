@@ -48,7 +48,7 @@ export default function PropertyTable() {
         setProperties(data)
       }
     } catch (error) {
-      console.error('Error fetching properties:', error)
+      throw new Error('Error Status')
     }
   }
 
@@ -62,7 +62,7 @@ export default function PropertyTable() {
       }
       toast.success("Successfully Deleted")
     } catch (error) {
-      console.error('Error deleting property:', error)
+      throw new Error('Error Status Deleted')
     }
   }
 

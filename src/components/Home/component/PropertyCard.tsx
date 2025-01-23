@@ -48,13 +48,12 @@ export function PropertyCard({
   onContact: Contact
 }) {
 
-  console.log(image)
+  console.log("==========================> image =",image)
 
-  console.log(features);
   return (
     <Card className="w-full mx-auto border rounded-lg shadow flex flex-col">
   {/* Image Section */}
-  <div className="relative">
+  <div className="relative">    
     <AspectRatio ratio={16 / 9} className="bg-gray-200">
       <Image
         src={image}
