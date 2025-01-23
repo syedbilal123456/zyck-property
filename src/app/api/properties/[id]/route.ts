@@ -3,29 +3,64 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 // GET properties by id :
- export async function GET(req : Request, { params }: { params: Promise<{ id: string }> } ){
-    const id = (await params).id
-    try {
-        const property = await prisma.property.findUnique({
-            where: { id: parseInt(id)},
-            include:{
-                type: true,
-                status: true,
-                location: true,
-                feature: true,
-                images: true,
-                contact: true,
-            },
-        });
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const id = parseInt(params.id);
+  if (isNaN(id)) {
+      return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
+  }
 
-        if (!property) {
-            return NextResponse.json({error: "Property not found"}, {status: 404});
-        }
-        return NextResponse.json(property);
-    } catch (error) {
-        return NextResponse.json({error: "Error Fetching property"}, {status: 500});
-    }
- }
+  try {
+      const property = await prisma.property.findUnique({
+          where: { id },
+          include: {
+              type: true,
+              status: true,
+              feature: true,
+              images: true,
+              contact: true,
+              location: {
+                  select: {
+                      city: {
+                          select: {
+                              value: true, // Only select city value
+                          },
+                      },
+                      state: {
+                          select: {
+                              value: true, // Only select state value
+                          },
+                      },
+                  },
+              },
+          },
+      });
+
+      if (!property) {
+          return NextResponse.json(
+              { error: "Property not found" },
+              { status: 404 }
+          );
+      }
+
+      // Transform the `location` to include just city and state values
+      const transformedProperty = {
+          ...property,
+          location: {
+              city: property?.location?.city.value,
+              state: property?.location?.state.value,
+          },
+      };
+
+      return NextResponse.json(transformedProperty);
+  } catch (error) {
+      console.error(error);
+      return NextResponse.json(
+          { error: "Error fetching property" },
+          { status: 500 }
+      );
+  }
+}
+
 
 //  Delete property by id
 

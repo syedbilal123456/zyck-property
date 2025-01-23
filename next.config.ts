@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: "dummyimage.com", // Existing domain
+      },
+      {
+        protocol: 'https',
         hostname: 'jaghufeohfcrwkhqisxt.supabase.co', // Add your Supabase domain
         pathname: '/storage/v1/object/public/**', // Optional: Restrict to specific paths
       },

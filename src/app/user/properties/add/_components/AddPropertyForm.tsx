@@ -86,7 +86,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const [isLoading, setIsLoading] = useState(false); // Loading state
 
   // If details are fetched, make sure to update the state
-  console.log('Default Values:', methods.getValues());
+  // console.log('Default Values:', methods.getValues());
 
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {

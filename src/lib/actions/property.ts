@@ -45,7 +45,7 @@ export async function saveProperty(
       },
     },
   });
-  console.log({ result });
+  console.log("========================>" ,{ result });
   return result;
 }
 
