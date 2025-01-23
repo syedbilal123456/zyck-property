@@ -3,8 +3,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 // GET properties by id :
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export async function GET(req : Request, { params }: { params: Promise<{ id: string }> } ) {
+  const id = parseInt((await params).id);
   if (isNaN(id)) {
       return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
@@ -36,10 +36,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       });
 
       if (!property) {
-          return NextResponse.json(
-              { error: "Property not found" },
-              { status: 404 }
-          );
+          return NextResponse.json("Its working");
       }
 
       // Transform the `location` to include just city and state values
