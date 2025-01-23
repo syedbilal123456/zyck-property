@@ -85,13 +85,13 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(props.property?.images ?? []);
   const [isLoading, setIsLoading] = useState(false); // Loading state
 
-  // If details are fetched, make sure to update the state
-  // console.log('Default Values:', methods.getValues());
+
 
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
     const imageUrls = await uploadImages(images);
+console.log("submit",data);
 
     try {
       if (isEdit && props.property) {
@@ -105,17 +105,18 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
         await saveProperty(data, imageUrls, user?.id!);
         toast.success("Property added successfully");
       }
+      router.push("/user/properties");
     } catch (error) {
       console.error("Error saving property:", error);
       toast.error("Failed to add property. Please try again.");
     } finally {
       setIsLoading(false); // Hide loader
-      router.push("/user/properties");
+      
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-5xl  mx-auto p-4">
       <Stepper items={steps} activeItem={step} setActiveItem={setStep} />
       <FormProvider {...methods}>
         <form
