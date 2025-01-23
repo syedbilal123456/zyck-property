@@ -45,6 +45,11 @@ const UserProfilePanel = ({ user }: Props) => {
             Properties
           </Link>
         </DropdownMenuItem>
+        {user.isAdmin &&   <DropdownMenuItem>
+          <Link href="http://localhost:3001" className="text-lg">
+            Admin Panel
+          </Link>
+        </DropdownMenuItem>}
         <DropdownMenuItem>
           <LogoutLink className="text-lg text-red-500">
             Log Out
