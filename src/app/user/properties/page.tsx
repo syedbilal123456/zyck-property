@@ -8,6 +8,7 @@ const PropertiesPage = () => {
   return (
     <div className='h-full w-full mb-64'>
       <PropertyTable/>
+      
     </div>
   )
 }

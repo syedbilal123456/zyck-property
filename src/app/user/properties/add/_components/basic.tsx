@@ -254,8 +254,6 @@ const Basic = (props: Props) => {
           {(filteredDetails || [])
             // Show only the first item if selectedType is 1
             .map((item) => {
-              console.log("Selected Type:", selectedTypeId);
-
               const isSelected = selectedDetailId?.toString() === item.id.toString();
 
               return (

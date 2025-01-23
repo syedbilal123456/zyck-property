@@ -3,7 +3,6 @@ import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/solid";
 import { useFormContext } from "react-hook-form";
 import { AddPropertyInputType } from "./AddPropertyForm";
 import { Mail, Phone, User } from "lucide-react";
-import { MdEmail } from "react-icons/md";
 
 interface Props {
   prev: () => void;

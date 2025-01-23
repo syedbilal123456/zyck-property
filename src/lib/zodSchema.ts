@@ -4,6 +4,7 @@ import { z } from "zod";
 export const AddPropertyFormSchema = z.object({
   name: z.string().min(1, "Please Enter The Name"),
   description: z.string().min(2, "Enter the description"),
+  createdAt : z.date(),
   DetailId: z
   .string()
   .min(1, "Select the Details for your Type")

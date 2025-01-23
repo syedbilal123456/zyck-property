@@ -30,19 +30,21 @@ const FeatureProduct = () => {
     fetchData();
   }, []);
 
-  const propertiesSlice = properties.slice(0, 4);
+  const propertiesForRent = properties.filter(
+    (item) => item.status.value === 'Rent'
+  ).slice(0, 4);
   const propertiesForSale = properties
-    .filter((item) => item.status.value === 'For Sale')
+    .filter((item) => item.status.value === 'Sell')
     .slice(0, 4);
-
-  if (loading) {
+ 
+    if (loading) {
     return (
       <div className="flex justify-center items-center h-64 text-primary">
         <Loader /> {/* Display loader while data is loading */}
       </div>
     );
   }
-
+  console.log(properties)
   return (
     <>
       <div>
@@ -53,10 +55,10 @@ const FeatureProduct = () => {
       </div>
         <div className="p-4 mx-auto">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
-            {propertiesSlice.map((property) => (
+            {properties.slice(0,4).map((property) => (
               <PropertyCardsecond
                 key={property.feature.propertyId}
-                image={property.images[0]?.url}
+                image={property.images[0]?.url || "https://dummyimage.com/400x400" }
                 title={property.name}
                 price={property.price}
                 location={property.location.city}
@@ -78,10 +80,10 @@ const FeatureProduct = () => {
       </div>
         <div className="p-4">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-5">
-            {propertiesSlice.map((property) => (
+            {propertiesForRent.map((property) => (
               <PropertyCardsecond
                 key={property.feature.propertyId}
-                image={property.images[0]?.url}
+                image={property.images[0]?.url || "https://dummyimage.com/400x400"}
                 title={property.name}
                 price={property.price}
                 location={property.location.city}
@@ -106,7 +108,7 @@ const FeatureProduct = () => {
             {propertiesForSale.map((property) => (
               <PropertyCardsecond
                 key={property.feature.propertyId}
-                image={property.images[0]?.url}
+                image={property.images[0]?.url || "https://dummyimage.com/400x400"}
                 title={property.name}
                 price={property.price}
                 location={property.location.city}

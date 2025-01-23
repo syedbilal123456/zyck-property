@@ -29,6 +29,7 @@ export async function GET() {
     // If the user doesn't exist, create a new user
     await prisma.user.create({
       data: {
+        isAdmin: false,
         id: user.id,
         firstName: user.given_name ?? "",  // Fallback to empty if no given name
         lastName: user.family_name ?? "",  // Fallback to empty if no family name
