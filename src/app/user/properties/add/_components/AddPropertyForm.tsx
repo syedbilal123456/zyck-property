@@ -52,9 +52,9 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     resolver: zodResolver(AddPropertyFormSchema),
     defaultValues: {
       contact: props.property?.contact ?? {
-        name:"",
-        phone:"",
-        email:""
+        name: "",
+        phone: "",
+        email: ""
       },
       location: props.property?.location ?? undefined,
       name: props?.property?.name ?? "",
@@ -80,26 +80,27 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();
   const [images, setImages] = useState<File[]>([]);
-  const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(props.property?.images ?? []);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(
+    props.property?.images ?? []
+  );
+   const [isLoading, setIsLoading] = useState(false); // Loading state
 
 
 
-console.log(user,"isadmin");
+  console.log();
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
 
-    console.log("submit",data);
-    
     const imageUrls = await uploadImages(images);
+    console.log("submit", {images});
+
 
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images
           .filter((item) => !savedImagesUrl.includes(item))
           .map((item) => item.id);
-        const createdAt = ""
         await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
         toast.success("Property updated successfully");
       } else {
@@ -112,7 +113,7 @@ console.log(user,"isadmin");
       toast.error("Failed to add property. Please try again.");
     } finally {
       setIsLoading(false); // Hide loader
-      
+
     }
   };
 
