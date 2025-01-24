@@ -259,7 +259,7 @@ const Basic = (props: Props) => {
               return (
                 <label
                   key={item.id}
-                  className={`flex items-center justify-center px-7 py-3 max-sm:px-4 max-sm:py-2 border rounded-md border-green-300 cursor-pointer transition duration-300 ${isSelected
+                  className={`flex items-center justify-center px-7 py-2 max-sm:px-4 max-sm:py-2 border rounded-2xl border-green-300 cursor-pointer transition duration-300 ${isSelected
                     ? "bg-green-100 border-green-400 text-green-600 "
                     : "bg-white border-slate-200 hover:bg-slate-50"
                     }`}
