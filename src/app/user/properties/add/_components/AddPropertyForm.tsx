@@ -19,8 +19,6 @@ import { editProperty, saveProperty } from "@/lib/actions/property";
 import clsx from "clsx";
 import Loader from "@/components/ui/loader";
 
-
-
 interface Props {
   details: PropertyTypeDetail[]
   city: City[];
