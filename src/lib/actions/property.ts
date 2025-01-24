@@ -44,14 +44,6 @@ export async function saveProperty(
     user,
   };
 
-  if(!user?.id){
-  throw new PropertyError("UserId not existed")
-  }
-  
-  if(user?.email != "bilal.insurancewala@gmail.com"){
-    throw new PropertyError("Unauthorized: User not authenticated");
-  }
-
   const result = await prisma.property.create({
     data: {
       name: basic.name,
