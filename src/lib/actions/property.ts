@@ -44,7 +44,11 @@ export async function saveProperty(
     user,
   };
 
-  if(user?.email != "bilal.insurancewala@gmail.com" && !user?.id){
+  if(!user?.id){
+  throw new PropertyError("UserId not existed")
+  }
+  
+  if(user?.email != "bilal.insurancewala@gmail.com"){
     throw new PropertyError("Unauthorized: User not authenticated");
   }
 
