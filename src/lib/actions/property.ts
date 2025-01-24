@@ -44,6 +44,10 @@ export async function saveProperty(
     user,
   };
 
+  if(!user?.id){
+    throw new PropertyError("Unauthorized: User Id not exited");
+  }
+
   const result = await prisma.property.create({
     data: {
       name: basic.name,
