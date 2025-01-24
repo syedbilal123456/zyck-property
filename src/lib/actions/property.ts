@@ -2,26 +2,61 @@
 
 import { AddPropertyInputType } from "@/app/user/properties/add/_components/AddPropertyForm";
 import {prisma} from "../prisma";
-import { Property } from "@prisma/client";
+import { error } from "console";
+
+interface user {
+  id: string;
+  email: string | null;
+  given_name: string | null;
+  family_name: string | null;
+  picture: string | null;
+} 
+// Custom error class for more specific error handling
+class PropertyError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "PropertyError";
+  }
+}
+
+interface Property {
+  name: string,
+  description: string,
+  price: number;
+  statusId: number;
+  typeId: number;
+  DetailId: number;
+  user:user | null,
+}
 
 export async function saveProperty(
   propertyData: AddPropertyInputType,
   imagesUrls: string[],
-  userId: string
+  user:user | null
 ) {
   const basic: Omit<Property, "id"> = {
-    createdAt : propertyData.createdAt,
     name: propertyData.name,
     description: propertyData.description,
     price: propertyData.price,
     statusId: propertyData.statusId,
     typeId: propertyData.typeId,
     DetailId: propertyData.DetailId,
-    userId,
+    user,
   };
+
+  if(!user?.id){
+    throw new PropertyError("Unauthorized: User Id not exited");
+  }
+
   const result = await prisma.property.create({
     data: {
-      ...basic,
+      name: basic.name,
+      description: basic.description,
+      price: basic.price,
+      statusId: basic.statusId,
+      typeId: basic.typeId,
+      DetailId: basic.DetailId,
+      userId:user.id,
       location: {
         create: {
           ...propertyData.location,
