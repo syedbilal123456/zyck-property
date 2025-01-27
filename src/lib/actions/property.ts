@@ -44,6 +44,7 @@ export async function saveProperty(
     user,
   };
 
+  
   if(!user?.id){
     throw new PropertyError("Unauthorized: User Id not exited");
   }
@@ -133,7 +134,6 @@ export async function editProperty(
     },
   });
 
-  console.log({ result });
   return result;
 }
 

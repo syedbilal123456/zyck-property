@@ -37,6 +37,8 @@ const Picture = (props: Props) => {
 
         {props.images.map((image, index) => {
           const srcUrl = URL.createObjectURL(image);
+          console.log(image,"url");
+          
           return (
             <PictureCard
               key={srcUrl}

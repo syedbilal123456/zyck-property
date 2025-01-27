@@ -91,23 +91,22 @@ console.log(user,"isadmin");
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
-
-    console.log("submit",data);
     
     const imageUrls = await uploadImages(images);
 
+  
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images
           .filter((item) => !savedImagesUrl.includes(item))
           .map((item) => item.id);
-        await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
+        // await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
         toast.success("Property updated successfully");
       } else {
         await saveProperty(data, imageUrls, user);
         toast.success("Property added successfully");
       }
-      router.push("/user/properties");
+      // router.push("/user/properties");
     } catch (error) {
       console.error("Error saving property:", error);
       toast.error("Failed to add property. Please try again.");
