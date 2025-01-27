@@ -18,6 +18,7 @@ interface Props {
 const Picture = (props: Props) => {
   // Calculate total number of images (both saved and new uploads)
   const totalImages = (props.savedImagesUrl?.length || 0) + props.images.length;
+  const images = props.savedImagesUrl?.length || 0;
 
   // Handle file selection with 5 image limit
   const handleFileSelect = (e: any) => {
@@ -25,6 +26,7 @@ const Picture = (props: Props) => {
     // Check if adding a new image would exceed the 5 image limit
     if (totalImages >= 5) {
       toast.error("Maximum 5 images allowed");
+
       return;
     }
     props.setImages([newFile, ...props.images]);
@@ -100,6 +102,7 @@ const Picture = (props: Props) => {
         </button>
         <button
           onClick={props.next}
+          disabled={images > 5}
           className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
         >
           <ChevronRightIcon className="w-6" /> Next

@@ -22,7 +22,7 @@ export default function EmailInput() {
             />
             <LoginLink
                 authUrlParams={{
-                    connection_id: "conn_01941e216db373f68fc43cefc6347bbe",
+                    connection_id: process.env.NEXT_PUBLIC_KINDE_CONNECTION_EMAIL_PASSWORDLESS!,
                     login_hint: email
                 }}
                 className='w-[18%] p-3 bg-green-500 hover:bg-green-600 rounded-md'
