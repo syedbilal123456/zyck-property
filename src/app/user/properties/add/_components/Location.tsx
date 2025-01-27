@@ -63,7 +63,7 @@ const Location = (props: Props) => {
 
 
   return (
-    <div className={`p-8 max-sm:p-4 gap-4 flex flex-col items-start w-full border bg-neutral-900 border-green-200  justify-start ${props.className}`}>
+    <div className={`p-8 max-sm:p-4 gap-4 flex flex-col items-start w-full border bg-neutral-800 border-green-200  justify-start ${props.className}`}>
 
 
       {/* state */}

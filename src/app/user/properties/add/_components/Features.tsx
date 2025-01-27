@@ -15,6 +15,7 @@ const Features = (props: Props) => {
     register,
     formState: { errors },
     trigger,
+    watch,
     getValues,
   } = useFormContext<AddPropertyInputType>();
 
@@ -36,6 +37,43 @@ const Features = (props: Props) => {
 
   const handlePrev = () => props.prev();
   const defaultValues = getValues();
+
+  const price = watch('price');
+  const formatPriceWithCommas = (price:any) => {
+    if (price === null || price === undefined) return "";
+    return new Intl.NumberFormat('en-US').format(price);
+  };
+  const formattedPrice = formatPriceWithCommas(price);
+  console.log(formattedPrice); // Output: "1,000" or "10,000"
+  let enterPriceValue = "";
+  
+  if (price) {
+    const priceStr = price.toString();
+    const length = priceStr.length;
+  
+    const units = [
+      { value: 4, label: "Thousand" },
+      { value: 6, label: "Lakh" },
+      { value: 8, label: "Crore" },
+      { value: 10, label: "Arab" },
+    ];
+  
+    const unit = units.find(u => length >= u.value && length < u.value + 2);
+  
+    if (unit) {
+      const sliceLength = length - unit.value + 1;
+      enterPriceValue = `RS ${priceStr.slice(0, sliceLength)} ${unit.label} ${formattedPrice}`;
+    }
+  }
+  
+
+
+  
+  // Example Usage
+ 
+
+  
+  
 
   // Generate radio button options
  // Generate radio button options
@@ -62,7 +100,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
   
 
   return (
-    <div className={`p-6 border  flex flex-col gap-3 bg-neutral-900 border-green-200  ${props.className}`}>
+    <div className={`p-6 border  flex flex-col gap-3 bg-neutral-800 border-green-200  ${props.className}`}>
       {/* Bedrooms */}
          {/* Title Code */}
          <div className="input-group">
@@ -70,14 +108,14 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           htmlFor="name"
           className="text-white"
         >
-          Title
+          Property Name
         </label>
         <input
           {...register('name')}
           defaultValue={getValues().name}
           id="name"
           placeholder="Enter Your Title"
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.name ? 'border-red-500' : ''
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.name ? 'border-red-500' : ''
             }`}
         />
 
@@ -98,9 +136,14 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           id="price"
           type='number'
           placeholder="Enter Your Title"
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.price ? 'border-red-500' : ''
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.price ? 'border-red-500' : ''
             }`}
         />
+         {enterPriceValue && (
+          <p className="text-sm mt-1 text-green-200">{
+          enterPriceValue
+          }</p>
+        )}
 
         {errors.price && (
           <p className="text-sm text-red-500">{errors.price?.message}</p>
@@ -120,7 +163,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
           defaultValue={getValues().description}
           id="zip"
           placeholder="Enter Your Descripton"
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.description ? 'border-red-500' : ''
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.description ? 'border-red-500' : ''
             }`}
         />
 
@@ -171,7 +214,7 @@ const generateRadioButtons = (name: any, defaultValue?: number) => {
             defaultValue={getValues("propertyFeature.area")}
             placeholder="Aera"
             type='number'
-            className={`peer w-full bg-transparent placeholder:text-slate-400 text-green-700 text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
+            className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
               errors.contact?.name ? "border-red-500" : ""
             }`}
           />

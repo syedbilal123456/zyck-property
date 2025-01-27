@@ -18,7 +18,7 @@ const Contact: React.FC<Props> = ({ prev, className }) => {
 
   return (
     <div className={`w-full max-w-[1200px] mx-auto p-4 sm:p-6    ${className || ""}`}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-900 border-green-100 p-4 border">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-800 border-green-100 p-4 border">
         {/* Contact Name */}
         <div className="relative">
         <span className="text-green-300 flex items-center  mb-2 text-sm">

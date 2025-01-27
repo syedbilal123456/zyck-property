@@ -2,9 +2,9 @@ import Image from 'next/image';
 import React from 'react';
 
 const teamCard = [
-    { img: "/unknown.jpeg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "(+92) 234-5678" },
-    { img: "/unknown.jpeg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "(+92) 234-5678" },
-    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "(+92) 234-5678" },
+    { img: "/unknown.jpeg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "(+92) 3373301864" },
+    { img: "/unknown.jpeg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "(+92) 3422630693" },
+    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "(+92) 3352622491" },
 ];
 
 const OurLeadership = () => {

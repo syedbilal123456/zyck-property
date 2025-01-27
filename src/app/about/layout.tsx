@@ -9,3 +9,4 @@ export default function AboutUs({children}: {children: React.ReactNode}){
     {children}
     </>
 }
+

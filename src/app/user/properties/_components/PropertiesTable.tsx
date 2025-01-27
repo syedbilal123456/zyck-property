@@ -6,7 +6,6 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import Link from 'next/link'
 import { FaEye, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { features } from 'process'
 import Loader from '@/components/ui/loader'
 
 interface Property {
