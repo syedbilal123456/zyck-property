@@ -44,7 +44,6 @@ const Features = (props: Props) => {
     return new Intl.NumberFormat('en-US').format(price);
   };
   const formattedPrice = formatPriceWithCommas(price);
-  console.log(formattedPrice); // Output: "1,000" or "10,000"
   let enterPriceValue = "";
   
   if (price) {

@@ -47,9 +47,7 @@ export function PropertyCard({
   onContact: Contact
 }) {
 
-  console.log(image)
 
-  console.log(features);
   return (
     <Card className="w-full mx-auto border rounded-lg shadow flex flex-col">
   

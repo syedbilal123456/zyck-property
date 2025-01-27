@@ -87,7 +87,6 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
 
 
 
-console.log(user,"isadmin");
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader

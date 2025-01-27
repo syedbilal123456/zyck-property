@@ -66,7 +66,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         );
     }
 
-    console.log(property);
     return (
         <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black">
             <div className="container px-5 py-24 mx-auto">
