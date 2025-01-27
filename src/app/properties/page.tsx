@@ -62,7 +62,6 @@ export default function PropertiesPage() {
     </div>
   }
 
-  console.log(properties);
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">My Properties</h1>

@@ -71,7 +71,6 @@ export default function PropertyTable() {
     </div>
   }
 
-  console.log(properties)
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="overflow-x-auto w-full">

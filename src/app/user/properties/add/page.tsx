@@ -13,7 +13,6 @@ const AddPropertyPage = async () => {
 
 
 
-  console.log(propertyTypes, propertyStatuses, propertyTypeDetail, Cites, State,"all tatpye");
   
   return <AddPropertyForm state={State} city={Cites} types={propertyTypes} statuses={propertyStatuses} details={propertyTypeDetail} />;
 };

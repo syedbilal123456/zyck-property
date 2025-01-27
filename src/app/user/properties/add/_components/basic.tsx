@@ -33,7 +33,6 @@ const Basic = (props: Props) => {
   const selectedStatus = watch("statusId");
   const selectedDetailId = watch('DetailId');
 
-  console.log(props,"all props");
   
 
 
