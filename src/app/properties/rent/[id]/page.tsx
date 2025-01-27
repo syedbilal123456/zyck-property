@@ -1,12 +1,17 @@
-"use client";
+"use client"
 import { Badge } from "@/components/ui/badge";
+// import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
 import { Cards } from "@/lib/type";
+import { CheckCircle, Mail, Phone, X } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 
+// Fetch property function
 async function fetchProperty(id: string): Promise<Cards> {
   const url = `/api/properties/${id}`;
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -15,14 +20,22 @@ async function fetchProperty(id: string): Promise<Cards> {
     }
     throw new Error("An error occurred while fetching the property");
   }
+
   return response.json();
 }
 
-const Page = ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  function formatPhoneNumber(phone: string): string {
+    const formatted = phone.replace(/^0/, "+92");
+    return formatted.replace(/(\+92)(\d{3})(\d{4})(\d{3})/, "$1 $2 $3 $4");
+  }
+
+  // Use React.use() to unwrap the params Promise
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id } = React.use(params);
+
   const [property, setProperty] = useState<Cards | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string>("");
 
   useEffect(() => {
     if (id) {
@@ -30,13 +43,11 @@ const Page = ({ params }: { params: { id: string } }) => {
         try {
           const data = await fetchProperty(id);
           setProperty(data);
-          if (data.images && data.images.length > 0) {
-            setSelectedImage(data.images[0].url);
-          }
         } catch (err: any) {
           setError(err.message || "Something went wrong");
         }
       }
+
       loadProperty();
     }
   }, [id]);
@@ -60,71 +71,73 @@ const Page = ({ params }: { params: { id: string } }) => {
     );
   }
 
+  console.log(property);
+
   return (
     <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          {/* Main Image */}
+          {/* Image container with fixed aspect ratio */}
           <div className="lg:w-1/2 w-full">
-            <div className="mb-4">
-              <Image
-                width={700}
-                height={700}
+            <div className="relative aspect-[4/3] w-full">
+              <img
                 alt={property.name}
-                className="w-full h-[500px] object-cover object-center rounded"
-                src={selectedImage || property.images[0]?.url || "https://dummyimage.com/400x400"}
+                className="absolute inset-0 w-full h-full object-cover object-center rounded"
+                src={
+                  property.images[0]?.url || "https://dummyimage.com/400x400"
+                }
               />
             </div>
-            {/* Thumbnail Gallery */}
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {property.images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`cursor-pointer min-w-[100px] transition-all ${
-                    selectedImage === image.url ? "ring-2 ring-green-500" : ""
-                  }`}
-                  onClick={() => setSelectedImage(image.url)}
-                >
-                  <Image
-                    width={100}
-                    height={100}
-                    alt={`${property.name} - ${index + 1}`}
-                    className="w-[100px] h-[100px] object-cover rounded"
-                    src={image.url}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
-          {/* Property Details */}
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <div className="flex gap-3 items-center mb-4 rounded-lg">
+            <div className="flex gap-3 items-center mb-4 w rounded-lg">
               <Badge>{property.status.value}</Badge>
               <Badge>{property.type.value}</Badge>
             </div>
-            <h1 className="text-white text-3xl title-font font-medium mb-1">{property.name}</h1>
+            <h1 className="text-white text-3xl title-font font-medium mb-1">
+              {property.name}
+            </h1>
             <h2 className="text-sm title-font text-green-500 tracking-widest">
               {property.description}
             </h2>
+            {/* Location Section */}
             <h1 className="text-md mt-4">Location:</h1>
-            <p className="text-sm text-gray-400 mt-2">City: {property.location.city}</p>
-            <p className="text-sm text-gray-400 mt-2">State: {property.location.state}</p>
+            <p className="text-sm text-gray-400 mt-2">
+              City: {property.location.city}
+            </p>
+            <p className="text-sm text-gray-400 mt-2">
+              State: {property.location.state}
+            </p>
             <div className="flex flex-wrap mt-6 gap-2 items-center pb-5 border-b-2 border-gray-700 mb-5">
               <Badge>Area {property.feature.area} sqft</Badge>
               <Badge>{property.feature.bedrooms} Bedrooms</Badge>
               <Badge>{property.feature.bathrooms} Bathrooms</Badge>
+
+              {/* Display the Balcony badge only if it exists */}
               {property.feature?.hasBalcony && <Badge>Has Balcony</Badge>}
+
+              {/* Display the Garage badge only if it exists */}
               {property.feature?.hasGarage && <Badge>Has Garage</Badge>}
-              {property.feature?.hasSwimmingPool && <Badge>Has Swimming Pool</Badge>}
+
+              {/* Display the Swimming Pool badge only if it exists */}
+              {property.feature?.hasSwimmingPool && (
+                <Badge>Has Swimming Pool</Badge>
+              )}
               {property.feature?.parkingSpots && (
-                <Badge>Parking Slot {property.feature.parkingSpots}</Badge>
+                <Badge>ParkingSlot {property.feature.parkingSpots}</Badge>
+              )}
+              {property.feature?.hasSwimmingPool && (
+                <Badge>Has Swimming Pool</Badge>
               )}
             </div>
-            <div className="flex">
+            <div className="flex justify-between">
               <span className="title-font font-medium text-2xl text-white">
                 PKR {property.price}
               </span>
-              <button className="flex ml-auto text-black bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-colors"
+              >
                 Contact
               </button>
               <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
@@ -143,6 +156,110 @@ const Page = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50">
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={() => setIsModalOpen(false)}
+          />
+          <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 relative pointer-events-auto">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="text-center mb-4">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Purchase Details
+                </h2>
+                <p className="text-sm text-gray-500">
+                  Property Acquisition Information
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {/* User Image and Badge */}
+                <div className="flex items-center gap-4 bg-gray-50 p-3 rounded-xl">
+                  <Image
+                    src="/payment.png"
+                    alt="Buyer"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
+                    width={64}
+                    height={64}
+                  />
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-gray-800">
+                        {property.contact.name}
+                      </h3>
+                      <span className="bg-green-500 text-white px-2 py-0.5 rounded-full text-xs font-medium">
+                        Verified
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {property.status.value}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Contact Information */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-gray-50 p-3 rounded-xl">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Mail className="w-4 h-4 text-blue-600" />
+                      <span className="text-xs text-gray-500">Email</span>
+                    </div>
+                    <p className="text-sm font-medium text-gray-800 break-words">
+                      {property.contact.email}
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 p-3 rounded-xl">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Phone className="w-4 h-4 text-green-600" />
+                      <span className="text-xs text-gray-500">Phone</span>
+                    </div>
+                    <p className="text-sm font-medium text-gray-800">
+                      {formatPhoneNumber(property.contact.phone)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Transaction Status */}
+                <div className="bg-blue-50 rounded-xl p-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="text-sm font-medium text-blue-900">
+                        Purchase Complete
+                      </p>
+                      <p className="text-xs text-blue-700">#123456</p>
+                    </div>
+                  </div>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                    Verified
+                  </span>
+                </div>
+
+                {/* Action Buttons */}
+                {/* <div className="flex gap-3 pt-2">
+                  <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-1">
+                    <Download className="w-4 h-4" />
+                    Download
+                  </button>
+                  <button className="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-1">
+                    <Share2 className="w-4 h-4" />
+                    Share
+                  </button>
+                </div> */}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
