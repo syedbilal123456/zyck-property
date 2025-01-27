@@ -2,33 +2,26 @@
 import React, { useState } from 'react';
 
 const OfficeLocations = () => {
-  const [activeLocation, setActiveLocation] = useState<'Headquarter' | 'DHA' | 'Yaseenabad'>('Headquarter');
+  const [activeLocation, setActiveLocation] = useState<'Headquarter' | 'BufferZone'>('Headquarter');
 
-  const locationContent: { [key in 'Headquarter' | 'DHA' | 'Yaseenabad']: { text: string; inquiryType: string; email: string; mapUrl: string } } = {
+  const locationContent: { [key in 'Headquarter' | 'BufferZone']: { text: string; inquiryType: string; email: string; mapUrl: string } } = {
     Headquarter: {
       text: "Our mission is to help people find a home and community where they can feel comfortable, meaningful, and attached to a place where they can come and make connections. Every day, we are working toward making the world more neighborly and connected.",
       inquiryType: "Press & Media Inquiries",
       email: "info@zyck.com",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25280814725!2d-74.11976341508278!3d40.70583158628177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus"
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7236.689130934655!2d67.07687209999999!3d24.9203292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f394a11b79f%3A0xe124ecf1bce27cd!2sQuran%20Accadmy%20A-One%20Cottages!5e0!3m2!1sen!2s!4v1737706784270!5m2!1sen!2s"
     },
-    DHA: {
-      text: "You may also visit our DHA office at [Address] for customized service and advisory. Our dedicated team of professionals is here to assist you with all your real estate requirements - buying, selling, or renting.",
-      inquiryType: "Business Inquiries",
-      email: "info@zyck.com",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596552044!2d-74.25987701513004!3d40.69714941680757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s"
-    },
-    Yaseenabad: {
-      text: "You can also visit our Yaseenabad office at [Address] where local experts are here to assist you in all your property needs in this vibrant and growing area.",
+    BufferZone: {
+      text: "You can also visit our BufferZone office at [Address] where local experts are here to assist you in all your property needs in this vibrant and growing area.",
       inquiryType: "Vacancies Inquiries",
       email: "info@zyck.com",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6502594.616364798!2d-123.79641085736093!3d37.19308893317917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2s"
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14469.611876406734!2d67.06043435108244!3d24.952400895906376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb341a0f8a94187%3A0xfae77f0ad39a1726!2sBufferzone%20Gulshan%20E%20Waseem!5e0!3m2!1sen!2s!4v1737706663508!5m2!1sen!2s"
     }
   };
 
-  const locations: { id: 'Headquarter' | 'DHA' | 'Yaseenabad'; label: string }[] = [
+  const locations: { id: 'Headquarter' | 'BufferZone'; label: string }[] = [
     { id: 'Headquarter', label: 'Headquarter' },
-    { id: 'DHA', label: 'DHA Office' },
-    { id: 'Yaseenabad', label: 'Yaseenabad Office' }
+    { id: 'BufferZone', label: 'BufferZone Office' }
   ];
 
   return (

@@ -87,21 +87,18 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
 
 
 
-console.log(user,"isadmin");
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
-
-    console.log("submit",data);
     
     const imageUrls = await uploadImages(images);
 
+  
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images
           .filter((item) => !savedImagesUrl.includes(item))
           .map((item) => item.id);
-        const createdAt = ""
         await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
         toast.success("Property updated successfully");
       } else {

@@ -37,6 +37,7 @@ const Picture = (props: Props) => {
 
         {props.images.map((image, index) => {
           const srcUrl = URL.createObjectURL(image);
+          
           return (
             <PictureCard
               key={srcUrl}
@@ -52,13 +53,13 @@ const Picture = (props: Props) => {
       <div className="flex justify-center col-span-2 gap-3 mt-3">
         <button
           onClick={props.prev}
-          className="bg-green-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
+          className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
         >
           <ChevronLeftIcon className="w-6" /> Previous
         </button>
         <button
           onClick={props.next}
-          className="bg-green-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
+          className="bg-blue-500 text-white p-2 rounded-md w-36 flex items-center justify-center gap-2"
         >
           <ChevronRightIcon className="w-6" /> Next
         </button>

@@ -6,7 +6,6 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import Link from 'next/link'
 import { FaEye, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { features } from 'process'
 import Loader from '@/components/ui/loader'
 
 interface Property {
@@ -72,7 +71,6 @@ export default function PropertyTable() {
     </div>
   }
 
-  console.log(properties)
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="overflow-x-auto w-full">
