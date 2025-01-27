@@ -91,11 +91,10 @@ console.log(user,"isadmin");
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
-
-    console.log("submit",data);
     
     const imageUrls = await uploadImages(images);
 
+  
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images

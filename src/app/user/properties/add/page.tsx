@@ -10,6 +10,11 @@ const AddPropertyPage = async () => {
     prisma.city.findMany(),
     prisma.state.findMany(),
   ]);
+
+
+
+  console.log(propertyTypes, propertyStatuses, propertyTypeDetail, Cites, State,"all tatpye");
+  
   return <AddPropertyForm state={State} city={Cites} types={propertyTypes} statuses={propertyStatuses} details={propertyTypeDetail} />;
 };
 
