@@ -1,22 +1,26 @@
+import { Linkedin } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 const teamCard = [
-    { img: "/unknown.jpeg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "(+92) 234-5678" },
-    { img: "/unknown.jpeg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "(+92) 234-5678" },
-    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "(+92) 234-5678" },
+    { img: "/S.bilal.jpg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "+92 337 330 1864", linkedin: 'https://www.linkedin.com/in/sbilalalijafri/' },
+    { img: "/talhakhan.jpg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "+92 342 263 0693", linkedin: 'https://www.linkedin.com/in/talha-khan-46177b13b/' },
+    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "+92 335 262 2491", linkedin: 'https://www.linkedin.com/in/syed-sohaib-amir-860382261/' },
 ];
 
 const OurLeadership = () => {
     return (
-    <section id='our-leadership' className="text-gray-600 body-font">
-        <div className="container px-5 py-16 mx-auto w-3/4 ">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-24">
-            Our leadership
+        <section id='our-leadership' className="text-gray-600 body-font">
+            <div className="container px-5 py-16 mx-auto w-3/4">
+                <h2 className="text-3xl font-semibold text-gray-100 mb-24">
+                    Our Leadership
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mx-auto">
                     {teamCard.map((item, index) => (
-                        <div className="border-2  border-gray-200 border-opacity-60 rounded-md h-96 overflow-hidden" key={index}>
+                        <div
+                            className="border-2 border-gray-200 border-opacity-60 rounded-md h-96 overflow-hidden"
+                            key={index}
+                        >
                             <Image
                                 className="lg:h-48 md:h-36 w-full object-cover object-center"
                                 width={500}
@@ -32,7 +36,16 @@ const OurLeadership = () => {
                                     {item.name}
                                 </h1>
                                 <p className="leading-relaxed mb-3">Phone: {item.phone}</p>
-                                <div className="flex items-center flex-wrap">
+                                <a
+                                    href={item.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center text-blue-500 hover:text-blue-700"
+                                >
+                                    <Linkedin className="w-5 h-5 mr-2" />
+                                    LinkedIn
+                                </a>
+                                <div className="flex items-center flex-wrap mt-4">
                                     <span className="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
                                         <svg
                                             className="w-4 h-4 mr-1"

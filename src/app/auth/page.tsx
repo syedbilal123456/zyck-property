@@ -21,7 +21,7 @@ const AuthPage: React.FC = () => {
                     <LoginLink
                         className={styles.googleButton}
                         authUrlParams={{
-                            connection_id: "conn_01942104900b74707f55c875e6ca8699"
+                            connection_id:  process.env.NEXT_PUBLIC_KINDE_CONNECTION_GOOGLE!
                         }}
                     >
                         <FaGoogle className={styles.googleIcon} />
@@ -30,7 +30,7 @@ const AuthPage: React.FC = () => {
                     <LoginLink
                         className={styles.googleButton}
                         authUrlParams={{
-                            connection_id: "conn_01942104900a7c0e527d7979c830324a"
+                            connection_id: process.env.NEXT_PUBLIC_KINDE_CONNECTION_FACEBOOK!
                         }}
                     >
                         <FaFacebook className={styles.googleIcon} />
