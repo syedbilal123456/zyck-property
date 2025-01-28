@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Badge } from "@/components/ui/badge";
 // import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
@@ -83,7 +83,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black max-w-[1080px] mx-auto">
       <div className="container px-5 py-24 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column: Image Carousel */}
           <div>
             <div className="border border-gray-200 shadow-lg rounded-xl overflow-hidden">
@@ -142,14 +142,16 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               <p className="text-gray-300">
                 {isExpanded
                   ? property.description
-                  : `${property.description.substring(0, 100)}...`}
+                  : `${property.description.substring(0, 100)}${property.description.length > 100 ? "..." : ""}`}
               </p>
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="text-green-500 hover:underline"
-              >
-                {isExpanded ? "Show Less" : "See More"}
-              </button>
+              {property.description && property.description.length > 100 && (
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="text-green-500 hover:underline"
+                >
+                  {isExpanded ? "Show Less" : "See More"}
+                </button>
+              )}
             </div>
 
             {/* Location */}
@@ -181,28 +183,30 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               <span className="title-font font-medium text-2xl text-white">
                 PKR {property.price}
               </span>
-              <div><button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-colors"
-              >
-                Contact
-              </button>
-              <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
-                <svg
-                  fill="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
+              <div>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-colors"
                 >
-                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-                </svg>
-              </button></div>
+                  Contact
+                </button>
+                <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
+                  <svg
+                    fill="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        </div>
+      </div>
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50">
