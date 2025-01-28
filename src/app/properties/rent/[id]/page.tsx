@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Badge } from "@/components/ui/badge";
 // import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
@@ -7,6 +7,11 @@ import { CheckCircle, Mail, Phone, X } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Thumbs } from "swiper/modules";
 
 // Fetch property function
 async function fetchProperty(id: string): Promise<Cards> {
@@ -32,10 +37,12 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   // Use React.use() to unwrap the params Promise
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { id } = React.use(params);
 
   const [property, setProperty] = useState<Cards | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   useEffect(() => {
     if (id) {
@@ -74,84 +81,128 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   console.log(property);
 
   return (
-    <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black">
+    <section className="text-gray-300 mb-40 body-font overflow-hidden bg-black max-w-[1080px] mx-auto">
       <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          {/* Image container with fixed aspect ratio */}
-          <div className="lg:w-1/2 w-full">
-            <div className="relative aspect-[4/3] w-full">
-              <img
-                alt={property.name}
-                className="absolute inset-0 w-full h-full object-cover object-center rounded"
-                src={
-                  property.images[0]?.url || "https://dummyimage.com/400x400"
-                }
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column: Image Carousel */}
+          <div>
+            <div className="border border-gray-200 shadow-lg rounded-xl overflow-hidden">
+              {/* Main Image Carousel */}
+              <Swiper
+                spaceBetween={10}
+                navigation
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[Navigation, Thumbs]}
+                className="rounded-t-xl"
+              >
+                {property.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image.url || "https://dummyimage.com/600x400"}
+                      alt={`Property image ${index + 1}`}
+                      className="w-full h-[400px] object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              {/* Thumbnail Carousel */}
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode
+                watchSlidesProgress
+                modules={[Thumbs]}
+                className="p-4 bg-gray-100 rounded-b-xl"
+              >
+                {property.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image.url || "https://dummyimage.com/100x100"}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-[80px] object-cover rounded-md border border-gray-300 hover:border-green-500 transition-transform transform hover:scale-105 cursor-pointer"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
-          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <div className="flex gap-3 items-center mb-4 w rounded-lg">
-              <Badge>{property.status.value}</Badge>
-              <Badge>{property.type.value}</Badge>
-            </div>
-            <h1 className="text-white text-3xl title-font font-medium mb-1">
-              {property.name}
-            </h1>
-            <h2 className="text-sm title-font text-green-500 tracking-widest">
-              {property.description}
-            </h2>
-            {/* Location Section */}
-            <h1 className="text-md mt-4">Location:</h1>
-            <p className="text-sm text-gray-400 mt-2">
-              City: {property.location.city}
-            </p>
-            <p className="text-sm text-gray-400 mt-2">
-              State: {property.location.state}
-            </p>
-            <div className="flex flex-wrap mt-6 gap-2 items-center pb-5 border-b-2 border-gray-700 mb-5">
-              <Badge>Area {property.feature.area} sqft</Badge>
-              <Badge>{property.feature.bedrooms} Bedrooms</Badge>
-              <Badge>{property.feature.bathrooms} Bathrooms</Badge>
 
-              {/* Display the Balcony badge only if it exists */}
-              {property.feature?.hasBalcony && <Badge>Has Balcony</Badge>}
-
-              {/* Display the Garage badge only if it exists */}
-              {property.feature?.hasGarage && <Badge>Has Garage</Badge>}
-
-              {/* Display the Swimming Pool badge only if it exists */}
-              {property.feature?.hasSwimmingPool && (
-                <Badge>Has Swimming Pool</Badge>
-              )}
-              {property.feature?.parkingSpots && (
-                <Badge>ParkingSlot {property.feature.parkingSpots}</Badge>
-              )}
-              {property.feature?.hasSwimmingPool && (
-                <Badge>Has Swimming Pool</Badge>
+          {/* Right Column: Property Details */}
+          <div className="space-y-6">
+            {/* Property Header */}
+            <div className="space-y-2 mt-2">
+              <h1 className="text-3xl font-bold text-gray-300">
+                {property.name}
+              </h1>
+              <div className="flex items-center gap-3">
+                <Badge>{property.status.value}</Badge>
+                <Badge>{property.type.value}</Badge>
+              </div>
+              <p className="text-gray-300">
+                {isExpanded
+                  ? property.description
+                  : `${property.description.substring(0, 100)}${property.description.length > 100 ? "..." : ""}`}
+              </p>
+              {property.description && property.description.length > 100 && (
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="text-green-500 hover:underline"
+                >
+                  {isExpanded ? "Show Less" : "See More"}
+                </button>
               )}
             </div>
+
+            {/* Location */}
+            <div className="space-y-2">
+              <h2 className="text-lg font-semibold text-gray-300">Location</h2>
+              <p className="text-gray-300">City: {property.location.city}</p>
+              <p className="text-gray-300">State: {property.location.state}</p>
+            </div>
+
+            {/* Features */}
+            <div className="space-y-2">
+              <h2 className="text-lg font-semibold text-gray-300">Features</h2>
+              <div className="flex flex-wrap gap-2">
+                <Badge>Area: {property.feature.area} sqft</Badge>
+                <Badge>{property.feature.bedrooms} Bedrooms</Badge>
+                <Badge>{property.feature.bathrooms} Bathrooms</Badge>
+                {property.feature?.hasBalcony && <Badge>Has Balcony</Badge>}
+                {property.feature?.hasGarage && <Badge>Has Garage</Badge>}
+                {property.feature?.hasSwimmingPool && (
+                  <Badge>Has Swimming Pool</Badge>
+                )}
+                {property.feature?.parkingSpots && (
+                  <Badge>Parking Spots: {property.feature.parkingSpots}</Badge>
+                )}
+              </div>
+            </div>
+
             <div className="flex justify-between">
               <span className="title-font font-medium text-2xl text-white">
                 PKR {property.price}
               </span>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-colors"
-              >
-                Contact
-              </button>
-              <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
-                <svg
-                  fill="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
+              <div>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-colors"
                 >
-                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-                </svg>
-              </button>
+                  Contact
+                </button>
+                <button className="rounded-full w-10 h-10 bg-gray-700 p-0 border-0 inline-flex items-center justify-center text-gray-400 ml-4">
+                  <svg
+                    fill="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -243,18 +294,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                     Verified
                   </span>
                 </div>
-
-                {/* Action Buttons */}
-                {/* <div className="flex gap-3 pt-2">
-                  <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-1">
-                    <Download className="w-4 h-4" />
-                    Download
-                  </button>
-                  <button className="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-1">
-                    <Share2 className="w-4 h-4" />
-                    Share
-                  </button>
-                </div> */}
               </div>
             </div>
           </div>
