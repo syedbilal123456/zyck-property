@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/ui/loader";
 import PropertyCardsecond from "@/components/views/secondPropertyCard";
-import { Cards } from "@/lib/type";
+import { Property } from "@/lib/type";
 
-const ITEMS_PER_PAGE = 6; // Set items per page to 3
+const ITEMS_PER_PAGE = 8; // Set items per page to 3
 
 const PropertySalePage = () => {
-  const [data, setData] = useState<Cards[]>([]);
+  const [data, setData] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -70,7 +70,7 @@ const PropertySalePage = () => {
           }}
         >
 
-          <div className="flex justify-center flex-col bg-black bg-opacity-50 w-screen px-[10%] py-[3%] " >
+          <div className="flex justify-center flex-col bg-neutral-900 bg-opacity-50 w-screen px-[10%] py-[3%] " >
             {/* Heading */}
             <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
               Properties for Sale – Find Your Perfect Investment
@@ -81,10 +81,10 @@ const PropertySalePage = () => {
           </div>
         </div>
 
-        <div className="mt-8 h-full mx-auto w-3/4">
+        <div className="mt-8 h-full mx-auto w-full">
           {/* Property Grid */}
-          <div className="p-5 mx-auto">
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          <div className="p-5 mx-auto w-[95%]">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {paginatedProperties.length > 0 ? (
                 paginatedProperties.map((property, index) => (
                   <PropertyCardsecond
@@ -92,7 +92,7 @@ const PropertySalePage = () => {
                     image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
                     title={property.name}
                     price={property.price}
-                    location={property.location.city}
+                    location={property.location}
                     status={property.status.value}
                     features={property.feature}
                     onContact={property.contact}

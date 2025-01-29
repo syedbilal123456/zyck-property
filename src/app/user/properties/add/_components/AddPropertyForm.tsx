@@ -78,6 +78,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     },
   });
 
+console.log(props,"rops");
 
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();

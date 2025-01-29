@@ -102,7 +102,7 @@ export default function PropertyTable() {
                       <Link href={`/properties/rent/${item.feature.propertyId}`} title="Details">
                         <FaEye className="text-slate-500" />
                       </Link>
-                      <Link href={`/user/properties/${item.id}/edit`} title="Edit Property">
+                      <Link href={`/user/properties/edit/${item.id}`} title="Edit Property">
                         <FaPencilAlt className="text-yellow-500" />
                       </Link>
                       <Link onClick={() => deleteProperty(item.id)} href={`/user/properties`} title="Delete Property">

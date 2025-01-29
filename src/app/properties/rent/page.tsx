@@ -2,14 +2,14 @@
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';
 import PropertyCardsecond from '@/components/views/secondPropertyCard'
-import { Cards } from '@/lib/type'
+import { Property } from '@/lib/type'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 const ITEMS_PER_PAGE = 6;
 
 const RentModule = () => {
-  const [properties, setProperties] = useState<Cards[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, _] = useState(0)
@@ -18,7 +18,7 @@ const RentModule = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/properties/list?statusId=4')
+        const response = await fetch('/api/properties/list?statusId=1')
         if (!response.ok) {
           throw new Error(`Error Status ${response.statusText}`)
         }
@@ -73,10 +73,10 @@ const RentModule = () => {
         </div>
       </div>
 
-      <div className="mt-8 h-full mx-auto w-3/4">
+      <div className="mt-8 h-full mx-auto w-11/12 ">
         {/* Property Grid */}
         <div className="p-5 mx-auto">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {paginatedProperties.length > 0
               ? (paginatedProperties.map((property, index) => (
                 <PropertyCardsecond
@@ -85,7 +85,7 @@ const RentModule = () => {
                   id={property.feature.propertyId}
                   features={property.feature}
                   image={property.images[0].url}
-                  location={property.location.city}
+                  location={property.location}
                   price={property.price}
                   status={property.status.value}
                   onContact={property.contact}

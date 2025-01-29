@@ -1,6 +1,6 @@
 "use client";
 
-import { Cards } from '@/lib/type';
+import { Property } from '@/lib/type';
 import React, { useEffect, useState } from 'react';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';
 import Loader from '../ui/loader';
@@ -8,7 +8,7 @@ import Loader from '../ui/loader';
 // Import the Loader component
 
 const FeatureProduct = () => {
-  const [properties, setProperties] = useState<Cards[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const FeatureProduct = () => {
                 image={property.images[0]?.url || "https://dummyimage.com/400x400"}
                 title={property.name}
                 price={property.price}
-                location={property.location.city}
+                location={property.location}
                 status={property.status.value}
                 features={property.feature}
                 onContact={property.contact}
@@ -90,7 +90,7 @@ const FeatureProduct = () => {
                 image={property.images[0]?.url || "https://dummyimage.com/400x400"}
                 title={property.name}
                 price={property.price}
-                location={property.location.city}
+                location={property.location}
                 status={property.status.value}
                 features={property.feature}
                 onContact={property.contact}
@@ -116,7 +116,7 @@ const FeatureProduct = () => {
                 image={property.images[0]?.url || "https://dummyimage.com/400x400"}
                 title={property.name}
                 price={property.price}
-                location={property.location.city}
+                location={property.location}
                 status={property.status.value}
                 features={property.feature}
                 onContact={property.contact}
