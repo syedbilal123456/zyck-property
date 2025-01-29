@@ -42,7 +42,7 @@ interface Property {
   PropertType?:string
 }
 
-export default function PropertyCard({PropertType, id, image, title, price, location, status, features, onContact }: Property) {
+export default function PropertyCard({PropertType , id, image, title, price, location, status, features, onContact }: Property) {
   const formatPriceWithCommas = (price: string | number): string => {
     const numPrice = typeof price === "string" ? Number.parseFloat(price) : price
     return new Intl.NumberFormat("en-US").format(numPrice)
@@ -50,7 +50,7 @@ export default function PropertyCard({PropertType, id, image, title, price, loca
 
   return (
     <div className="w-full mx-auto rounded-xl shadow-sm  shadow-gray-800 border-gray-100 bg-zinc-900 text-white dark:bg-gray-800 dark:border-gray-700 overflow-hidden transition-all duration-300 ">
-      <Link href={`/properties/${PropertType}/${features.propertyId}`} className="block">
+      <Link href={`/properties/${status.toLowerCase() == "sell" ? "buy" :status.toLowerCase() }/${features.propertyId}`} className="block">
         <div className="relative">
           <Image
             src={image || "/placeholder.svg"}
