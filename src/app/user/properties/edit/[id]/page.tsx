@@ -29,6 +29,7 @@ const EditPropertyPage = async ({ params }: Props) => {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+console.log(propertyTypes, propertyStatuses, PropertyTypeDetail, cities, state, property,"edit page");
 
   if (!property) return notFound();
   if (!user || property.userId !== user.id) redirect("/unauthorized");

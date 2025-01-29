@@ -21,7 +21,12 @@ export async function GET(req: Request){
             include: {
                 type: true,
                 status: true,
-                location: true,
+                location: {
+                    select:{
+                        city:true,
+                        stateId:true
+                    }
+                },
                 feature: true,
                 images: true,
                 contact: true,

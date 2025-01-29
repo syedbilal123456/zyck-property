@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Cards } from "@/lib/type";
+import { Property } from "@/lib/type";
 // Import the Loader component
 import Loader from "@/components/ui/loader";
 import PropertyCardsecond from "@/components/views/secondPropertyCard";
@@ -12,7 +12,7 @@ import PropertyCardsecond from "@/components/views/secondPropertyCard";
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("priceLowToHigh");
-  const [properties, setProperties] = useState<Cards[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Search() {
   const filteredProperties = properties
     .filter((property) =>
       property.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Match property name
-      property.location.city.toLowerCase().includes(searchTerm.toLowerCase()) // Match city
+      property.location.city.value.toLowerCase().includes(searchTerm.toLowerCase()) // Match city
     )
     .sort((a, b) => {
       if (sortOption === "priceLowToHigh") {
@@ -96,7 +96,7 @@ export default function Search() {
                   image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
                   title={property.name}
                   price={property.price}
-                  location={property.location.city}
+                  location={property.location}
                   status={property.status.value}
                   features={property.feature}
                   onContact={property.contact} 

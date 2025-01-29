@@ -100,7 +100,7 @@ const Features = (props: Props) => {
   // Generate radio button options
   // Generate radio button options
   const generateRadioButtons = (name: any, defaultValue?: number) => {
-    return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => {
+    return Array.from({ length: 10 }, (_, i) => i + 0).map((value) => {
 
 
       return <label key={value} className="relative">
