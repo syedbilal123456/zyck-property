@@ -88,6 +88,7 @@ const PropertySalePage = () => {
               {paginatedProperties.length > 0 ? (
                 paginatedProperties.map((property, index) => (
                   <PropertyCardsecond
+                  PropertType="buy"
                     key={index}
                     image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
                     title={property.name}
