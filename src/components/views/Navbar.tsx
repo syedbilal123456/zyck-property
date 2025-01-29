@@ -54,11 +54,15 @@ const Navbar = ({ children }: Props) => {
               <Link href="/user/properties">SELL</Link>
             </li>
             <li>
+              <Link href="/pricing">PRICING</Link>
+            </li>
+            <li>
               <Link href="/about">ABOUT US</Link>
             </li>
             <li>
               <Link href="/FAQs">FAQS</Link>
             </li>
+            
           </ul>
         </div>
 
