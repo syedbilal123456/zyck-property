@@ -80,6 +80,7 @@ const RentModule = () => {
             {paginatedProperties.length > 0
               ? (paginatedProperties.map((property, index) => (
                 <PropertyCardsecond
+                PropertType='rent'
                   key={index}
                   title={property.name}
                   id={property.feature.propertyId}
