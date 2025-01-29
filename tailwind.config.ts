@@ -10,6 +10,7 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			darkgreen: 'rgb(0, 101, 56)',
   			primary: {
   				DEFAULT: '#008000',
   				foreground: '#ffffff'
@@ -38,7 +39,7 @@ export default {
   			popover: {
   				DEFAULT: '#ffffff',
   				foreground: '#000000'
-  			}
+  			},
   		},
   		borderRadius: {
   			lg: '12px',

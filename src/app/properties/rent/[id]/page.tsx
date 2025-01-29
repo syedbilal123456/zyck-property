@@ -97,7 +97,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               >
                 {property.images.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <img
+                    <Image
+                      width={600}
+                      height={400}
                       src={image.url || "https://dummyimage.com/600x400"}
                       alt={`Property image ${index + 1}`}
                       className="w-full h-[400px] object-cover"
@@ -117,7 +119,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               >
                 {property.images.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <img
+                    <Image
+                      width={600}
+                      height={400}
                       src={image.url || "https://dummyimage.com/100x100"}
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-[80px] object-cover rounded-md border border-gray-300 hover:border-green-500 transition-transform transform hover:scale-105 cursor-pointer"
