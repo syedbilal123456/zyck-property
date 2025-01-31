@@ -6,7 +6,7 @@ const teamCard = [
 
     { img: "/S.bilal.jpg", passion: "Founder and CEO", name: "S.Bilal Ali Jafri", phone: "+92 337 330 1864", linkedin: 'https://www.linkedin.com/in/sbilalalijafri/' },
     { img: "/talhakhan.jpg", passion: "Co-Founder and CTO", name: "Talha Khan ", phone: "+92 342 263 0693", linkedin: 'https://www.linkedin.com/in/talha-khan-46177b13b/' },
-    { img: "/unknown.jpeg", passion: "Senior Manager SEO", name: "Syed Sohaib", phone: "+92 335 262 2491", linkedin: 'https://www.linkedin.com/in/syed-sohaib-amir-860382261/' },
+    { img: "/hassan.jpg", passion: "Software Engineer", name: "Hassan Kashif", phone: "+92 335 632 4247", linkedin: 'https://www.linkedin.com/in/hassankashif1751?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ' },
 ];
 
 const OurLeadership = () => {
