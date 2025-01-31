@@ -9,11 +9,11 @@ const AuthPage: React.FC = () => {
         <>
             <div
                 className="flex items-center justify-center min-h-screen bg-cover bg-center"
-                style={{ backgroundImage: 'url(/bg-login.jpeg)' }}
+                style={{ backgroundImage: 'url(/bglogin.jpg)' }}
             >
-                <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
-                    <h1 className="text-2xl font-bold text-center mb-4 text-green-700">Log In</h1>
-                    <p className="text-sm text-center mb-6 text-gray-500">Login here using Email and password</p>
+                <div className="bg-white bg-opacity-30 backdrop-blur-md rounded-lg shadow-md p-8 max-w-md w-full">
+                    <h1 className="text-2xl font-bold text-center mb-4 text-green-700">Log </h1>
+                    <p className="text-sm text-center mb-6 text-gray-900">Login here using Email and password</p>
 
                     <div className="space-y-4">
                         <EmailInput />
@@ -38,7 +38,7 @@ const AuthPage: React.FC = () => {
                             </LoginLink>
                         </div>
                         <div className={styles.footer}>
-                            <span className="flex flex-col justify-center items-center">
+                            <span className="flex flex-col justify-center items-center gap-2">
                                 <p className="text-black">Don&apos;t have an account? </p>
                                 <RegisterLink className="btn btn-dark">Create account</RegisterLink>
                             </span>
