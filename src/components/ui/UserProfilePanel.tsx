@@ -6,9 +6,10 @@ import Link from "next/link";
 import * as React from "react";
 import Image from "next/image";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { UserType } from "@/redux/reducer/authSlice";
 
 interface Props {
-  user: PrismaUser;
+  user: UserType;
 }
 
 const UserProfilePanel = ({ user }: Props) => {
@@ -36,7 +37,7 @@ const UserProfilePanel = ({ user }: Props) => {
       {/* Dropdown menu */}
       <DropdownMenuContent className="dropdown-content menu p-2 shadow rounded-box w-52 bg-background text-foreground">
         <DropdownMenuItem>
-          <Link href="/user/profile" className="text-lg ">
+          <Link href="http://localhost:3000/user/profile" className="text-lg ">
             Profile
           </Link>
         </DropdownMenuItem>

@@ -11,6 +11,7 @@ const AddPropertyPage = async () => {
     prisma.state.findMany(),
   ]);
 
+console.log("property");
 
 
   
