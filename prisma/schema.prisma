@@ -14,6 +14,13 @@ model User {
   lastName     String
   email        String
   avatarUrl    String?
+  ProfileComplete Boolean   @default(false)
+  phoneNumber    String?
+  city           String?
+  province       String?
+  streetAddress  String?
+  latitude        String?
+  longitude       String? 
   createdAt    DateTime        @default(now())
   Property     Property[]
   subscription Subscriptions[]
