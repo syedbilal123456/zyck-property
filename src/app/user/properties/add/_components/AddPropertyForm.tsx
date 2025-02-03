@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
-import { City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
+import { AreaType, City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
 import Location from "./Location";
 import Features from "./Features";
 import Picture from "./Picture";
@@ -70,13 +70,15 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
         bathrooms: 1,
         parkingSpots: 1,
         area: 1,
-
+        areaType: AreaType.SQUARE_METER,
       },
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
       DetailId: props.property?.DetailId ?? undefined,
     },
   });
+
+  
 
 console.log(props,"rops");
 

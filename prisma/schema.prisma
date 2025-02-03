@@ -7,24 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id           String          @id
-  firstName    String
-  lastName     String
-  email        String
-  avatarUrl    String?
-  ProfileComplete Boolean   @default(false)
-  phoneNumber    String?
-  city           String?
-  province       String?
-  streetAddress  String?
+  id              String          @id
+  firstName       String
+  lastName        String
+  email           String
+  avatarUrl       String?
+  createdAt       DateTime        @default(now())
+  isAdmin         Boolean         @default(false)
+  ProfileComplete Boolean         @default(false)
+  city            String?
   latitude        String?
-  longitude       String? 
-  createdAt    DateTime        @default(now())
-  Property     Property[]
-  subscription Subscriptions[]
-  isAdmin      Boolean         @default(false)
+  longitude       String?
+  province        String?
+  streetAddress   String?
+  phoneNumber     String?
+  Property        Property[]
+  subscription    Subscriptions[]
 }
 
 model Property {
@@ -36,31 +35,33 @@ model Property {
   typeId      Int
   statusId    Int
   DetailId    Int
-  contact     Contact?
   createdAt   DateTime           @default(now())
+  contact     Contact?
+  typeDetail  PropertyTypeDetail @relation(fields: [DetailId], references: [id])
   status      PropertyStatus     @relation(fields: [statusId], references: [id])
   type        PropertyType       @relation(fields: [typeId], references: [id])
   user        User               @relation(fields: [userId], references: [id])
-  typeDetail  PropertyTypeDetail @relation(fields: [DetailId], references: [id])
   feature     PropertyFeature?
   images      PropertyImage[]
   location    PropertyLocation?
 }
 
 model Contact {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   phone      String
   email      String
-  propertyId Int      @unique
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int       @unique
+  createdAt  DateTime? @default(now()) @db.Timestamp(6)
+  property   Property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyImage {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   url        String
   propertyId Int
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime? @default(now()) @db.Timestamp(6)
+  property   Property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyFeature {
@@ -73,23 +74,27 @@ model PropertyFeature {
   hasGardenYard   Boolean
   hasBalcony      Boolean
   propertyId      Int      @unique
+  areaType        AreaType
+  created         DateTime @default(now())
   property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model PropertyLocation {
   id            Int      @id @default(autoincrement())
   streetAddress String
-  cityId        Int
-  city          City     @relation(fields: [cityId], references: [id])
-  stateId       Int
-  state         State    @relation(fields: [stateId], references: [id])
   propertyId    Int      @unique
+  cityId        Int
+  stateId       Int
+  createdAt     DateTime @default(now())
+  city          City     @relation(fields: [cityId], references: [id])
   property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  state         State    @relation(fields: [stateId], references: [id])
 }
 
 model State {
   id               Int                @id @default(autoincrement())
   value            String
+  created          DateTime           @default(now())
   cities           City[]
   PropertyLocation PropertyLocation[]
 }
@@ -98,6 +103,7 @@ model City {
   id               Int                @id @default(autoincrement())
   value            String
   stateId          Int
+  createdAt        DateTime?          @default(now()) @db.Timestamp(6)
   state            State              @relation(fields: [stateId], references: [id])
   PropertyLocation PropertyLocation[]
 }
@@ -105,6 +111,7 @@ model City {
 model PropertyType {
   id       Int                  @id @default(autoincrement())
   value    String
+  created  DateTime             @default(now())
   Property Property[]
   Details  PropertyTypeDetail[]
 }
@@ -113,13 +120,15 @@ model PropertyTypeDetail {
   id             Int          @id @default(autoincrement())
   value          String
   propertyTypeId Int
-  propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
+  created        DateTime     @default(now())
   Property       Property[]
+  propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
 }
 
 model PropertyStatus {
   id       Int        @id @default(autoincrement())
   value    String
+  created  DateTime   @default(now())
   Property Property[]
 }
 
@@ -130,6 +139,7 @@ model SubscriptionPlan {
   propertyLimit         Int
   ImagePerPropertyLimit Int
   features              String
+  createdAt             DateTime?       @default(now()) @db.Timestamp(6)
   subscription          Subscriptions[]
 }
 
@@ -142,4 +152,12 @@ model Subscriptions {
   userId    String
   plan      SubscriptionPlan @relation(fields: [planId], references: [id])
   user      User             @relation(fields: [userId], references: [id])
+}
+
+enum AreaType {
+  SQUARE_METER
+  SQUARE_FEET
+  SQUARE_YARD
+  MARLA
+  KANAL
 }

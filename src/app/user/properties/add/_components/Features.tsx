@@ -3,6 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useFormContext } from 'react-hook-form';
 import { AddPropertyInputType } from './AddPropertyForm';
 import { Bed, Bath, Car, ChartArea } from 'lucide-react';
+import { AreaType } from '@prisma/client';
 
 
 interface Props {
@@ -28,7 +29,8 @@ const Features = (props: Props) => {
         'propertyFeature.area',
         'propertyFeature.hasSwimmingPool',
         'propertyFeature.hasGardenYard',
-        'propertyFeature.hasBalcony'
+        'propertyFeature.hasBalcony',
+        'propertyFeature.areaType'
       ])
     ) {
       props.next();
@@ -174,23 +176,22 @@ const Features = (props: Props) => {
 
       {/* deciption Code */}
       <div className="input-group">
-      <label htmlFor="description" className="text-white">
-        Description
-      </label>
-      <textarea
-        {...register('description')}
-        defaultValue={getValues().description}
-        id="description"
-        placeholder="Enter Your Description"
-        rows={4} // Default size for a larger input box
-        onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          e.target.style.height = 'auto'; // Reset the height
-          e.target.style.height = `${e.target.scrollHeight}px`; // Adjust to fit content
-        }}
-        className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${
-          errors.description ? 'border-red-500' : ''
-        }`}
-      />
+        <label htmlFor="description" className="text-white">
+          Description
+        </label>
+        <textarea
+          {...register('description')}
+          defaultValue={getValues().description}
+          id="description"
+          placeholder="Enter Your Description"
+          rows={4} // Default size for a larger input box
+          onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            e.target.style.height = 'auto'; // Reset the height
+            e.target.style.height = `${e.target.scrollHeight}px`; // Adjust to fit content
+          }}
+          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.description ? 'border-red-500' : ''
+            }`}
+        />
 
         {errors.description && (
           <p className="text-sm text-red-500">{errors.description?.message}</p>
@@ -228,22 +229,57 @@ const Features = (props: Props) => {
       </div>
 
       {/* Area */}
-      <div className="input-group">
-        <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6 mt-4">
-          <ChartArea className="w-6 h-6 text-green-500" />
-          Area In SQ/F
-        </label>
-        <input
-          {...register("propertyFeature.area")}
-          id="contact-name"
-          defaultValue={getValues("propertyFeature.area")}
-          placeholder="Aera"
-          type='number'
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.contact?.name ? "border-red-500" : ""
-            }`}
-        />
-        {errors.propertyFeature?.area && <p className="text-red-500">{errors.propertyFeature?.area?.message}</p>}
+      <label className="flex items-center  text-base font-medium text-green-300 mt-2 ">
+            <ChartArea className="  text-green-500" />
+            Area In SQ/F
+          </label>
+      <div className=" w-4/5 flex items-center  justify-start mt-2 gap-3">
+        <div className="w-full">
+
+          <input
+            {...register("propertyFeature.area")}
+            id="contact-name"
+            defaultValue={getValues("propertyFeature.area")}
+            placeholder="Aera"
+            type='number'
+            className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2.5 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.contact?.name ? "border-red-500" : ""
+              }`}
+          />
+          
+        </div>
+        <div className="">
+          <select
+            {...register("propertyFeature.areaType")}
+            defaultValue={getValues().propertyFeature.areaType}
+            id="state"
+            className={`peer w-full bg-transparent text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.propertyFeature?.areaType ? "border-red-500" : ""
+              }`}
+          >
+            <option className="text-black" key={1} value={AreaType.SQUARE_METER}>
+              Square Meter
+            </option>
+            <option className="text-black" key={2} value={AreaType.SQUARE_FEET}>
+              Square Feet
+            </option>
+            <option className="text-black" key={3} value={AreaType.SQUARE_YARD}>
+              Square Yard
+            </option>
+            <option className="text-black" key={4} value={AreaType.MARLA}>
+              Marla
+            </option>
+            <option className="text-black" key={5} value={AreaType.KANAL}>
+              Kanal
+            </option>
+          </select>
+          {errors.location?.state && (
+            <p className="text-sm text-red-500">
+              {errors.location?.state?.message}
+            </p>
+          )}
+        </div>
       </div>
+      {errors.propertyFeature?.area && <p className="text-red-500">{errors.propertyFeature?.area?.message}</p>}
+
       <div className="mt-3 flex items-center justify-between">
         <div className="flex items-center">
           <input

@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/store"
 import { updateProfile } from "@/lib/actions/user/updateProfile"
 import { ProfilePageSkeleton } from "./ProfileSkeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
+import { toast } from "react-toastify"
+import { redirect } from "next/navigation"
 
 const provinceCityMap: Record<string, string[]> = {
   "Sindh": [
@@ -120,7 +121,6 @@ type ProfileFormData = z.infer<typeof profileSchema>
 export default function ProfilePage() {
   const { user } = useSelector((state: RootState) => state.auth)
   const [isLoading, setIsLoading] = useState(true)
-  const { toast } = useToast()
   const [availableCities, setAvailableCities] = useState<string[]>([])
 
   const {
@@ -161,10 +161,13 @@ export default function ProfilePage() {
 
   const onSubmit = async (data: ProfileFormData) => {
     const response = await updateProfile(data)
+
     if (response.success) {
-      toast({ title: "Profile Updated", description: "Your profile has been successfully updated." })
+      toast.success("Updated")
+      redirect('/properties/add')
+
     } else {
-      toast({ title: "Error", description: response.error, variant: "destructive" })
+      toast.error("Some thing When Wrong")
     }
   }
 
