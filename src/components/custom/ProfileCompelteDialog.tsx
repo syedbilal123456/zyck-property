@@ -154,8 +154,11 @@ const ProfileCompletionDialog: React.FC<ProfileCompletionDialogProps> = ({ isOpe
 
     if (response.success) {
       toast.success("Profile updated successfully")
-      onClose()
-    } else {
+onClose()
+setTimeout(() => {
+    window.location.reload();
+  }, 500); 
+} else {
       toast.error("Something went wrong")
     }
   }
