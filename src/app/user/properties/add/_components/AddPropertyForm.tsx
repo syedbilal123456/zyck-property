@@ -80,15 +80,15 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     },
   });
   
+  // const userDetails  = useSelector((state:RootState)=>state.auth)
   // useEffect(()=>{
-  //   const {user}  = useSelector((state:RootState)=>state.auth)
-  // if(user?.ProfileComplete){
+  // if(userDetails.user?.ProfileComplete){
   //   toast.error('plz Complete Your Profile')
   //   redirect('/user/profile')
   // }
   // },[])
 
-console.log(props,"rops");
+// console.log(props,"rops");
 
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();
