@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
 import { AreaType, City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
@@ -13,11 +13,13 @@ import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { uploadImages } from "@/lib/upload";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { editProperty, saveProperty } from "@/lib/actions/property";
 import clsx from "clsx";
 import Loader from "@/components/ui/loader";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
 
 
@@ -77,8 +79,14 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       DetailId: props.property?.DetailId ?? undefined,
     },
   });
-
   
+  useEffect(()=>{
+    const {user}  = useSelector((state:RootState)=>state.auth)
+  if(user?.ProfileComplete){
+    toast.error('plz Complete Your Profile')
+    redirect('/user/profile')
+  }
+  },[])
 
 console.log(props,"rops");
 

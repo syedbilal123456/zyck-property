@@ -164,7 +164,7 @@ const ProfileCompletionDialog: React.FC<ProfileCompletionDialogProps> = ({ isOpe
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Complete Your Profile</DialogTitle>
+          <DialogTitle>Kindly complete your profile first, then add your property.</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
  

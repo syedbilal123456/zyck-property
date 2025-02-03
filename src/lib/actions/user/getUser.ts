@@ -8,7 +8,7 @@ export const getUserFromDB = async () => {
         const { isAuthenticated, getUser } = getKindeServerSession();
 
         if (!(await isAuthenticated())) {
-            return { success: false, error: "User is not authenticated." };
+            return { success: false, error: "Plz Login." };
         }
 
         const user = await getUser();

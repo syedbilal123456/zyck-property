@@ -20,7 +20,6 @@ const SignInPanel = () => {
         const fetchUser = async () => {
             const response = await getUserFromDB();
             if (!response.success || !response.data) {
-                toast.error(response.error || "An unexpected error occurred.");
                 dispatch(userNotExited()); // Ensure the state resets if user is not found
                 return;
             }
