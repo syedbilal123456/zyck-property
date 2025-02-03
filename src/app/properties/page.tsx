@@ -4,25 +4,36 @@ import { useState, useEffect } from 'react'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import Link from 'next/link'
 import Loader from '@/components/ui/loader';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { redirect } from 'next/navigation';
 
 interface Property {
-    id:number;
-    name: string;
-    status: {
-      id: number;
-      value: string;
-    };
-    type: {
-      id: number;
-      value: string;
-    };
-    price: number;
-  }
-  
+  id: number;
+  name: string;
+  status: {
+    id: number;
+    value: string;
+  };
+  type: {
+    id: number;
+    value: string;
+  };
+  price: number;
+}
+
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState<Property[]>([])
   const { isAuthenticated } = useKindeBrowserClient()
+  const { user } = useSelector((state: RootState) => state.auth)
+  
+  const handleAddProperty = () => {
+    if (!user?.ProfileComplete) {
+      redirect('/user/profile')
+    }
+
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,7 +56,7 @@ export default function PropertiesPage() {
   const deleteProperty = async (id: number) => {
     try {
       const url = `/api/properties/${id}`
-      const response = await fetch(url , {
+      const response = await fetch(url, {
         method: 'DELETE',
       })
       if (response.ok) {
@@ -58,7 +69,7 @@ export default function PropertiesPage() {
 
   if (!isAuthenticated) {
     return <div className='w-full h-full text-green-600 flex justify-center items-center bg-opacity-30'>
-      <Loader/>
+      <Loader />
     </div>
   }
 
