@@ -4,6 +4,7 @@ import PropertyTable from "./_components/PropertiesTable"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/store"
 import ProfileCompletionDialog from "@/components/custom/ProfileCompelteDialog"
+import { redirect } from "next/navigation"
 
 const PropertiesPage = () => {
   const { user } = useSelector((state: RootState) => state.auth)
@@ -13,7 +14,7 @@ const PropertiesPage = () => {
     if (!user?.ProfileComplete) {
       setIsDialogOpen(true)
     } else {
-      // Logic to add property
+      redirect('/user/properties/add')
     }
   }
 
