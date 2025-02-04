@@ -12,7 +12,7 @@ const AuthPage: React.FC = () => {
 
     const {user } = useSelector((state:RootState)=>state.auth)
     useEffect(()=>{
-if(!user){
+if(!(user == null)){
     redirect('/')
 }
 
