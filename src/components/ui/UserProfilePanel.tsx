@@ -34,12 +34,12 @@ const UserProfilePanel = ({ user }: Props) => {
       {/* Dropdown menu */}
       <DropdownMenuContent className="dropdown-content menu p-2 shadow rounded-box w-52 bg-background text-foreground">
       <DropdownMenuItem>
-          <Link href="http://localhost:3000/user/profile" className="text-lg ">
+          <Link href="/user/profile" className="text-lg ">
             {user.firstName} {user.lastName}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="http://localhost:3000/user/profile" className="text-lg ">
+          <Link href="/user/profile" className="text-lg ">
             Profile
           </Link>
         </DropdownMenuItem>
