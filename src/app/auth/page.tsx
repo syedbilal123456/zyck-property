@@ -1,10 +1,24 @@
-import React from "react";
+'use client'
+import React, { useEffect } from "react";
 import styles from "../page.module.css";
 import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import EmailInput from "../../components/Email"; // Adjust the path as needed
 import { FaFacebook, FaGoogle } from "react-icons/fa"; // Make sure to install react-icons if not already
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { redirect } from "next/navigation";
 
 const AuthPage: React.FC = () => {
+
+    const {user } = useSelector((state:RootState)=>state.auth)
+    useEffect(()=>{
+if(!user){
+    redirect('/')
+}
+
+    },[])
+
+
     return (
         <>
             <div

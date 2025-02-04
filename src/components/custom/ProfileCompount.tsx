@@ -239,8 +239,9 @@ export default function ProfilePage() {
               {errors.city && <p className="text-red-500 text-sm">{errors.city.message}</p>}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="address">Address</Label>
-              <Input id="address" placeholder="Enter your address" {...register("address")} />
+              <Label htmlFor="address"> Complete Address
+              </Label>
+              <Input id="address" placeholder="House No., Street No, Area" {...register("address")} />
               {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
             </div>
           </div>

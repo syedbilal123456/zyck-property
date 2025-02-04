@@ -1,138 +1,148 @@
-"use client"
-import { Button } from '@/components/ui/button';
-import Loader from '@/components/ui/loader';
-import PropertyCardsecond from '@/components/views/secondPropertyCard'
-import { Property } from '@/lib/type'
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Loader from "@/components/ui/loader";
+import PropertyCardsecond from "@/components/views/secondPropertyCard";
+import { Property } from "@/lib/type";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8; // Set items per page to 3
 
-const RentModule = () => {
-  const [properties, setProperties] = useState<Property[]>([]);
+const PropertySalePage = () => {
+  const [data, setData] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, _] = useState(0)
-
+  const [totalPages, setTotalPages] = useState(0);
+  // const [searchTerm, setSearchTerm] = useState<string>("");
+  // const [sortOption, setSortOption] = useState<string>("priceLowToHigh");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/properties/list?statusId=1')
+        setLoading(true);
+        const response = await fetch(`/api/properties/list?statusId=2`);
         if (!response.ok) {
-          throw new Error(`Error Status ${response.statusText}`)
+          throw new Error(`Error Response ${response.statusText}`);
         }
-        const result = await response.json()
-        setProperties(result)
+        const result = await response.json();
+        setData(result);
+        setTotalPages(Math.ceil(result.length / ITEMS_PER_PAGE)); // Calculate total pages
       } catch (error) {
-        throw new Error(`Error Status ${error}`)
+        console.error("Error Status:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
+
     fetchData();
-  }, [])
+  }, [currentPage]); // Include currentPage in the dependency array
+
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-  const paginatedProperties = properties.slice(
+  const paginatedProperties = data.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
-  )
+  );
 
   if (loading) {
-    return <div className='w-screen h-screen flex justify-center items-center text-primary bg-opacity-25 text-4xl'>
-      <Loader />
-    </div>
-  }
-  return (
-    <div>
-      <div
-        className="w-full flex items-center"
-        style={{
-          backgroundImage: "url(/about.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed", // Ensures the background is fixed during scrolling
-          backgroundSize: "cover", // Ensures the image covers the entire div
-        }}
-      >
-
-        <div className="flex justify-center flex-col bg-black w-screen bg-opacity-50 px-[10%] py-[3%] " >
-          {/* Heading */}
-          <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
-            Property for Rent – Find Your Ideal Space
-          </h1>
-          {/* Paragraph */}
-          <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
-            We are looking for a house to rent that is perfect in every sense for our lifestyles and budget. Pakistan and other countries offer a wide range of residential and commercial properties available for rent. ZYCK Property has everything, from a cozy apartment to a spacious house or a prime office space.
-          </p>
-        </div>
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-opacity-30 text-green-700 text-2xl">
+        <Loader />
       </div>
+    );
+  }
 
-      <div className="mt-8 h-full mx-auto w-11/12 ">
-        {/* Property Grid */}
-        <div className="p-5 mx-auto">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {paginatedProperties.length > 0
-              ? (paginatedProperties.map((property, index) => (
-                <PropertyCardsecond
-                PropertType='rent'
-                  key={index}
-                  title={property.name}
-                  id={property.feature.propertyId}
-                  features={property.feature}
-                  image={property.images[0].url}
-                  location={property.location}
-                  price={property.price}
-                  status={property.status.value}
-                  onContact={property.contact}
-                />
-              ))) : (
-                <p className="col-span-full text-center">No results found.</p>
-              )
-            }
+  return (
+    <>
+      <div>
+        <div
+          className="w-full flex items-center"
+          style={{
+            backgroundImage: "url(/about.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed", // Ensures the background is fixed during scrolling
+            backgroundSize: "cover", // Ensures the image covers the entire div
+          }}
+        >
+
+          <div className="flex justify-center flex-col bg-neutral-900 bg-opacity-50 w-screen px-[10%] py-[3%] " >
+            {/* Heading */}
+            <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
+              Properties for Sale – Find Your Perfect Investment
+            </h1>
+            {/* Paragraph */}
+            <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
+              Looking to buy your dream home or make a smart real estate investment? ZYCK Property offers a wide selection of residential and commercial properties across Pakistan and beyond, carefully curated to meet your needs and budget.</p>
           </div>
         </div>
-      </div>
 
-
-      <div className="flex justify-center items-center gap-4 my-8">
-        <Button
-          variant="outline"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className='flex items-center gap-2'>
-          Previous <ChevronLeft className="w-4 h-4" />
-        </Button>
-
-        <div>
-
-          {[...Array(totalPages)].map((_, index) => (
-            <Button
-              key={index + 1}
-              variant={currentPage === index + 1 ? "default" : "outline"}
-              onClick={() => handlePageChange(index + 1)}
-              className='w-10 h-10 p-0'>
-              {index + 1}
-            </Button>
-          ))
-          }
+        <div className="mt-8 h-full mx-auto w-full">
+          {/* Property Grid */}
+          <div className="p-5 mx-auto w-[95%]">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {paginatedProperties.length > 0 ? (
+                paginatedProperties.map((property, index) => (
+                  <PropertyCardsecond
+                  PropertType="buy"
+                    key={index}
+                    image={property.images[0]?.url || "/Peshawar.jpg"} // Use first image or placeholder
+                    title={property.name}
+                    price={property.price}
+                    location={property.location}
+                    status={property.status.value}
+                    features={property.feature}
+                    onContact={property.contact}
+                    id={property.feature.propertyId}
+                  />
+                ))
+              ) : (
+                <p className="col-span-full text-center">No results found.</p>
+              )}
+            </div>
+          </div>
         </div>
 
-        <Button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className='flex items-center gap-2'>
-          Next <ChevronRight className="w-4 h-4" />
-        </Button>
+        {/* Pagination */}
+        <div className="flex justify-center items-center gap-4 my-8">
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="flex items-center gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" /> Previous
+          </Button>
 
+          <div className="flex items-center gap-2">
+            {[...Array(totalPages)].map((_, index) => (
+              <Button
+                key={index + 1}
+                variant={currentPage === index + 1 ? "default" : "outline"}
+                onClick={() => handlePageChange(index + 1)}
+                className="w-10 h-10 p-0"
+              >
+                {index + 1}
+              </Button>
+            ))}
+          </div>
+
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="flex items-center gap-2"
+          >
+            Next <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default RentModule
+export default PropertySalePage;

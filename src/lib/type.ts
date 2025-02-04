@@ -1,3 +1,5 @@
+import { AreaType } from "@prisma/client";
+
 interface Contact {
   email: string;
   name: string;
@@ -6,6 +8,7 @@ interface Contact {
 
 interface Features {
   area: number;
+  areaType:AreaType
   bathrooms: number;
   bedrooms: number;
   hasBalcony: boolean;
