@@ -80,13 +80,13 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     },
   });
   
-  // const userDetails  = useSelector((state:RootState)=>state.auth)
-  // useEffect(()=>{
-  // if(userDetails.user?.ProfileComplete){
-  //   toast.error('plz Complete Your Profile')
-  //   redirect('/user/profile')
-  // }
-  // },[])
+  const userDetails  = useSelector((state:RootState)=>state.auth)
+  useEffect(()=>{
+  if(!userDetails.user?.ProfileComplete){
+    toast.error('plz Complete Your Profile')
+    redirect('/user/profile')
+  }
+  },[])
 
 // console.log(props,"rops");
 
