@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Bed, Car, Ruler, Bath, Eye } from "lucide-react"
+import { AreaType } from "@prisma/client"
+import { unitAbbreviations } from "@/lib/constant"
 
 interface Contact {
   email: string
@@ -12,6 +14,7 @@ interface Contact {
 
 interface Features {
   area: number
+  areaType:AreaType
   bathrooms: number
   bedrooms: number
   hasBalcony: boolean
@@ -75,7 +78,7 @@ export default function PropertyCard({PropertType , id, image, title, price, loc
             </div>
             <div className="flex items-center text-gray-100 dark:text-gray-300">
               <Ruler className="w-4 h-4 mr-2" />
-              <span className="text-sm">{features.area} sq ft</span>
+              <span className="text-sm">{features.area} {unitAbbreviations[features.areaType] || features.areaType}</span>
             </div>
             <div className="flex items-center text-gray-100 dark:text-gray-300">
               <Bed className="w-4 h-4 mr-2" />

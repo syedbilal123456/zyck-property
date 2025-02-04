@@ -1,10 +1,10 @@
 export const metadata = {
-    title: "Find Properties for Rent – ZYCK Rent Property",
+    title: "Buy Property in Pakistan – Find Your Dream Home",
     description:
-      "Looking for houses for hire? ZYCK Property offers an extensive range of flats, houses, and industrial areas for hire across Pakistan.",
+      "Discover the fine properties on the market with ZYCK Property. Browse houses, residences, and plots to buy in your desired place effortlessly and securely.",
   };
   
-  export default function RentLayout({ children }: { children: React.ReactNode }) {
+  export default function BuyLayout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
   

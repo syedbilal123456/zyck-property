@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { PrismaClient } from '@prisma/client';
 
-
+const prisma = new PrismaClient();
 async function main() {
   // Seed States
   const states = await prisma.state.createMany({
@@ -13,6 +13,7 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+  
 
   // Seed Cities
   const cities = await prisma.city.createMany({

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react"
 import React from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
 import { log } from "console"
+import { AreaType } from "@prisma/client"
+import { unitAbbreviations } from "@/lib/constant"
 interface Contact {
   email: string;
   name: string;
@@ -27,6 +29,7 @@ interface Features {
   hasSwimmingPool: boolean;
   parkingSpots: number;
   propertyId: number;
+  areaType:AreaType
 }
 
 interface Images {
@@ -200,7 +203,7 @@ console.log(property?.location.city,"city");
                   <Ruler className="w-5 h-5 text-emerald-500" />
                   <div>
                     <p className="text-sm text-gray-400">Area</p>
-                    <p className="font-semibold text-white">{property.feature.area} sq ft</p>
+                    <p className="font-semibold text-white">{property.feature.area} {unitAbbreviations[property.feature.areaType] || property.feature.areaType}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

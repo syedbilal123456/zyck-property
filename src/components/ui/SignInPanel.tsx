@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 const SignInPanel = () => {
     const dispatch = useDispatch();
     const [ dbUser , SetDbUser] = useState <UserType | null>()
-    const auth  =  useSelector((state:RootState) => state.auth)
+    const {user,loader}  =  useSelector((state:RootState) => state.auth)
     useEffect(() => {
         const fetchUser = async () => {
             const response = await getUserFromDB();
@@ -33,8 +33,8 @@ const SignInPanel = () => {
 
     return (
         <div className="flex gap-3 items-center">
-            {dbUser ? (
-                <UserProfilePanel user={dbUser} />
+            {user ? (
+                <UserProfilePanel user={user} />
             ) : (
                 <>
                     <Link href="/auth">
