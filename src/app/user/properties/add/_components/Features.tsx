@@ -53,32 +53,50 @@ const Features = (props: Props) => {
     ];
     const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
     const scales = ["", "Thousand", "Lakh", "Crore"];
-
+    const scaleValues = [1, 1000, 100000, 10000000]; // Corresponds to "", Thousand, Lakh, Crore
+  
     const getWords = (n: number, index: number = 0): string => {
       if (n === 0) return "";
-      if (n < 20) return units[n] + (scales[index] ? ` ${scales[index]}` : "");
+      
+      // For numbers less than 20 or less than 100
+      if (n < 20)
+        return units[n] + (scales[index] && index > 0 ? ` ${scales[index]}` : "");
+      
       if (n < 100) {
         const rem = n % 10;
-        return tens[Math.floor(n / 10)] + (rem ? ` ${units[rem]}` : "") + (scales[index] ? ` ${scales[index]}` : "");
+        return tens[Math.floor(n / 10)] + (rem ? ` ${units[rem]}` : "") + (scales[index] && index > 0 ? ` ${scales[index]}` : "");
       }
+      
+      // For numbers less than 1000
       if (n < 1000) {
         const rem = n % 100;
-        return units[Math.floor(n / 100)] + " Hundred" + (rem ? ` ${getWords(rem)}` : "") + (scales[index] ? ` ${scales[index]}` : "");
+        return (
+          units[Math.floor(n / 100)] +
+          " Hundred" +
+          (rem ? ` ${getWords(rem)}` : "") +
+          (scales[index] && index > 0 ? ` ${scales[index]}` : "")
+        );
       }
-
-      // Handle Thousands, Lakhs, Crores
+      
+      // For larger numbers: Thousands, Lakhs, Crores
       for (let i = scales.length - 1; i >= 0; i--) {
-        const scaleValue = Math.pow(10, 3 * i + (i > 1 ? 2 : 0));
+        const scaleValue = scaleValues[i];
         if (n >= scaleValue) {
-          const rem = n % scaleValue;
-          return getWords(Math.floor(n / scaleValue), i) + (rem ? ` ${getWords(rem)}` : "");
+          const quotient = Math.floor(n / scaleValue);
+          const remainder = n % scaleValue;
+          return (
+            getWords(quotient, i) +
+            (remainder ? ` ${getWords(remainder)}` : "")
+          );
         }
       }
       return "";
     };
-
+  
     return getWords(num).trim();
   };
+  
+  
 
   const formatChequeAmount = (price: number): string => {
     if (!price) return "";
