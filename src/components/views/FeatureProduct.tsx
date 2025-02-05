@@ -1,19 +1,40 @@
 
+"use client";
 import { Property } from '@/lib/type';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';
 import Loader from '../ui/loader';
 import { SkeletonPropertyCard } from '../custom/skeleton/SkeletonPropertyCard';
 import { getAllPorpertyList } from '@/lib/actions/property/AllListProperty';
 import { AreaType } from '@prisma/client';
+import { useEffect, useState } from 'react';
 
-const FeatureProduct = async () => {
+const FeatureProduct =  () => {
 
 
-  const response = await getAllPorpertyList()
-  const properties :any[] =  response.data ?? []
-  console.log(properties,"propes");
+const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/properties/list')
+        if (!response.ok) {
+          throw new Error(`Error Status ${response.statusText}`)
+        }
+        const result = await response.json()
+        setProperties(result)
+      } catch (error) {
+        throw new Error(`Error Status ${error}`)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData();
+  }, [])
+
   
-  if (!properties) {
+  if (loading) {
     return (
       <div>
       {/* Featured Properties Section */}
