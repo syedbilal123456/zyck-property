@@ -26,44 +26,44 @@ export const getAllPorpertyList = async () => {
             return { success: false, error: "Cannot find properties." };
         }
 
-        // Map properties to ensure the `feature` has all required fields
-        const formattedProperties = propertiesList.map((property) => {
-            // Default feature properties if feature is null
-            const feature: any = property.feature ?? {
-                area: 0,
-                areaType: "SquareFeet" as AreaType,  // Assuming "SquareFeet" is a valid value in your AreaType enum
-                bathrooms: 0,
-                bedrooms: 0,
-                hasBalcony: false,
-                hasGarage: false,
-                hasGarden: false,
-                hasPool: false,
-                hasGardenYard: false,
-                hasSwimmingPool: false,
-                parkingSpots: 0,
-                propertyId: property.id,  // Assign the propertyId
-            };
+        // // Map properties to ensure the `feature` has all required fields
+        // const formattedProperties = propertiesList.map((property) => {
+        //     // Default feature properties if feature is null
+        //     const feature: any = property.feature ?? {
+        //         area: 0,
+        //         areaType: "SquareFeet" as AreaType,  // Assuming "SquareFeet" is a valid value in your AreaType enum
+        //         bathrooms: 0,
+        //         bedrooms: 0,
+        //         hasBalcony: false,
+        //         hasGarage: false,
+        //         hasGarden: false,
+        //         hasPool: false,
+        //         hasGardenYard: false,
+        //         hasSwimmingPool: false,
+        //         parkingSpots: 0,
+        //         propertyId: property.id,  // Assign the propertyId
+        //     };
 
-            return {
-                ...property,
-                feature,
-                status: property.status?.value,
-                type: property.type?.value,
-                location: {
-                    city: property.location?.city?.value,
-                    stateId: property.location?.stateId ?? 0,
-                },
-                contact: {
-                    email: property.contact?.email ?? '',
-                    name: property.contact?.name ?? '',
-                    phone: property.contact?.phone ?? '',
-                },
-            };
-        });
+        //     return {
+        //         ...property,
+        //         feature,
+        //         status: property.status?.value,
+        //         type: property.type?.value,
+        //         location: {
+        //             city: property.location?.city?.value,
+        //             stateId: property.location?.stateId ?? 0,
+        //         },
+        //         contact: {
+        //             email: property.contact?.email ?? '',
+        //             name: property.contact?.name ?? '',
+        //             phone: property.contact?.phone ?? '',
+        //         },
+        //     };
+        // });
 
         return {
             success: true,
-            data: formattedProperties,
+            data: propertiesList,
         };
     } catch (error) {
         console.error("Database error:", error);

@@ -1,46 +1,19 @@
-"use client";
 
 import { Property } from '@/lib/type';
-import React, { useEffect, useState } from 'react';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';
 import Loader from '../ui/loader';
 import { SkeletonPropertyCard } from '../custom/skeleton/SkeletonPropertyCard';
+import { getAllPorpertyList } from '@/lib/actions/property/AllListProperty';
+import { AreaType } from '@prisma/client';
 
-// Import the Loader component
+const FeatureProduct = async () => {
 
-const FeatureProduct = () => {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/properties/list');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setProperties(data);
-      } catch (error) {
-        console.error('Error fetching properties:', error);
-      } finally {
-        setLoading(false); // Set loading to false after data is fetched or error occurs
-      }
-    };
-    fetchData();
-  }, []);
-
-  // Filter and reverse the array once during processing
-  const propertiesForRent = properties.filter(
-    (item) => item.status.value === 'Rent'
-  ).reverse().slice(0, 4);
+  const response = await getAllPorpertyList()
+  const properties :any[] =  response.data ?? []
+  console.log(properties,"propes");
   
-  const propertiesForSale = properties
-    .filter((item) => item.status.value === 'Sell')
-    .reverse()
-    .slice(0, 4);
-
-  if (loading) {
+  if (!properties) {
     return (
       <div>
       {/* Featured Properties Section */}
@@ -83,9 +56,19 @@ const FeatureProduct = () => {
     );
   }
 
+  // Filter and reverse the array once during processing
+  const propertiesForRent = properties.filter(
+    (item :any) => item.status.value === 'Rent'
+  ).reverse().slice(0, 4);
+  
+  const propertiesForSale = properties
+    .filter((item:any) => item.status.value === 'Sell')
+    .reverse()
+    .slice(0, 4);
+
+
   return (
     <div>
-      {/* Featured Properties Section */}
       <div>
         <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
           <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
