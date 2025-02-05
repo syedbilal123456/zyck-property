@@ -1,4 +1,5 @@
 "use client"
+import { SkeletonPropertyCard } from '@/components/custom/skeleton/SkeletonPropertyCard';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';
 import PropertyCardsecond from '@/components/views/secondPropertyCard'
@@ -44,8 +45,31 @@ const RentModule = () => {
   )
 
   if (loading) {
-    return <div className='w-screen h-screen flex justify-center items-center text-primary bg-opacity-25 text-4xl'>
-      <Loader />
+    return <div className=''>
+         <div
+        className="w-full flex items-center mb-8"
+        style={{
+          backgroundImage: "url(/about.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed", // Ensures the background is fixed during scrolling
+          backgroundSize: "cover", // Ensures the image covers the entire div
+        }}
+      >
+
+        <div className="flex justify-center flex-col bg-black w-screen bg-opacity-50 px-[10%] py-[3%] " >
+          {/* Heading */}
+          <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
+            Property for Rent – Find Your Ideal Space
+          </h1>
+          {/* Paragraph */}
+          <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
+            We are looking for a house to rent that is perfect in every sense for our lifestyles and budget. Pakistan and other countries offer a wide range of residential and commercial properties available for rent. ZYCK Property has everything, from a cozy apartment to a spacious house or a prime office space.
+          </p>
+        </div>
+      </div>
+     <SkeletonPropertyCard  count={8}/>
+     
     </div>
   }
   return (

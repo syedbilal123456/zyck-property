@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/ui/loader";
 import PropertyCardsecond from "@/components/views/secondPropertyCard";
 import { Property } from "@/lib/type";
+import { SkeletonPropertyCard } from "@/components/custom/skeleton/SkeletonPropertyCard";
 
 const ITEMS_PER_PAGE = 8; // Set items per page to 3
 
@@ -50,8 +51,29 @@ const PropertySalePage = () => {
 
   if (loading) {
     return (
-      <div className="w-screen h-screen flex justify-center items-center bg-opacity-30 text-green-700 text-2xl">
-        <Loader />
+      <div className="w-full">
+        <div
+          className="w-full  mb-8 flex items-center"
+          style={{
+            backgroundImage: "url(/about.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed", // Ensures the background is fixed during scrolling
+            backgroundSize: "cover", // Ensures the image covers the entire div
+          }}
+        >
+
+          <div className="flex justify-center flex-col bg-neutral-900 bg-opacity-50 w-screen px-[10%] py-[3%] " >
+            {/* Heading */}
+            <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:leading-tight">
+              Properties for Sale – Find Your Perfect Investment
+            </h1>
+            {/* Paragraph */}
+            <p className="my-6 mx-7 text-lg text-gray-200 leading-relaxed sm:text-xl max-w-xl">
+              Looking to buy your dream home or make a smart real estate investment? ZYCK Property offers a wide selection of residential and commercial properties across Pakistan and beyond, carefully curated to meet your needs and budget.</p>
+          </div>
+        </div>
+        <SkeletonPropertyCard count={8}/>
       </div>
     );
   }

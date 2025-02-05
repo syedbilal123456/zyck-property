@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import { log } from "console"
 import { AreaType } from "@prisma/client"
 import { unitAbbreviations } from "@/lib/constant"
+import SkeletonOpenProperty from "@/components/custom/skeleton/skeletonOpenPorperty"
 interface Contact {
   email: string;
   name: string;
@@ -110,8 +111,8 @@ console.log(property?.location.city,"city");
 
   if (!property) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <Loader />
+      <div className="">
+        <SkeletonOpenProperty />
       </div>
     )
   }

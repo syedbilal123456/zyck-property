@@ -12,6 +12,7 @@ interface Props {
   user: UserType;
 }
 
+
 const UserProfilePanel = ({ user }: Props) => {
   return (
    <div className="flex items-center gap-1">
