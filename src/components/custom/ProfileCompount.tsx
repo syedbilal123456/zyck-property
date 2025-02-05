@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/store"
 import { updateProfile } from "@/lib/actions/user/updateProfile"
-import { ProfilePageSkeleton } from "./ProfileSkeleton"
+import { ProfilePageSkeleton } from "./skeleton/ProfileSkeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { toast } from "react-toastify"
 import { redirect } from "next/navigation"
@@ -164,7 +164,7 @@ export default function ProfilePage() {
 
     if (response.success) {
       toast.success("Updated")
-      redirect('/properties/add')
+      redirect('/user/properties/add')
 
     } else {
       toast.error("Some thing When Wrong")

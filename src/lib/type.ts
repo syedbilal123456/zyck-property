@@ -6,7 +6,7 @@ interface Contact {
   phone: string;
 }
 
-interface Features {
+export interface Features {
   area: number;
   areaType:AreaType
   bathrooms: number;

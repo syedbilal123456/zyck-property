@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 
 const SignInPanel = () => {
     const dispatch = useDispatch();
-    const [ dbUser , SetDbUser] = useState <UserType | null>()
     const {user,loader}  =  useSelector((state:RootState) => state.auth)
     useEffect(() => {
         const fetchUser = async () => {
@@ -24,7 +23,6 @@ const SignInPanel = () => {
                 return;
             }
 
-            SetDbUser(response.data);
             dispatch(userExited(response.data)); 
         };
 

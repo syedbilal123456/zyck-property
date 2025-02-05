@@ -4,6 +4,7 @@ import { Property } from '@/lib/type';
 import React, { useEffect, useState } from 'react';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';
 import Loader from '../ui/loader';
+import { SkeletonPropertyCard } from '../custom/skeleton/SkeletonPropertyCard';
 
 // Import the Loader component
 
@@ -41,17 +42,52 @@ const FeatureProduct = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64 text-primary">
-        <Loader /> {/* Display loader while data is loading */}
+      <div>
+      {/* Featured Properties Section */}
+      <div>
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
+          <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+            Featured Properties
+          </h2>
+        </div>
+        <div className="p-4 mx-auto">
+       
+        <SkeletonPropertyCard  count={4} />
+        </div>
       </div>
+
+      {/* Recent Properties for Rent Section */}
+      <div>
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
+          <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+            Recent Properties for Rent
+          </h2>
+        </div>
+        <div className="p-4">
+        <SkeletonPropertyCard  count={4} />
+        </div>
+      </div>
+
+      {/* Recent Properties for Sale Section */}
+      <div>
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
+          <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
+            Recent Properties for Sell
+          </h2>
+        </div>
+        <div className="p-4">
+       <SkeletonPropertyCard  count={4} />
+        </div>
+      </div>
+    </div>
     );
   }
 
   return (
-    <>
+    <div>
       {/* Featured Properties Section */}
       <div>
-        <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
           <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
             Featured Properties
           </h2>
@@ -77,7 +113,7 @@ const FeatureProduct = () => {
 
       {/* Recent Properties for Rent Section */}
       <div>
-        <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
           <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
             Recent Properties for Rent
           </h2>
@@ -103,7 +139,7 @@ const FeatureProduct = () => {
 
       {/* Recent Properties for Sale Section */}
       <div>
-        <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <div className="px-6 py-8 lg:sm:px-8 lg:sm:py-8">
           <h2 className="text-2xl  md:text-3xl lg:text-4xl font-bold ">
             Recent Properties for Sell
           </h2>
@@ -126,7 +162,7 @@ const FeatureProduct = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
