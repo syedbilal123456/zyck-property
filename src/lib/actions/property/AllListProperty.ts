@@ -72,15 +72,4 @@ export const getAllPorpertyList = async () => {
 };
 
 
-export async function fetchProperties() {
-  try {
-    const response = await getAllPorpertyList();
-    if (!response.success) {
-      throw new Error("Failed to fetch properties");
-    }
-    return response.data; // Ensure your API returns an array of properties
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    return [];
-  }
-}
+

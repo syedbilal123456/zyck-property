@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { FaEye, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loader from '@/components/ui/loader'
+import PropertyTableSkeleton from '@/components/custom/skeleton/SkeletonTabel'
 
 interface Property {
   id: number
@@ -66,8 +67,8 @@ export default function PropertyTable() {
   }
 
   if (!isAuthenticated) {
-    return <div className='w-full  flex justify-center items-center h-screen text-green-600'> 
-      <Loader/>
+    return <div className=''> 
+      <PropertyTableSkeleton />
     </div>
   }
 
