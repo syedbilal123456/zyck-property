@@ -3,7 +3,9 @@ import { SkeletonPropertyCard } from '@/components/custom/skeleton/SkeletonPrope
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';
 import PropertyCardsecond from '@/components/views/secondPropertyCard'
-import { Property } from '@/lib/type'
+import { propertiesDataLocalStorage } from '@/lib/constant';
+import { AreaType } from "@prisma/client";
+import { getLocalStorageWithTTL } from '@/lib/localStorage';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
@@ -16,9 +18,72 @@ const RentModule = () => {
   const [totalPages, _] = useState(0)
 
 
+interface Contact {
+  email: string;
+  name: string;
+  phone: string;
+}
+
+ interface Features {
+  area: number;
+  areaType:AreaType
+  bathrooms: number;
+  bedrooms: number;
+  hasBalcony: boolean;
+  hasGarage: boolean;
+  hasGarden: boolean;
+  hasPool: boolean;
+  hasGardenYard: boolean;
+  hasSwimmingPool: boolean;
+  parkingSpots: number;
+  propertyId: number;
+}
+
+interface Images {
+  id: number;
+  url: string;
+  propertyId: number;
+}
+
+interface Location {
+  city: {
+    id: number;
+    value: string;
+    stateId: number;
+  };
+  stateId: number;
+}
+
+ interface Property {
+  price: string;
+  description: string;
+  name: string;
+  feature: Features;
+  status: {
+    value: string;
+    id:number;
+  };
+  type: {
+    value: string;
+  };
+  images: Images[];
+  location: Location;
+  contact: Contact;
+}
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const cachedData = getLocalStorageWithTTL(propertiesDataLocalStorage);
+        if (cachedData) {
+          console.log("Using cached data",cachedData);
+          setProperties(cachedData.filter((property: Property) => Number(property.status.id) === 1));
+          console.log(properties,"after chage");
+          
+          return;
+        }
+        console.log("Not using",cachedData);
+
         const response = await fetch('/api/properties/list?statusId=1')
         if (!response.ok) {
           throw new Error(`Error Status ${response.statusText}`)

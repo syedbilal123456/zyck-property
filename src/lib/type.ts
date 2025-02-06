@@ -42,6 +42,7 @@ export interface Property {
   name: string;
   feature: Features;
   status: {
+    id:number
     value: string;
   };
   type: {
