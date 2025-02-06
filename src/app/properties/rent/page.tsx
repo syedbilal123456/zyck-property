@@ -6,6 +6,8 @@ import Loader from "@/components/ui/loader";
 import PropertyCardsecond from "@/components/views/secondPropertyCard";
 import { Property } from "@/lib/type";
 import { SkeletonPropertyCard } from "@/components/custom/skeleton/SkeletonPropertyCard";
+import { getLocalStorageWithTTL } from "@/lib/localStorage";
+import { propertiesDataLocalStorage } from "@/lib/constant";
 
 const ITEMS_PER_PAGE = 8; // Set items per page to 3
 
@@ -20,6 +22,15 @@ const PropertySalePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const cachedData = getLocalStorageWithTTL(propertiesDataLocalStorage);
+        if (cachedData) {
+          console.log("Using cached data",cachedData);
+          setData(cachedData.filter((property: Property) => Number(property.status.id) === 1));
+          console.log(data,"after chage");
+          
+          return;
+        }
+        console.log("Not using",cachedData);
         setLoading(true);
         const response = await fetch(`/api/properties/list?statusId=2`);
         if (!response.ok) {

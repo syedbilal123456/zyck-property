@@ -20,6 +20,8 @@ import clsx from "clsx";
 import Loader from "@/components/ui/loader";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
+import { removeLocalStorageItem } from "@/lib/localStorage";
+import { propertiesDataLocalStorage } from "@/lib/constant";
 
 
 
@@ -106,17 +108,21 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
           .filter((item) => !savedImagesUrl.includes(item))
           .map((item) => item.id);
         await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
+      removeLocalStorageItem(propertiesDataLocalStorage)
         toast.success("Property updated successfully");
       } else {
         await saveProperty(data, imageUrls, user);
         toast.success("Property added successfully");
       }
       router.push("/user/properties");
+      removeLocalStorageItem(propertiesDataLocalStorage)
     } catch (error) {
       console.error("Error saving property:", error);
       toast.error("Failed to add property. Please try again.");
     } finally {
       setIsLoading(false); // Hide loader
+      removeLocalStorageItem(propertiesDataLocalStorage)
+
       
     }
   };
