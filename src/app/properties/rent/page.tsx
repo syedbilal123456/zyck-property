@@ -25,7 +25,7 @@ const PropertySalePage = () => {
         const cachedData = getLocalStorageWithTTL(propertiesDataLocalStorage);
         if (cachedData) {
           console.log("Using cached data",cachedData);
-          setData(cachedData.filter((property: Property) => Number(property.status.id) === 1));
+          setData(cachedData.filter((property: Property) => Number(property.status.id) === 2));
           console.log(data,"after chage");
           
           return;
