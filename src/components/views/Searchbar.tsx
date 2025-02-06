@@ -18,6 +18,9 @@ export function Searchbar() {
     <Tabs defaultValue="BUY" className="w-full">
       {/* Tabs List */}
       <TabsList className="w-full flex items-center justify-around">
+      <TabsTrigger value="ALL" className="text-sm">
+          ALL
+        </TabsTrigger>
         <TabsTrigger value="BUY" className="text-sm">
           BUY
         </TabsTrigger>
@@ -86,7 +89,7 @@ export function Searchbar() {
       </TabsList>
 
       {/* Tabs Content */}
-      {["BUY", "SELL", "RENT", "CO-WORK SPACE", "PROJECT"].map((tab) => (
+      {["ALL","BUY", "SELL", "RENT", "CO-WORK SPACE", "PROJECT"].map((tab) => (
         <TabsContent key={tab} value={tab}>
           <Card className="w-full max-w">
             <CardContent className="w-full flex flex-col p-2 bg-background text-white gap-3">
