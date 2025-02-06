@@ -1,96 +1,102 @@
-// components/PropertyCard.tsx
-import React from "react";
-import {  FaRulerCombined, FaDoorOpen,  FaCar} from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import Link from "next/link";
-import { Eye } from "lucide-react";
+import React from "react"
+import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
+import Link from "next/link"
+import { Bed, Car, Ruler, Bath, Eye } from "lucide-react"
+import { AreaType } from "@prisma/client"
+import { unitAbbreviations } from "@/lib/constant"
 
 interface Contact {
   email: string
   name: string
   phone: string
 }
+
 interface Features {
-  area: number;
-  bathrooms: number;
-  bedrooms: number;
-  hasBalcony: boolean;
-  hasGardenYard: boolean;
-  hasSwimmingPool: boolean;
-  parkingSpots: number;
-  propertyId: number;
+  area: number
+  areaType:AreaType
+  bathrooms: number
+  bedrooms: number
+  hasBalcony: boolean
+  hasGardenYard: boolean
+  hasSwimmingPool: boolean
+  parkingSpots: number
+  propertyId: number
 }
 
-export default function PropertyCardsecond({
-  id,
-  image,
-  title,
-  price,
-  location,
-  status,
-  features,
-  onContact,
-}: {
-  id:Number;
-  image: string;
-  title: string;
-  price: string;
-  location: string;
-  status: string;
-  features: Features; // Use the `Features` type here
+interface Location {
+  city: {
+    value: string
+    id: number
+    statusId?: number
+  }
+  stateId: number
+}
+
+interface Property {
+  id: number
+  image: string
+  title: string
+  price: string | number
+  location: Location
+  status: string
+  features: Features
   onContact: Contact
-}) {
+  PropertType?:string
+}
+
+export default function PropertyCard({PropertType , id, image, title, price, location, status, features, onContact }: Property) {
+  const formatPriceWithCommas = (price: string | number): string => {
+    const numPrice = typeof price === "string" ? Number.parseFloat(price) : price
+    return new Intl.NumberFormat("en-US").format(numPrice)
+  }
+
   return (
-    <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-      {/* Image Section */}
-      <div className="relative">
-        <Image
-          src={image}
-          alt="Property Image"
-          width={400}
-          height={300}
-          className="w-full h-48 object-cover"
-        />
-        <div className="absolute top-2 left-2 flex space-x-2">
-        <Badge variant="destructive">{status}</Badge>
-        </div>
-      
-      </div>
-
-      {/* Details Section */}
-      <div className="p-4">
-        <h2 className="text-lg font-bold">{title}</h2>
-        <p className="text-sm gap-2">{location},Pakistan</p>
-
-        {/* Details with Icons */}
-        <div className="flex items-center text-sm text-gray-600 space-y-2 gap-3 mt-2">
-          <Badge className="flex items-center space-x-2 mt-2">
-            <FaCar />
-            <p>{features.parkingSpots}</p>
+    <div className="w-full mx-auto rounded-xl shadow-sm  shadow-gray-800 border-gray-100 bg-zinc-900 text-white dark:bg-gray-800 dark:border-gray-700 overflow-hidden transition-all duration-300 ">
+      <Link href={`/properties/${status.toLowerCase() == "sell" ? "buy" :status.toLowerCase() }/${features.propertyId}`} className="block">
+        <div className="relative">
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            width={400}
+            height={300}
+            className="w-full h-56 object-cover"
+          />
+          <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground px-2 py-1 text-xs font-semibold rounded">
+            {status}
           </Badge>
-          <Badge className="flex items-center space-x-2">
-            <FaRulerCombined/>
-            <p>{features.area} sq ft</p>
-          </Badge>
-          <Badge className="flex items-center space-x-2">
-            <FaDoorOpen />
-            <p>{features.bedrooms} Rooms</p>
-          </Badge>
-        
         </div>
 
-        {/* Pricing Section */}
-        <div className="flex items-center justify-between mt-4">
-        </div>
+        <div className="p-5">
+          <h2 className="text-lg font-bold text-gray-100 dark:text-white mb-2 line-clamp-1">{title}</h2>
+          <p className="text-sm text-gray-300 dark:text-gray-300 mb-4">{location?.city?.value}, Pakistan</p>
 
-        <div className="flex justify-between border-t-2 border-primary p-1 mt-2 ">
-          <p className="text-lg font-bold"> PKR {price}</p>
-          <span className="text-sm text-gray-500"><Link href={`/properties/rent/${features.propertyId}`}><Eye className="hover:text-primary"/></Link></span>
+          <div className="flex flex-wrap items-center gap-4 mb-4">
+            <div className="flex items-center text-gray-100 dark:text-gray-300">
+              <Car className="w-4 h-4 mr-2" />
+              <span className="text-sm">{features.parkingSpots} Parking</span>
+            </div>
+            <div className="flex items-center text-gray-100 dark:text-gray-300">
+              <Ruler className="w-4 h-4 mr-2" />
+              <span className="text-sm">{features.area} {unitAbbreviations[features.areaType] || features.areaType}</span>
+            </div>
+            <div className="flex items-center text-gray-100 dark:text-gray-300">
+              <Bed className="w-4 h-4 mr-2" />
+              <span className="text-sm">{features.bedrooms} Beds</span>
+            </div>
+            <div className="flex items-center text-gray-100 dark:text-gray-300">
+              <Bath className="w-4 h-4 mr-2" />
+              <span className="text-sm">{features.bathrooms} Baths</span>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-xl font-bold text-primary">PKR {formatPriceWithCommas(price)}</p>
+            <Eye className="w-5 h-5 text-gray-400 hover:text-primary transition-colors duration-300" />
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
-  );
-};
-
+  )
+}
 

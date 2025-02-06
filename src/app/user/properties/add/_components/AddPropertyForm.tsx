@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Basic from "./basic";
-import { City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
+import { AreaType, City, Prisma, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client";
 import Location from "./Location";
 import Features from "./Features";
 import Picture from "./Picture";
@@ -13,11 +13,13 @@ import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { uploadImages } from "@/lib/upload";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { editProperty, saveProperty } from "@/lib/actions/property";
 import clsx from "clsx";
 import Loader from "@/components/ui/loader";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
 
 
@@ -70,14 +72,18 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
         bathrooms: 1,
         parkingSpots: 1,
         area: 1,
-
+        areaType: AreaType.SQUARE_METER,
       },
       statusId: props.property?.statusId ?? undefined,
       typeId: props.property?.typeId ?? undefined,
       DetailId: props.property?.DetailId ?? undefined,
     },
   });
+  
+  const userDetails  = useSelector((state:RootState)=>state.auth)
 
+
+// console.log(props,"rops");
 
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();

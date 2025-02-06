@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Lato } from "next/font/google"; // ✅ Import Lato properly
 import "./globals.css";
 import Footer from "@/components/views/Footer";
 import Navbar from "@/components/views/Navbar";
 import SignInPanel from "@/components/ui/SignInPanel";
 import { ToastContainer } from "react-toastify";
-import {Providers} from "./provider";
+import { Providers } from "./provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +17,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const lato = Lato({
+  variable: "--font-lato",
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"], // Include weights you need
+});
+
 export const metadata: Metadata = {
   title: "Zyck Property – Your Trusted Real Estate Partner",
-  description: "Explore properties for sale, rent, and real estate services with Zyck Property. Simplifying real estate across Pakistan.",
+  description:
+    "Explore properties for sale, rent, and real estate services with Zyck Property. Simplifying real estate across Pakistan.",
 };
 
 export default function RootLayout({
@@ -29,21 +36,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Any global <head> elements can go here */}
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} antialiased`}
       >
-        <Navbar>
-          <SignInPanel />
-        </Navbar>
-
         <Providers>
+          <Navbar>
+            <SignInPanel />
+          </Navbar>
           {children}
+          <ToastContainer />
+          <Footer />
         </Providers>
-        <ToastContainer />
-        <Footer />
       </body>
     </html>
   );

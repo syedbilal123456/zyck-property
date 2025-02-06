@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { FaEye, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loader from '@/components/ui/loader'
+import PropertyTableSkeleton from '@/components/custom/skeleton/SkeletonTabel'
 
 interface Property {
   id: number
@@ -66,8 +67,8 @@ export default function PropertyTable() {
   }
 
   if (!isAuthenticated) {
-    return <div className='w-full  flex justify-center items-center h-screen text-green-600'> 
-      <Loader/>
+    return <div className=''> 
+      <PropertyTableSkeleton />
     </div>
   }
 
@@ -102,7 +103,7 @@ export default function PropertyTable() {
                       <Link href={`/properties/rent/${item.feature.propertyId}`} title="Details">
                         <FaEye className="text-slate-500" />
                       </Link>
-                      <Link href={`/user/properties/${item.id}/edit`} title="Edit Property">
+                      <Link href={`/user/properties/edit/${item.id}`} title="Edit Property">
                         <FaPencilAlt className="text-yellow-500" />
                       </Link>
                       <Link onClick={() => deleteProperty(item.id)} href={`/user/properties`} title="Delete Property">

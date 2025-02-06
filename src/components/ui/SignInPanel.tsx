@@ -1,48 +1,50 @@
-import {
-    getKindeServerSession,
-} from "@kinde-oss/kinde-auth-nextjs/server";
-import React from "react";
+"use client"; // Mark this component as a client component
+
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userExited, userNotExited, UserType } from "@/redux/reducer/authSlice";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import UserProfilePanel from "./UserProfilePanel";
 import { prisma } from "@/lib/prisma";
 import { Button } from "./button";
 import Link from "next/link";
+import { getUserFromDB } from "@/lib/actions/user/getUser";
+import { RootState } from "@/redux/store";
+import { toast } from "react-toastify";
 
-const SignInPanel = async () => {
-    const { isAuthenticated, getUser } = getKindeServerSession();
-    if (await isAuthenticated()) {
-        const user = await getUser();
-        try {
-            const dbUser = await prisma.user.findUnique({
-                where: {
-                    id: user?.id,
-                },
-            });
+const SignInPanel = () => {
+    const dispatch = useDispatch();
+    const {user,loader}  =  useSelector((state:RootState) => state.auth)
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await getUserFromDB();
+            if (!response.success || !response.data) {
+                dispatch(userNotExited()); // Ensure the state resets if user is not found
+                return;
+            }
 
-            return <>{dbUser && <UserProfilePanel user={dbUser} />}</>;
-        } catch (error) {
-            console.error("Database connection error:", error);
-            return <div>Error connecting to the database. Please try again later.</div>;
-        }
-    }
+            dispatch(userExited(response.data)); 
+        };
+
+        fetchUser();
+    }, [dispatch]);
 
     return (
         <div className="flex gap-3 items-center">
-            {!await isAuthenticated() ? (
-                <Link href="/auth">
-                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
-                        Add Property
-                    </button>
-                </Link>
+            {user ? (
+                <UserProfilePanel user={user} />
             ) : (
-                <Link href="/user/properties/add">
-                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
-                        Add Property
-                    </button>
-                </Link>
+                <>
+                    <Link href="/auth">
+                        <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                            Add Property
+                        </button>
+                    </Link>
+                    <Button className="lg:block hidden">
+                        <Link href={"/auth"}>Sign Up</Link>
+                    </Button>
+                </>
             )}
-            <Button className="lg:block hidden">
-                <Link href={'/auth'}>Sign Up</Link>
-            </Button>
         </div>
     );
 };

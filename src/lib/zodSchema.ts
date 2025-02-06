@@ -1,3 +1,4 @@
+import { AreaType } from "@prisma/client";
 import validator from "validator";
 import { z } from "zod";
 
@@ -43,6 +44,7 @@ export const AddPropertyFormSchema = z.object({
       .string()
       .regex(new RegExp("^[0-9]+$"), "Please enter the area")
       .transform((data: unknown) => Number(data)),
+    areaType: z.nativeEnum(AreaType),
     hasSwimmingPool: z.boolean(),
     hasGardenYard: z.boolean(),
     hasBalcony: z.boolean(),

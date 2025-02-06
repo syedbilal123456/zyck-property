@@ -10,10 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"; // Import Select components from ShadCN
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function Searchbar() {
   const [showDropdown, setShowDropdown] = useState(false); // State to manage dropdown visibility
-
   return (
     <Tabs defaultValue="BUY" className="w-full">
       {/* Tabs List */}
@@ -109,7 +110,11 @@ export function Searchbar() {
               />
 
               {/* Search Button */}
-              <Button className="w-full">Search</Button>
+              
+              <Link href={'/properties/buy'}>
+              <Button className="w-full" >Search</Button>
+              
+              </Link>
             </CardContent>
           </Card>
         </TabsContent>

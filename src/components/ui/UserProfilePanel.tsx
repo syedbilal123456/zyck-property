@@ -6,17 +6,16 @@ import Link from "next/link";
 import * as React from "react";
 import Image from "next/image";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { UserType } from "@/redux/reducer/authSlice";
 
 interface Props {
-  user: PrismaUser;
+  user: UserType;
 }
+
 
 const UserProfilePanel = ({ user }: Props) => {
   return (
    <div className="flex items-center gap-1">
-      <span>
-          <p className="hidden md:block">{`${user.firstName} ${user.lastName}`}</p>
-        </span>
    <DropdownMenu>
       {/* Trigger button */}
 
@@ -35,6 +34,11 @@ const UserProfilePanel = ({ user }: Props) => {
 
       {/* Dropdown menu */}
       <DropdownMenuContent className="dropdown-content menu p-2 shadow rounded-box w-52 bg-background text-foreground">
+      <DropdownMenuItem>
+          <Link href="/user/profile" className="text-lg ">
+            {user.firstName} {user.lastName}
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href="/user/profile" className="text-lg ">
             Profile

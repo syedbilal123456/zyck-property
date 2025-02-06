@@ -59,6 +59,9 @@ const MobNav = () => {
               <Link href="/about" className="text-lg font-semibold" onClick={closeMenu}>
                 ABOUT US
               </Link>
+              <Link href="/pricing" className="text-lg font-semibold" onClick={closeMenu}>
+              PRICING
+              </Link>
               <Link href="/FAQs" className="text-lg font-semibold" onClick={closeMenu}>
                 FAQS
               </Link>

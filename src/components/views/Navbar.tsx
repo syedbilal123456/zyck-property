@@ -12,16 +12,16 @@ interface Props {
 
 const Navbar = ({ children }: Props) => {
   return (
-    <div className="navbar bg-background px-10">
+    <div className="navbar bg-background lg:px-10 px-4 ">
       {/* Navbar for Small Screens */}
       <div className="flex w-full lg:hidden items-center justify-between">
         {/* Menu Icon on the Left */}
         <MobNav/>
 
         {/* Logo in the Center */}
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <Link href="/">
-            <Image src="/logo.png" width={150} height={150} alt="zyck" />
+            <Image className="lg:w-28 md:w-28 sm:w-20" src="/logo.png" width={150} height={150} alt="zyck" />
           </Link>
         </div>
 
@@ -54,11 +54,15 @@ const Navbar = ({ children }: Props) => {
               <Link href="/user/properties">SELL</Link>
             </li>
             <li>
+              <Link href="/pricing">PRICING</Link>
+            </li>
+            <li>
               <Link href="/about">ABOUT US</Link>
             </li>
             <li>
               <Link href="/FAQs">FAQS</Link>
             </li>
+            
           </ul>
         </div>
 
