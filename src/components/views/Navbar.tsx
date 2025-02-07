@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import Image from "next/image";
 
 import MobNav from "./MobNav";
@@ -11,6 +11,23 @@ interface Props {
 }
 
 const Navbar = ({ children }: Props) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null);  // Used to manage timeout
+
+  const handleMouseEnter = () => {
+    // When mouse enters, we open the dropdown
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current); // Clear any previous timeout
+    }
+    setIsDropdownOpen(true); // Open the dropdown
+  };
+
+  const handleMouseLeave = () => {
+    // Add a small delay before closing the dropdown
+    closeTimeout.current = setTimeout(() => {
+      setIsDropdownOpen(false); // Close the dropdown
+    }, 200);  // 200ms delay for smooth transition
+  };
   return (
     <div className="navbar bg-background lg:px-10 px-4 ">
       {/* Navbar for Small Screens */}
@@ -44,7 +61,62 @@ const Navbar = ({ children }: Props) => {
             <li>
               <Link className="text-primary" href="/">HOME</Link>
             </li>
-            <li>
+            {/* Dropdown for Pages */}
+            <li
+              className="relative z-[10000]"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span className="cursor-pointer">PAGES</span>
+              {isDropdownOpen && (
+                <ul
+                  className="absolute left-0 top-full mt-2 bg-white shadow-lg rounded-md w-40 flex flex-col"
+                >
+                  <li>
+                    <Link
+                      href="/properties/buy"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      BUY
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/properties/rent"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      RENT
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/user/properties"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      SELL
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      CO-WORK SPACE
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      PROJECT
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+                
+            {/* <li>
               <Link href="/properties/buy">BUY</Link>
             </li>
             <li>
@@ -52,7 +124,8 @@ const Navbar = ({ children }: Props) => {
             </li>
             <li>
               <Link href="/user/properties">SELL</Link>
-            </li>
+            </li> */}
+
             <li>
               <Link href="/pricing">PRICING</Link>
             </li>

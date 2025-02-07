@@ -26,7 +26,7 @@ const AuthPage: React.FC = () => {
     return (
         <div
             className="flex items-center justify-center min-h-screen bg-cover bg-center"
-            style={{ backgroundImage: 'url(/bg-login.jpeg)' }}
+            style={{ backgroundImage: 'url(/background-login.jpg)' }}
         >
             <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
                 <h1 className="text-2xl font-bold text-center mb-4 text-green-700">Log In</h1>
