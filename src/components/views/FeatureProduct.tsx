@@ -7,6 +7,8 @@ import { SkeletonPropertyCard } from '../custom/skeleton/SkeletonPropertyCard';
 import { getAllPorpertyList } from '@/lib/actions/property/AllListProperty';
 import { AreaType } from '@prisma/client';
 import { useEffect, useState } from 'react';
+import { getLocalStorageWithTTL, setLocalStorageWithTTL } from '@/lib/localStorage';
+import { propertiesDataLocalStorage } from '@/lib/constant';
 
 const FeatureProduct =  () => {
 
@@ -14,25 +16,31 @@ const FeatureProduct =  () => {
 const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/properties/list')
-        if (!response.ok) {
-          throw new Error(`Error Status ${response.statusText}`)
-        }
-        const result = await response.json()
-        setProperties(result)
-      } catch (error) {
-        throw new Error(`Error Status ${error}`)
-      } finally {
-        setLoading(false)
-      }
+    const storedProperties = getLocalStorageWithTTL(propertiesDataLocalStorage);
+    if (storedProperties) {
+      setProperties(storedProperties);
+      setLoading(false);
+    } else {
+      fetchData();
     }
-    fetchData();
-  }, [])
+  }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/properties/list");
+      if (!response.ok) {
+        throw new Error(`Error Status ${response.statusText}`);
+      }
+      const result = await response.json();
+      setProperties(result);
+      setLocalStorageWithTTL(propertiesDataLocalStorage, result, 1000 * 60 * 3); // Store for 3 minutes
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   if (loading) {
     return (

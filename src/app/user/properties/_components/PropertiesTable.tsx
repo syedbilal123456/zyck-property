@@ -8,6 +8,8 @@ import { FaEye, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loader from '@/components/ui/loader'
 import PropertyTableSkeleton from '@/components/custom/skeleton/SkeletonTabel'
+import { propertiesDataLocalStorage } from '@/lib/constant'
+import { removeLocalStorageItem } from '@/lib/localStorage'
 
 interface Property {
   id: number
@@ -63,6 +65,8 @@ export default function PropertyTable() {
       toast.success("Successfully Deleted")
     } catch (error) {
       throw new Error('Error Status Deleted')
+    }finally{
+      removeLocalStorageItem(propertiesDataLocalStorage)
     }
   }
 
