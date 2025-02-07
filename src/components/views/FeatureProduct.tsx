@@ -31,7 +31,7 @@ const [properties, setProperties] = useState<Property[]>([]);
       }
       const result = await response.json();
       setProperties(result);
-      setLocalStorageWithTTL(propertiesDataLocalStorage, result, 1000 * 60 * 3); // Store for 3 minutes
+      setLocalStorageWithTTL(propertiesDataLocalStorage, result, 1000 * 60 * 1); // Store for 3 minutes
     } catch (error) {
       console.error("Error fetching properties:", error);
     } finally {
