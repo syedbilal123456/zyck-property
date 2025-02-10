@@ -13,6 +13,7 @@ export async function GET() {
     if (!isAuthenticatedUser || !user || !user.id) {
       throw new Error("User authentication failed or user ID is missing.");
     }
+    
   console.log(user,"user data");
   
     // Check if the user exists in the database
