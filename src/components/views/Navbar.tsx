@@ -13,8 +13,6 @@ interface Props {
 
 const Navbar = ({ children }: Props) => {
   const pathname = usePathname();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const navLinks = [
     { href: "/", label: "HOME" },

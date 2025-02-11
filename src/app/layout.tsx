@@ -42,6 +42,18 @@ export default function RootLayout({
           name="google-site-verification"
           content="fUUT_q5k9eBGJXvznM_iFkUgauXOgnL9jhrY5iwkWUs"
         />
+        {/* Google Analytics Script */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L565MF8SKB"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-L565MF8SKB');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} antialiased`}
