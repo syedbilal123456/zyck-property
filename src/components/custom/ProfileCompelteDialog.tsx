@@ -14,98 +14,101 @@ import { updateProfile } from "@/lib/actions/user/updateProfile"
 import { toast } from "react-toastify"
 
 const provinceCityMap: Record<string, string[]> = {
-    "Sindh": [
-      "Karachi",
-      "Hyderabad",
-      "Sukkur",
-      "Larkana",
-      "Mirpur Khas",
-      "Nawabshah",
-      "Jacobabad",
-      "Shikarpur",
-      "Dadu",
-      "Thatta",
-      "Badin",
-      "Tando Adam",
-      "Tando Allahyar",
-      "Khairpur",
-      "Kotri"
-    ],
-    "Punjab": [
-      "Lahore",
-      "Multan",
-      "Faisalabad",
-      "Rawalpindi",
-      "Gujranwala",
-      "Sialkot",
-      "Bahawalpur",
-      "Sargodha",
-      "Sheikhupura",
-      "Gujrat",
-      "Sahiwal",
-      "Jhelum",
-      "Rahim Yar Khan",
-      "Kasur",
-      "Okara",
-      "Wah Cantonment",
-      "Dera Ghazi Khan",
-      "Chiniot",
-      "Kamoke",
-      "Hafizabad"
-    ],
-    "Khyber Pakhtunkhwa": [
-      "Peshawar",
-      "Abbottabad",
-      "Mardan",
-      "Mingora",
-      "Kohat",
-      "Dera Ismail Khan",
-      "Swabi",
-      "Nowshera",
-      "Bannu",
-      "Charsadda",
-      "Mansehra",
-      "Tank",
-      "Chitral",
-      "Hangu",
-      "Karak"
-    ],
-    "Balochistan": [
-      "Quetta",
-      "Gwadar",
-      "Turbat",
-      "Khuzdar",
-      "Chaman",
-      "Sibi",
-      "Zhob",
-      "Pishin",
-      "Loralai",
-      "Mastung",
-      "Kalat",
-      "Dera Murad Jamali",
-      "Hub",
-      "Dera Allah Yar",
-      "Nushki"
-    ],
-    "Gilgit-Baltistan": [
-      "Gilgit",
-      "Skardu",
-      "Hunza",
-      "Chilas",
-      "Ghizer",
-      "Aliabad",
-      "Yasin",
-      "Gahkuch",
-      "Khaplu",
-      "Shigar",
-      "Astore",
-      "Danyore",
-      "Juglot",
-      "Karimabad",
-      "Nagar"
-    ]
-  };
-  
+  "Sindh": [
+    "Karachi",
+    "Hyderabad",
+    "Sukkur",
+    "Larkana",
+    "Mirpur Khas",
+    "Nawabshah",
+    "Jacobabad",
+    "Shikarpur",
+    "Dadu",
+    "Thatta",
+    "Badin",
+    "Tando Adam",
+    "Tando Allahyar",
+    "Khairpur",
+    "Kotri"
+  ],
+  "Punjab": [
+    "Islamabad",
+    "Lahore",
+    "Multan",
+    "Faisalabad",
+    "Rawalpindi",
+    "Gujranwala",
+    "Sialkot",
+    "Bahawalpur",
+    "Sargodha",
+    "Sheikhupura",
+    "Gujrat",
+    "Sahiwal",
+    "Jhelum",
+    "Rahim Yar Khan",
+    "Kasur",
+    "Okara",
+    "Gujar Khan",
+    "Bhawal Nagar",
+    "Wah Cantonment",
+    "Dera Ghazi Khan",
+    "Chiniot",
+    "Kamoke",
+    "Hafizabad"
+  ],
+  "Khyber Pakhtunkhwa": [
+    "Peshawar",
+    "Abbottabad",
+    "Mardan",
+    "Mingora",
+    "Kohat",
+    "Dera Ismail Khan",
+    "Swabi",
+    "Nowshera",
+    "Bannu",
+    "Charsadda",
+    "Mansehra",
+    "Tank",
+    "Chitral",
+    "Hangu",
+    "Karak"
+  ],
+  "Balochistan": [
+    "Quetta",
+    "Gwadar",
+    "Turbat",
+    "Khuzdar",
+    "Chaman",
+    "Sibi",
+    "Zhob",
+    "Pishin",
+    "Loralai",
+    "Mastung",
+    "Kalat",
+    "Dera Murad Jamali",
+    "Hub",
+    "Dera Allah Yar",
+    "Nushki"
+  ],
+  "Gilgit-Baltistan": [
+    "Gilgit",
+    "Skardu",
+    "Hunza",
+    "Chilas",
+    "Ghizer",
+    "Aliabad",
+    "Yasin",
+    "Gahkuch",
+    "Khaplu",
+    "Shigar",
+    "Astore",
+    "Danyore",
+    "Juglot",
+    "Karimabad",
+    "Nagar"
+  ]
+};
+
 
 const profileSchema = z.object({
   phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
@@ -154,11 +157,11 @@ const ProfileCompletionDialog: React.FC<ProfileCompletionDialogProps> = ({ isOpe
 
     if (response.success) {
       toast.success("Profile updated successfully")
-onClose()
-setTimeout(() => {
-    window.location.reload();
-  }, 500); 
-} else {
+      onClose()
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } else {
       toast.error("Something went wrong")
     }
   }
@@ -170,7 +173,7 @@ setTimeout(() => {
           <DialogTitle>Kindly complete your profile first, then add your property.</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
- 
+
           <div className="space-y-2">
             <Label htmlFor="province">Province</Label>
             <Controller
