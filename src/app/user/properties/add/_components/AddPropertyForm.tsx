@@ -58,9 +58,9 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     resolver: zodResolver(AddPropertyFormSchema),
     defaultValues: {
       contact: props.property?.contact ?? {
-        name:"",
-        phone:"",
-        email:""
+        name: "",
+        phone: "",
+        email: ""
       },
       location: props.property?.location ?? undefined,
       name: props?.property?.name ?? "",
@@ -81,11 +81,9 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       DetailId: props.property?.DetailId ?? undefined,
     },
   });
-  
-  const userDetails  = useSelector((state:RootState)=>state.auth)
 
 
-// console.log(props,"rops");
+
 
   const [step, setStep] = useState(0);
   const { user } = useKindeBrowserClient();
@@ -98,17 +96,17 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
 
   const onsubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
     setIsLoading(true); // Show loader
-    
+
     const imageUrls = await uploadImages(images);
 
-  
+
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images
           .filter((item) => !savedImagesUrl.includes(item))
           .map((item) => item.id);
         await editProperty(props.property.id, data, imageUrls, deleteImagesIDs);
-      removeLocalStorageItem(propertiesDataLocalStorage)
+        removeLocalStorageItem(propertiesDataLocalStorage)
         toast.success("Property updated successfully");
       } else {
         await saveProperty(data, imageUrls, user);
@@ -123,7 +121,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
       setIsLoading(false); // Hide loader
       removeLocalStorageItem(propertiesDataLocalStorage)
 
-      
+
     }
   };
 
@@ -141,7 +139,7 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
             </div>
           )}
 
-          <Basic
+            <Basic
             cities={props.city}
             states={props.state}
             className={clsx({ hidden: step !== 0 })}

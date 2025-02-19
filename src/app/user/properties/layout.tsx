@@ -1,6 +1,5 @@
-import AddPorpertyBtn from "@/components/custom/AddPorpertyBtn";
-import Link from "next/link";
-import React, { ReactNode } from "react";
+
+import React from "react";
 
 
 const PropertiesLayout = ({ children }: { children: React.ReactNode }) => {
