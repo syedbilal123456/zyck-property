@@ -15,6 +15,7 @@ import { toast } from "react-toastify"
 
 const provinceCityMap: Record<string, string[]> = {
   "Sindh": [
+    
     "Karachi",
     "Hyderabad",
     "Sukkur",
@@ -29,7 +30,22 @@ const provinceCityMap: Record<string, string[]> = {
     "Tando Adam",
     "Tando Allahyar",
     "Khairpur",
-    "Kotri"
+    "Kotri",
+    "Umerkot",
+    "Tando Muhammad K",
+    "Ghotki",
+    "Sanghar",
+    "Kashmore",
+    "Qambar Shahdadkot",
+    "Matiari",
+    "Jamshoro",
+    "Tharparkar (Mithi)",
+    "Hala",
+    "Mehar",
+    "Shahdadpur",
+    "Mirpur Mathelo",
+    "Ratodero",
+    "Sehwan"
   ],
   "Punjab": [
     "Islamabad",
@@ -54,7 +70,19 @@ const provinceCityMap: Record<string, string[]> = {
     "Dera Ghazi Khan",
     "Chiniot",
     "Kamoke",
-    "Hafizabad"
+    "Hafizabad",
+    "Mandi Bahauddin",
+    "Muzaffargarh",
+    "Layyah",
+    "Toba Tek Singh",
+    "Pakpattan",
+    "Lodhran",
+    "Narowal",
+    "Mianwali",
+    "Attock",
+    "Chakwal",
+    "Nankana Sahib",
+    "Khushab"
   ],
   "Khyber Pakhtunkhwa": [
     "Peshawar",
@@ -71,7 +99,19 @@ const provinceCityMap: Record<string, string[]> = {
     "Tank",
     "Chitral",
     "Hangu",
-    "Karak"
+    "Karak",
+    "Lower Dir (Timergara)",
+    "Upper Dir",
+    "Buner",
+    "Shangla",
+    "Torghar",
+    "Malakand",
+    "Khyber",
+    "Mohmand",
+    "Orakzai",
+    "South Waziristan (Wana)",
+    "North Waziristan (Miranshah)",
+    "Bajaur (Khar)"
   ],
   "Balochistan": [
     "Quetta",
@@ -88,7 +128,23 @@ const provinceCityMap: Record<string, string[]> = {
     "Dera Murad Jamali",
     "Hub",
     "Dera Allah Yar",
-    "Nushki"
+    "Nushki",
+    "Lasbela",
+    "Panjgur",
+    "Kharan",
+    "Awaran",
+    "Musakhel",
+    "Washuk",
+    "Qila Saifullah",
+    "Qila Abdullah",
+    "Pasni",
+    "Ormara",
+    "Uthal",
+    "Ziarat",
+    "Gandawah",
+    "Surab",
+    "Kech",
+    "Chagai"
   ],
   "Gilgit-Baltistan": [
     "Gilgit",
