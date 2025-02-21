@@ -51,16 +51,8 @@ const Location = (props: Props) => {
 
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
 
+  console.log(filteredCities)
   // Watch the selected typeId
-  const selectedTypeId = watch("typeId");
-  const typeId = Number(selectedTypeId);
-
-  // Filter details based on the selected typeId
-  const filteredDetails = props.details.filter(
-    (detail) => detail.propertyTypeId === typeId
-  );
-
-
 
   return (
     <div className={`p-8 max-sm:p-4 gap-4 flex flex-col items-start w-full border bg-neutral-800 border-green-200  justify-start ${props.className}`}>
@@ -68,11 +60,11 @@ const Location = (props: Props) => {
 
       {/* state */}
       <div className="relative mb-5 w-full">
-      <span className="text-green-300 text-sm   flex items-center  mb-2 ">
-      <Earth className="mr-2" />
-      
+        <span className="text-green-300 text-sm   flex items-center  mb-2 ">
+          <Earth className="mr-2" />
+
           Province</span>
-     
+
         <select
           {...register("location.state")}
           defaultValue={getValues().location?.state}
@@ -100,8 +92,8 @@ const Location = (props: Props) => {
       {/* City */}
 
       <div className="relative mb-5 w-full">
-      <span className="text-green-300 flex items-center  mb-2 text-sm">
-      <Building2 className="mr-2"  />
+        <span className="text-green-300 flex items-center  mb-2 text-sm">
+          <Building2 className="mr-2" />
           City </span>
         <select
           {...register("location.city")}
@@ -127,10 +119,10 @@ const Location = (props: Props) => {
 
       {/* streat addresss  */}
       <div className="relative mb-5  w-full">
-      <span className="text-green-300 flex items-center  mb-2 text-sm">
-      <MapPinCheck className="mr-2"  />
-           Street Address</span>
-     
+        <span className="text-green-300 flex items-center  mb-2 text-sm">
+          <MapPinCheck className="mr-2" />
+          Street Address</span>
+
         <input
           {...register('location.streetAddress')}
           defaultValue={getValues().location?.streetAddress}
@@ -144,10 +136,10 @@ const Location = (props: Props) => {
           <p className="text-sm text-red-500">{errors.location?.streetAddress?.message}</p>
         )}
       </div>
- 
-   
-   
- 
+
+
+
+
 
       {/* Buttons */}
       <div className="mt-3 flex justify-center items-center w-full gap-3">

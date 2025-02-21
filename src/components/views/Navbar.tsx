@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+
 import MobNav from "./MobNav";
 
 interface Props {
@@ -25,9 +26,26 @@ const Navbar = ({ children }: Props) => {
 
   const isActive = (href: string) => pathname === href;
 
+
   return (
     <nav className="bg-background shadow-md sticky top-0 z-50 w-full px-4 lg:px-10">
       {/* Navbar for Small Screens */}
+
+      <div className="flex w-full lg:hidden items-center justify-between">
+        <MobNav />
+        <div className="flex justify-center ">
+          <Link href="/">
+            <Image
+              className="lg:w-28 md:w-28 sm:w-20"
+              src="/logo.png"
+              width={150}
+              height={150}
+              alt="zyck"
+            />
+          </Link>
+        </div>
+      </div>
+
       <div className="flex w-full lg:hidden items-center justify-between py-3">
         <MobNav />
         <Link href="/">
