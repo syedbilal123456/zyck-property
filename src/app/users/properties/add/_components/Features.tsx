@@ -1,12 +1,16 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid"
+"use client"
 import { useFormContext } from "react-hook-form"
-import { Bed, Bath, Car, AreaChart, User, Phone, Mail } from "lucide-react"
-import { AreaType } from "@prisma/client"
-import { AddPropertyFormSchemaReplica } from "./Form"
+import { Bed, Bath, Car, AreaChart, User, Phone, Mail, Building2, Earth, MapPinIcon as MapPinCheck } from "lucide-react"
+import { AreaType, type City, type State } from "@prisma/client"
+import type { AddPropertyFormSchemaReplica } from "./Form"
+import { useEffect, useState } from "react"
 
+interface Props {
+  cities: City[]
+  states: State[]
+}
 
-
-const Features = () => {
+const Features = (props: Props) => {
   const {
     register,
     formState: { errors },
@@ -22,6 +26,17 @@ const Features = () => {
     if (price === null || price === undefined) return ""
     return new Intl.NumberFormat("en-US").format(price)
   }
+
+  const selectedStateId = watch("location.state")
+  const stateType = Number(selectedStateId)
+
+  useEffect(() => {
+    if (stateType) {
+      setFilteredCities(props.cities.filter((item) => item.stateId === stateType))
+    }
+  }, [stateType, props.cities])
+
+  const [filteredCities, setFilteredCities] = useState<City[]>([])
 
   const numberToWords = (num: number): string => {
     // ... (numberToWords function implementation)
@@ -39,7 +54,10 @@ const Features = () => {
 
   const enterPriceValue = formatChequeAmount(price)
 
-  const generateRadioButtons = (name: "propertyFeature.bedrooms" | "propertyFeature.bathrooms" | "propertyFeature.parkingSpots", max = 10) => {
+  const generateRadioButtons = (
+    name: "propertyFeature.bedrooms" | "propertyFeature.bathrooms" | "propertyFeature.parkingSpots",
+    max = 10,
+  ) => {
     return Array.from({ length: max }, (_, i) => i + 1).map((value) => (
       <label key={value} className="relative">
         <input
@@ -59,32 +77,29 @@ const Features = () => {
   }
 
   return (
-    <div className={`p-6 border flex flex-col gap-3 bg-neutral-800 border-green-200`}>
+    <div className={`p-6 flex flex-col gap-3`}>
       {/* Property Name */}
       <div className="input-group">
-        <label htmlFor="name" className="text-white">
-          Property Name
-        </label>
+        <h3 className="text-2xl font-semibold text-green-300 mb-8">Basic Info</h3>
+        <h2 className="text-lg font-semibold mb-4">Property Name</h2>
         <input
           {...register("name")}
           id="name"
           placeholder="Enter Your Property Name"
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.name ? "border-red-500" : ""}`}
+          className={`w-full px-4 py-3 rounded-lg border text-green-500 border-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none" : ""}`}
         />
         {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
       </div>
 
       {/* Price */}
       <div className="input-group">
-        <label htmlFor="price" className="text-white">
-          Price in RS
-        </label>
+        <h2 className="text-lg font-semibold mb-4">Price in RS</h2>
         <input
           {...register("price", { valueAsNumber: true })}
           id="price"
           type="number"
           placeholder="Enter Price"
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.price ? "border-red-500" : ""}`}
+          className={`w-full px-4 py-3 rounded-lg border text-green-500 border-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none ${errors.price ? "border-red-500" : ""}`}
         />
         {enterPriceValue && <p className="text-sm mt-1 text-green-200">{enterPriceValue}</p>}
         {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
@@ -92,21 +107,23 @@ const Features = () => {
 
       {/* Description */}
       <div className="input-group">
-        <label htmlFor="description" className="text-white">
-          Description
-        </label>
+        <h2 className="text-lg font-semibold mb-4">Description</h2>
         <textarea
           {...register("description")}
           id="description"
           placeholder="Enter Your Description"
           rows={4}
-          className={`peer w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-600 hover:border-slate-300 shadow-sm ${errors.description ? "border-red-500" : ""}`}
+          className={`w-full px-4 py-3 rounded-lg border text-green-500 border-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none ${errors.description ? "border-red-500" : ""}`}
         />
         {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
       </div>
 
+      
+
       {/* Bedrooms */}
-      <div className="input-group">
+      <div className="input-group mt-10">
+        <h3 className="text-2xl font-semibold text-green-300 mb-8">Additional Features</h3>
+
         <label className="flex items-center gap-2 text-base font-medium text-green-300 mb-6">
           <Bed className="w-6 h-6 text-green-500" />
           Bedrooms
@@ -177,6 +194,7 @@ const Features = () => {
         {errors.propertyFeature?.areaType && <p className="text-red-500">{errors.propertyFeature.areaType.message}</p>}
       </div>
 
+
       {/* Additional Features */}
       <div className="mt-3 flex flex-wrap items-center justify-between">
         <div className="flex items-center mb-2">
@@ -205,8 +223,8 @@ const Features = () => {
       </div>
 
       {/* Contact Information */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold text-green-300 mb-4">Contact Information</h3>
+      <div className="mt-9">
+        <h3 className="text-2xl font-semibold text-green-300 mb-8">Contact Information</h3>
         <div className="space-y-4">
           <div className="flex items-center">
             <User className="w-6 h-6 text-green-500 mr-2" />
@@ -239,7 +257,6 @@ const Features = () => {
           {errors.contact?.email && <p className="text-sm text-red-500">{errors.contact.email.message}</p>}
         </div>
       </div>
-
     </div>
   )
 }

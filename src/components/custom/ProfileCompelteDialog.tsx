@@ -25,8 +25,8 @@ const provinceCityMap: Record<string, string[]> = {
       "Shikarpur",
       "Dadu",
       "Thatta",
-      "Badin",
       "Tando Adam",
+      "Badin",
       "Tando Allahyar",
       "Khairpur",
       "Kotri"
@@ -170,7 +170,6 @@ setTimeout(() => {
           <DialogTitle>Kindly complete your profile first, then add your property.</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
- 
           <div className="space-y-2">
             <Label htmlFor="province">Province</Label>
             <Controller

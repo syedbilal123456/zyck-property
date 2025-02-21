@@ -14,7 +14,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 import Basic from './Basic';
-import Features from './Features';
+import { PlusCircleIcon } from '@heroicons/react/solid';
+// import Features from './Features';
 
 interface Props {
     details: PropertyTypeDetail[]
@@ -93,13 +94,26 @@ const Addform = ({ isEdit = false, ...props }: Props) => {
                             <Loader />
                         </div>
                     )}
-                <Basic
-                 statuses={props.statuses}
-                 types={props.types}
-                 details={props.details} 
-                 cities={props.city} 
-                 states={props.state}/>                
-                <Features />
+                    <Basic
+                        statuses={props.statuses}
+                        types={props.types}
+                        details={props.details}
+                        cities={props.city}
+                        states={props.state}
+                        images={images}
+                        setImages={setImages}
+                        {...(props.property && {
+                            savedImagesUrl: savedImagesUrl,
+                            setSavedImagesUrl: setSavedImagesUrl,
+                        })}
+                    />
+                    <button
+                        type="submit"
+                        className="w-full sm:w-36 bg-green-500 text-white rounded-md py-2 px-4 flex items-center justify-center gap-2 transition-colors hover:bg-green-600"
+                    >
+                        <PlusCircleIcon className="w-5 h-5" />
+                        <span>Save</span>
+                    </button>
                 </form>
             </FormProvider>
         </div>

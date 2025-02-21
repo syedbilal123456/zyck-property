@@ -9,6 +9,7 @@ interface Props {
 }
 
 const PictureCard = ({ src, onDelete, index }: Props) => {
+
   return (
     <div className="flex flex-col items-center">
       <Image  height={200 } width={200} src={src} className="w-36 h-36 object-contain" alt="Uploaded" />
@@ -22,4 +23,4 @@ const PictureCard = ({ src, onDelete, index }: Props) => {
   );
 };
 
-export default PictureCard;
+export default PictureCard

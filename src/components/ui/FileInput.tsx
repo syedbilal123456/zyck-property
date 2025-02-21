@@ -19,7 +19,7 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
     }
 
     return (
-      <div className={`relative bg-background rounded-lg p-2 ${className}`}>
+      <div className={`relative rounded-lg p-2 ${className}`}>
         <label
           htmlFor="fileInput"
           className="outline-dashed outline-1 outline-slate-500 flex items-center justify-center flex-col p-8 w-full rounded-lg cursor-pointer"

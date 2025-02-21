@@ -1,14 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import type { City, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client"
+import type { City, PropertyImage, PropertyStatus, PropertyType, PropertyTypeDetail, State } from "@prisma/client"
 import { useFormContext } from "react-hook-form"
 import { Building2, Home, Store, Warehouse, Car, Bath, Bed, Ruler, Eye } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
+import Features from "./Features"
 
 interface Props {
+  images: File[];
+  setImages: (images: File[]) => void;
+  savedImagesUrl?: PropertyImage[];
+  setSavedImageUrl?: (propertyImages: PropertyImage[]) => void;
   statuses: PropertyStatus[]
   types: PropertyType[]
   details: PropertyTypeDetail[]
@@ -20,7 +25,7 @@ const formatPriceWithCommas = (price: number) => {
   return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || "0"
 }
 
-const Basic = ({ statuses, types, details, cities, states }: Props) => {
+const Basic = ({ statuses, types, details, cities, states, images, setImages, savedImagesUrl, setSavedImageUrl }: Props) => {
   const {
     register,
     formState: { errors },
@@ -137,36 +142,25 @@ const Basic = ({ statuses, types, details, cities, states }: Props) => {
                 </div>
               </div>
             )}
-
-            {/* Location Fields */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <h2 className="text-lg font-semibold mb-4">Which city is your property in?</h2>
-                <input
-                  type="text"
-                  placeholder="Select your city"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
-                />
-              </div>
-              <div>
-                <h2 className="text-lg font-semibold mb-4">Which area is your property in?</h2>
-                <input
-                  type="text"
-                  placeholder="Address, block, phase, city, etc."
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
-                />
-              </div>
-            </div>
+            <Features 
+              cities={cities} 
+              states={states}
+              savedImagesUrl={savedImagesUrl}
+              setSavedImageUrl={setSavedImageUrl}
+              images={images}
+              setImages={setImages} 
+            />
           </div>
         </div>
 
         {/* Preview Panel */}
-        <div className="fixed right-14 space-y-4">
+        <div className="md:hidden fixed right-14 space-y-4">
           <h2 className="text-lg font-semibold">Preview</h2>
           <div className="w-full rounded-xl shadow-sm shadow-gray-800 border-gray-100 bg-zinc-900 text-white overflow-hidden transition-all duration-300">
             <div className="relative">
-              <Image src="/placeholder.png" alt={title} width={400} height={300} className="w-full h-56 object-cover" />
-              <Badge className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
+             {savedImagesUrl?.map((item, _index) => ( <Image key={item.url[0]} src={item.url[0] ||"/placeholder.png"} alt={title} width={400} height={300} className="w-full h-56 object-cover" />
+             ))} 
+             <Badge className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
                 {selectedStatusValue}
               </Badge>
             </div>
