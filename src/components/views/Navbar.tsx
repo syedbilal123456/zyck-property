@@ -67,7 +67,7 @@ const Navbar = ({ children }: Props) => {
             <li key={link.href}>
               <Link 
                 href={link.href} 
-                className={`hover:text-green-500 transition-colors duration-300 ${isActive(link.href) ? "text-green-500 font-medium" : "text-gray-700"}`}
+                className={`hover:text-green-500 transition-colors duration-300 ${isActive(link.href) ? "text-green-500 font-medium" : "text-white"}`}
               >
                 {link.label}
               </Link>
