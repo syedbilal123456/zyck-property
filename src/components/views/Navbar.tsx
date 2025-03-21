@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useRef, useState } from "react";
+import React, { ReactNode } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -26,30 +26,19 @@ const Navbar = ({ children }: Props) => {
 
   const isActive = (href: string) => pathname === href;
 
-
   return (
     <nav className="bg-background shadow-md sticky top-0 z-50 w-full px-4 lg:px-10">
       {/* Navbar for Small Screens */}
-
-      <div className="flex w-full lg:hidden items-center justify-between">
-        <MobNav />
-        <div className="flex justify-center ">
-          <Link href="/">
-            <Image
-              className="lg:w-28 md:w-28 sm:w-20"
-              src="/logo.png"
-              width={150}
-              height={150}
-              alt="zyck"
-            />
-          </Link>
-        </div>
-      </div>
-
       <div className="flex w-full lg:hidden items-center justify-between py-3">
         <MobNav />
         <Link href="/">
-          <Image src="/logo.png" width={120} height={40} alt="zyck" className="w-24" />
+          <Image 
+            src="/logo.png" 
+            width={120} 
+            height={40} 
+            alt="ZYCK PROPERTY" 
+            className="w-24" 
+          />
         </Link>
         <div>{children}</div>
       </div>
@@ -58,7 +47,13 @@ const Navbar = ({ children }: Props) => {
       <div className="hidden lg:flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/">
-          <Image src="/logo.png" width={150} height={50} alt="zyck" className="w-36" />
+          <Image 
+            src="/logo.png" 
+            width={150} 
+            height={50} 
+            alt="ZYCK PROPERTY" 
+            className="w-36" 
+          />
         </Link>
 
         {/* Navigation Links */}
@@ -67,7 +62,9 @@ const Navbar = ({ children }: Props) => {
             <li key={link.href}>
               <Link 
                 href={link.href} 
-                className={`hover:text-green-500 transition-colors duration-300 ${isActive(link.href) ? "text-green-500 font-medium" : "text-white"}`}
+                className={`hover:text-green-500 transition-colors duration-300 ${
+                  isActive(link.href) ? "text-green-500 font-medium" : "text-white"
+                }`}
               >
                 {link.label}
               </Link>
