@@ -248,7 +248,7 @@ const Features = () => {
             {...register("propertyFeature.areaType")}
             defaultValue={getValues().propertyFeature.areaType}
             id="state"
-            className={`peer w-full bg-white hover:bg-green-700 text-white text-sm border border-[#374151] rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-500 hover:border-[#4b5563] shadow-sm ${errors.propertyFeature?.areaType ? "border-red-500" : ""}`}
+            className={`peer w-full bg-gray-800 hover:bg-green-700 text-white text-sm border border-[#374151] rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-green-500 hover:border-[#4b5563] shadow-sm ${errors.propertyFeature?.areaType ? "border-red-500" : ""}`}
           >
             <option className="text-white hover:bg-green-700" key={1} value={AreaType.SQUARE_METER}>
               Square Meter

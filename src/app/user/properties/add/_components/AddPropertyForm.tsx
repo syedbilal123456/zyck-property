@@ -101,11 +101,12 @@ const AddPropertyForm = ({ isEdit = false, ...props }: Props) => {
     try {
       if (isEdit && props.property) {
         const deleteImagesIDs = props.property?.images
-          .filter((item) => !savedImagesUrl.includes(item))
+          .filter((item) => !savedImagesUrl.some((saved) => saved.id === item.id))
           .map((item) => item.id)
         await editProperty(props.property.id, data, imageUrls, deleteImagesIDs)
         removeLocalStorageItem(propertiesDataLocalStorage)
         toast.success("Property updated successfully")
+        console.log("Images to delete:", deleteImagesIDs);
       } else {
         await saveProperty(data, imageUrls, user)
         toast.success("Property added successfully")
