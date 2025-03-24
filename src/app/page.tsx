@@ -7,13 +7,14 @@ import Projects from '@/components/views/Projects'
 import Hero from "@/components/views/Hero";
 
 export default function Home() {
+
+  console.log("Home Page");
   return (
     <>
     <Hero/>
     <Projects />
     <FeatureProduct/>
     <Heroend/>
-    
     <Cities/>
     <ChooseUs/>
     {/* <PartnersSection/> */}

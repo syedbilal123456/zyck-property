@@ -1,6 +1,6 @@
+"use client"
 import React from "react";
 import PictureCard from "./PictureCard";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { PropertyImage } from "@prisma/client";
 import FileInput from "@/components/ui/FileInput";
 import { toast } from "react-toastify";
