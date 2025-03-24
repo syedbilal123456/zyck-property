@@ -78,18 +78,59 @@ export default function AddProject() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      projectName: '',
+      developerName: '',
       projectType: 'RESIDENTIAL',
       projectStatus: 'ONGOING',
+      launchDate: '',
+      completionDate: '',
+      city: '',
+      area: '',
+      googleMapsUrl: '',
+      landmarks: '',
+      propertyTypes: [],
+      sizes: '',
+      priceRangeStart: '',
+      priceRangeEnd: '',
       paymentPlan: 'BOTH',
       basicAmenities: [],
       luxuryFeatures: [],
-      propertyTypes: [],
+      nearbyFacilities: '',
+      approvalStatus: '',
+      registrationDetails: '',
+      contactPhone: '',
+      contactEmail: '',
+      bookingProcedure: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+  try {
+    console.log("Submitting Data:", values); // Debugging
+    const response = await fetch('/api/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit project');
+    }
+
+    const result = await response.json();
+    console.log('Project submitted successfully:', result);
+    
+    // Optionally, redirect to homepage or reset form
+    form.reset();
+    window.location.href = '/'; // Redirect to homepage
+
+  } catch (error) {
+    console.error('Error submitting project:', error);
   }
+}
+
 
   return (
     <div className="min-h-screen">
@@ -632,7 +673,7 @@ export default function AddProject() {
                         <FormItem>
                           <FormLabel>Authorized Agents Phone</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter Agent PhoneNumber" {...field} />
+                            <Input placeholder="Enter Agent PhoneNumber" {...field} value={field.value || ""} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

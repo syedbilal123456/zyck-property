@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import Link from "next/link";
+import { Eye } from "lucide-react";
 
 interface Developer {
   name: string;
@@ -40,8 +41,8 @@ export default function ProjectCard({
   developer,
 }: Project) {
   return (
-    <Card className="w-full mx-auto border rounded-lg shadow-lg flex flex-col bg-white">
-      {/* Image Section */}
+    <div className="w-full rounded-lg overflow-hidden">
+      {/* Image Section with Badges */}
       <div className="relative">
         <AspectRatio ratio={16 / 9} className="bg-gray-200">
           <Image
@@ -49,41 +50,36 @@ export default function ProjectCard({
             alt={title}
             width={400}
             height={300}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full rounded-t-lg"
           />
         </AspectRatio>
-        <Badge className="absolute top-2 left-2 bg-blue-500 text-white">
-          {status}
-        </Badge>
-        <Badge className="absolute top-2 right-2 bg-green-500 text-white">
-          {projectType}
-        </Badge>
+        <div className="absolute top-2 left-2 flex gap-2">
+          <Badge className="bg-blue-600 text-white font-normal px-4 py-1 rounded-md">Featured</Badge>
+          <Badge className="bg-green-600 text-white font-normal px-4 py-1 rounded-md">{status}</Badge>
+        </div>
       </div>
 
-      {/* Content Section */}
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-        <CardDescription className="text-gray-500">{location}</CardDescription>
-      </CardHeader>
+      {/* Content Without Card Component */}
+      <div className="bg-white p-6 flex flex-col h-52">
+        {/* Title and Location */}
+        <div className="mb-1">
+          <h3 className="font-semibold text-lg truncate">{title}</h3>
+          <p className="text-gray-500 text-sm">{location}, Pakistan</p>
+        </div>
 
-      <CardContent className="space-y-2">
-        <p className="text-sm text-gray-700">
-          <strong>Price Range:</strong> {priceRange} PKR
-        </p>
-        <p className="text-sm text-gray-700">
-          <strong>Developer:</strong> {developer.name}
-        </p>
-        <p className="text-sm text-gray-700">
-          <strong>Contact:</strong> {developer.phone} | {developer.email}
-        </p>
-      </CardContent>
+        {/* Project Features (if needed) */}
+        <div className="flex flex-wrap gap-4 mt-4 mb-2">
+          {/* Add any specific project features here */}
+        </div>
 
-      {/* Footer Section */}
-      <CardFooter className="mt-auto">
-        <Link href={`/projects/${id}`}>
-          <Button className="w-full">View Details</Button>
-        </Link>
-      </CardFooter>
-    </Card>
+        {/* Price */}
+        <div className="flex items-center justify-between mt-auto mb-2">
+          <span className="text-xl font-bold text-green-600">PKR {priceRange}</span>
+          <Link href={`/projects/${id}`}>
+            <Eye className="text-gray-400" size={20} />
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

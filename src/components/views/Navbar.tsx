@@ -91,11 +91,13 @@ const Navbar = ({ children }: Props) => {
                       <span className="cursor-pointer">PAGES</span>
                       {isDropdownOpen && (
                         <ul className="absolute left-0 top-full mt-2 bg-white shadow-lg rounded-md w-40 flex flex-col">
+                          <li><Link href="/properties/sell" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">SELL</Link></li>
                           <li><Link href="/properties/buy" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">BUY</Link></li>
-                          <li><Link href="/properties/rent" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">RENT</Link></li>
-                          <li><Link href="/user/properties" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">SELL</Link></li>
-                          <li><Link href="/co-workspace" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">CO-WORK SPACE</Link></li>
+                          <li><Link href="/user/properties" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">RENT</Link></li>
+                          {/* <li><Link href="/co-workspace" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">CO-WORK SPACE</Link></li> */}
                           <li><Link href="/projects" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">PROJECTS</Link></li>
+                          <li><Link href="/agents" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AGENTS</Link></li>
+                          <li><Link href="/agencies" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AGENCIES</Link></li>
                         </ul>
                       )}
                     </li>

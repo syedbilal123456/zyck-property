@@ -18,13 +18,28 @@ const prisma = new PrismaClient();
 
 // ✅ POST Method (Create Project)
 export async function POST(req: NextRequest) {
-  try {
+  // try {
     const body = await req.json();
+    console.log("Received Data:", body); // Debugging log
+
+    // Check if priceRange is available
+    if (!body.priceRange) {
+      console.log("❌ priceRange MISSING!");
+    }
+
+    // Check if authorizedAgents is available
+    if (!body.authorizedAgents) {
+      console.log("❌ authorizedAgents MISSING!");
+    }
+
+    if (!body || Object.keys(body).length === 0) {
+      return NextResponse.json({ error: "Empty request body" }, { status: 400 });
+    }
     
     // ✅ Step 1: Project Insert
     const project = await prisma.project.create({
       data: {
-        name: body.name,
+        name: body.projectName,
         developerName: body.developerName,
         projectType: body.projectType,
         projectStatus: body.projectStatus,
@@ -33,39 +48,44 @@ export async function POST(req: NextRequest) {
 
         city: body.city,
         area: body.area,
-        googleMapsLink: body.googleMapsLink,
-        nearbyLandmarks: body.nearbyLandmarks,
+        googleMapsLink: body.googleMapsUrl || null,
+        nearbyLandmarks: body.landmarks ? [body.marks] : [], 
 
-        availableUnits: body.availableUnits,
-        sizesAndLayouts: body.sizesAndLayouts,
-        paymentPlan: body.paymentPlan,
+        availableUnits: body.propertyTypes || [],
+        sizesAndLayouts: Array.isArray(body.sizes) ? body.sizes : [body.sizes],
+        paymentPlan: body.paymentPlan || null,
 
-        basicAmenities: body.basicAmenities,
-        luxuryFeatures: body.luxuryFeatures,
-        nearbyFacilities: body.nearbyFacilities,
+        basicAmenities: body.basicAmenities || [],
+        luxuryFeatures: body.luxuryFeatures || [],
+        nearbyFacilities: body.nearbyFacilities || null,
 
-        masterPlan: body.masterPlan,
-        rendersAndPlans: body.rendersAndPlans,
-        siteImagesVideos: body.siteImagesVideos,
+        masterPlan: body.masterPlan || null,
+        rendersAndPlans: body.rendersAndPlans || [],
+        siteImagesVideos: body.siteImagesVideos || [],
 
-        governmentApprovals: body.governmentApprovals,
-        registrationDetails: body.registrationDetails,
+        governmentApprovals: body.approvalStatus ? [body.approvalStatus] : [],
+        registrationDetails: body.registrationDetails || null,
 
-        developerPhone: body.developerPhone,
+        developerPhone: body.contactPhone,
         bookingProcedure: body.bookingProcedure,
       },
     });
 
     // ✅ Step 2: PriceRange Insert (Alag se)
-    if (body.priceRange) {
-      await prisma.priceRange.create({
-        data: {
-          projectId: project.id,
-          minPrice: body.priceRange.minPrice,
-          maxPrice: body.priceRange.maxPrice,
-        },
-      });
+    try {
+      if (body.priceRange) {
+        await prisma.priceRange.create({
+          data: {
+            projectId: project.id,
+            minPrice: body.priceRangeStart ? parseFloat(body.priceRangeStart) : 0,
+            maxPrice: body.priceRangeEnd ? parseFloat(body.priceRangeEnd) : 0,
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Prisma Error (PriceRange Create):", error);
     }
+       
 
     // ✅ Step 3: Authorized Agents Insert (Agar available hain)
     if (body.authorizedAgents?.length > 0) {
@@ -80,10 +100,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: "Project Created Successfully!", project }, { status: 201 });
 
-  } catch (error) {
-    console.error("Database Error:", error);
-    return NextResponse.json({ error: "Error creating project", details: error }, { status: 500 });
-  }
+  // } 
+  // catch (error) {
+  //   console.error("Database Error:", error);
+  //   return NextResponse.json({ error: "Error creating project", details: error }, { status: 500 });
+  // }
 }
 
 

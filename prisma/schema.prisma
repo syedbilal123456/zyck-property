@@ -29,24 +29,24 @@ model User {
 }
 
 model Property {
-  id          Int                @id @default(autoincrement())
-  name        String
-  description String
-  price       Int
-  userId      String
-  typeId      Int
-  statusId    Int
-  DetailId    Int
-  StatusProperty      StatusProperty     @default(ACCEPTED) 
-  createdAt   DateTime           @default(now())
-  contact     Contact?
-  typeDetail  PropertyTypeDetail @relation(fields: [DetailId], references: [id])
-  status      PropertyStatus     @relation(fields: [statusId], references: [id])
-  type        PropertyType       @relation(fields: [typeId], references: [id])
-  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature     PropertyFeature?
-  images      PropertyImage[]
-  location    PropertyLocation?
+  id             Int                @id @default(autoincrement())
+  name           String
+  description    String
+  price          Int
+  userId         String
+  typeId         Int
+  statusId       Int
+  DetailId       Int
+  StatusProperty StatusProperty     @default(ACCEPTED)
+  createdAt      DateTime           @default(now())
+  contact        Contact?
+  typeDetail     PropertyTypeDetail @relation(fields: [DetailId], references: [id])
+  status         PropertyStatus     @relation(fields: [statusId], references: [id])
+  type           PropertyType       @relation(fields: [typeId], references: [id])
+  user           User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature        PropertyFeature?
+  images         PropertyImage[]
+  location       PropertyLocation?
 }
 
 model Contact {
@@ -165,6 +165,7 @@ enum AreaType {
   MARLA
   KANAL
 }
+
 enum StatusProperty {
   PENDING
   ACCEPTED
@@ -172,46 +173,46 @@ enum StatusProperty {
 }
 
 model Project {
-  id                  String   @id @default(uuid())
-  name                String
-  developerName       String
-  projectType         ProjectType
-  projectStatus       ProjectStatus
-  launchDate          DateTime
-  expectedCompletion  DateTime?
-  
-  city               String
-  area               String
-  googleMapsLink     String?
-  nearbyLandmarks    String[]
-  
-  availableUnits     PropertyUnit[]
-  sizesAndLayouts    String[]
-  priceRange         PriceRange?
-  paymentPlan        PaymentPlan
+  id                 String        @id @default(uuid())
+  name               String
+  developerName      String
+  projectType        ProjectType
+  projectStatus      ProjectStatus
+  launchDate         DateTime
+  expectedCompletion DateTime?
 
-  basicAmenities     String[]
-  luxuryFeatures     String[]
-  nearbyFacilities   String[]
-  
-  masterPlan         String?
-  rendersAndPlans    String[]
-  siteImagesVideos   String[]
-  
+  city            String
+  area            String
+  googleMapsLink  String?
+  nearbyLandmarks String
+
+  availableUnits  PropertyUnit[]
+  sizesAndLayouts String
+  priceRange      PriceRange?
+  paymentPlan     PaymentPlan
+
+  basicAmenities   String[]
+  luxuryFeatures   String[]
+  nearbyFacilities String[]
+
+  masterPlan       String?
+  rendersAndPlans  String[]
+  siteImagesVideos String[]
+
   governmentApprovals String[]
   registrationDetails String?
-  
-  developerPhone     String
-  authorizedAgents   AuthorizedAgent[]
-  bookingProcedure   String
+
+  developerPhone   String
+  authorizedAgents AuthorizedAgent[]
+  bookingProcedure String
 }
 
 model AuthorizedAgent {
-  id       String  @id @default(uuid())
-  project  Project @relation(fields: [projectId], references: [id])
+  id        String  @id @default(uuid())
+  email     String
+  phone     String
   projectId String
-  email    String
-  phone    String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 enum ProjectType {
@@ -240,52 +241,52 @@ enum PaymentPlan {
 }
 
 model PriceRange {
-  id         String  @id @default(uuid())
-  project    Project @relation(fields: [projectId], references: [id])
-  projectId  String @unique
-  minPrice   Float
-  maxPrice   Float
+  id        String  @id @default(uuid())
+  minPrice  Float
+  maxPrice  Float
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Agent {
-  id                String   @id @default(uuid())
-  fullName          String
-  profilePicture    String?
-  agentType         String // Individual Agent / Agency Representative
-  experience        String
-  specialization    Specialization[]
+  id             String           @id @default(uuid())
+  fullName       String
+  profilePicture String?
+  agentType      String // Individual Agent / Agency Representative
+  experience     String
+  specialization Specialization[]
 
-  phoneNumber       String
-  email             String @unique
-  officeAddress     String?
-  socialMediaLinks       SocialMediaLinks?
+  phoneNumber      String
+  email            String            @unique
+  officeAddress    String?
+  socialMediaLinks SocialMediaLinks?
 
-  agencyName        String?
-  agencyLogo        String?
-  agencyRegNumber   String?
-  areasCovered      String[]
+  agencyName      String?
+  agencyLogo      String?
+  agencyRegNumber String?
+  areasCovered    String[]
 
-  servicesOffered   ServiceType[]
+  servicesOffered ServiceType[]
 
-  totalListings     Int
-  listingLink       String?
+  totalListings Int
+  listingLink   String?
 
-  testimonials      String[]
-  overallRating     Float @default(0.0)
-  responseTime      String
+  testimonials  String[]
+  overallRating Float    @default(0.0)
+  responseTime  String
 
-  cnicVerification  Boolean @default(false)
+  cnicVerification   Boolean            @default(false)
   licenseCertificate String?
-  approvalStatus    VerificationStatus @default(PENDING)
+  approvalStatus     VerificationStatus @default(PENDING)
 }
 
 model SocialMediaLinks {
-  id        String @id @default(uuid())
-  agentId   String @unique
+  id        String  @id @default(uuid())
+  agentId   String  @unique
   facebook  String?
   instagram String?
   linkedin  String?
-  agent     Agent @relation(fields: [agentId], references: [id])
+  agent     Agent   @relation(fields: [agentId], references: [id])
 }
 
 enum Specialization {
@@ -295,38 +296,37 @@ enum Specialization {
   PROJECTS
 }
 
-
 model Agency {
-  id              String   @id @default(uuid())
+  id              String  @id @default(uuid())
   name            String
   logo            String?
   tagline         String?
   establishedYear Int
   agencyType      String // Independent / Franchise
-  
-  officeAddress   String
-  phoneNumber     String
-  email           String @unique
-  website         String?
-  
-  socialMedia     Json?
+
+  officeAddress String
+  phoneNumber   String
+  email         String  @unique
+  website       String?
+
+  socialMedia Json?
 
   registrationNumber String?
-  license           String?
-  areasCovered      String[]
-  totalAgents       Int
+  license            String?
+  areasCovered       String[]
+  totalAgents        Int
 
-  servicesOffered   ServiceType[]
-  
-  totalListings     Int
-  propertyTypes     PropertyType[]
-  exclusive        Boolean
-  listingLink       String?
+  servicesOffered ServiceType[]
 
-  testimonials      String[]
-  overallRating     Float @default(0.0)
-  responseTime      String
-  
+  totalListings Int
+  propertyTypes PropertyType[]
+  exclusive     Boolean
+  listingLink   String?
+
+  testimonials  String[]
+  overallRating Float    @default(0.0)
+  responseTime  String
+
   businessCertificate String?
   verificationStatus  VerificationStatus @default(PENDING)
 }
