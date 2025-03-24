@@ -243,7 +243,7 @@ export default function Search() {
           </div>
 
           <Input
-            placeholder="Search by name or city..."
+            placeholder="Search by Address or Name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded"
