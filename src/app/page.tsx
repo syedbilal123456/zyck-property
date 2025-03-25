@@ -15,7 +15,6 @@ export default function Home() {
     agencies: "20+"
   };
 
-  console.log("Home Page");
   return (
     <>
     <Hero/>
