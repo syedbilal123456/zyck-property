@@ -7,7 +7,7 @@ import { SkeletonPropertyCard } from "../custom/skeleton/SkeletonPropertyCard";
 const fetchProperties = async (): Promise<Property[]> => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/properties/list?statusProperty=ACCEPTED`,
+      `${process.env.BASE_URL}/api/properties/list?statusProperty=ACCEPTED`,
       { cache: "no-store" } // Ensure fresh data every time
     );
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
