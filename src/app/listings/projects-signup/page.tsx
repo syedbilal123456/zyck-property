@@ -1,144 +1,176 @@
-'use client';
+"use client"
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { Building2, MapPin, Home, Camera, FileCheck, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Separator } from '@/components/ui/separator';
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { Building2, MapPin, Home, Camera, FileCheck, Phone, Plus, Trash2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Separator } from "@/components/ui/separator"
 
 const formSchema = z.object({
   // Basic Information
-  projectName: z.string().min(3, 'Project name must be at least 3 characters'),
-  developerName: z.string().min(3, 'Developer name must be at least 3 characters'),
-  projectType: z.enum(['RESIDENTIAL', 'COMMERCIAL', 'MIXED_USE']),
-  projectStatus: z.enum(['ONGOING', 'COMPLETED', 'UPCOMING']),
+  name: z.string().min(3, "Project name must be at least 3 characters"),
+  developerName: z.string().min(3, "Developer name must be at least 3 characters"),
+  projectType: z.enum(["RESIDENTIAL", "COMMERCIAL", "MIXED_USE"]),
+  projectStatus: z.enum(["ONGOING", "COMPLETED", "UPCOMING"]),
   launchDate: z.string(),
-  completionDate: z.string(),
-  
+  expectedCompletion: z.string(),
+
   // Location
-  city: z.string().min(2, 'City name is required'),
-  area: z.string().min(2, 'Area name is required'),
-  googleMapsUrl: z.string().url().optional(),
-  landmarks: z.string(),
-  
+  city: z.string().min(2, "City name is required"),
+  area: z.string().min(2, "Area name is required"),
+  googleMapsLink: z.string().url().optional().or(z.string()),
+  nearbyLandmarks: z.string(),
+
   // Property Details
-  propertyTypes: z.array(z.string()).min(1, 'Select at least one property type'),
-  sizes: z.string(),
-  priceRangeStart: z.string(),
-  priceRangeEnd: z.string(),
-  paymentPlan: z.enum(['INSTALLMENTS', 'FULL_PAYMENT', 'BOTH']),
-  
+  availableUnits: z.array(z.string()).min(1, "Select at least one property type"),
+  sizesAndLayouts: z.string(),
+  minPrice: z.string(),
+  maxPrice: z.string(),
+  paymentPlan: z.enum(["INSTALLMENTS", "FULL_PAYMENT", "BOTH"]),
+
   // Amenities
   basicAmenities: z.array(z.string()),
   luxuryFeatures: z.array(z.string()),
   nearbyFacilities: z.string(),
-  
+
   // Legal
-  approvalStatus: z.string(),
+  governmentApprovals: z.array(z.string()),
   registrationDetails: z.string(),
-  
+
   // Contact
-  contactPhone: z.string(),
-  contactEmail: z.string().email(),
+  developerPhone: z.string(),
+  authorizedAgents: z
+    .array(
+      z.object({
+        email: z.string().email(),
+        phone: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   bookingProcedure: z.string(),
-});
+})
 
 const propertyTypeOptions = [
-  { id: 'apartments', label: 'Apartments' },
-  { id: 'villas', label: 'Villas' },
-  { id: 'shops', label: 'Shops' },
-  { id: 'offices', label: 'Offices' },
-  { id: 'plots', label: 'Plots' },
-];
+  { id: "APARTMENTS", label: "Apartments" },
+  { id: "VILLAS", label: "Villas" },
+  { id: "PLOTS", label: "Plots" },
+  { id: "SHOPS", label: "Shops" },
+  { id: "OFFICES", label: "Offices" },
+]
 
 const amenityOptions = [
-  { id: 'electricity', label: 'Electricity' },
-  { id: 'gas', label: 'Gas' },
-  { id: 'water', label: 'Water' },
-  { id: 'security', label: 'Security' },
-];
+  { id: "24/7 Security", label: "24/7 Security" },
+  { id: "Underground Electricity", label: "Underground Electricity" },
+  { id: "Water Filtration Plant", label: "Water Filtration Plant" },
+  { id: "Sewerage System", label: "Sewerage System" },
+  { id: "Waste Management", label: "Waste Management" },
+]
 
 const luxuryFeatureOptions = [
-  { id: 'swimming_pool', label: 'Swimming Pool' },
-  { id: 'gym', label: 'Gym' },
-  { id: 'community_center', label: 'Community Center' },
-  { id: 'playground', label: 'Playground' },
-  { id: 'mosque', label: 'Mosque' },
-  { id: 'parking', label: 'Parking' },
-];
+  { id: "Olympic-size Swimming Pool", label: "Swimming Pool" },
+  { id: "State-of-the-art Gym", label: "Gym" },
+  { id: "Community Clubhouse", label: "Community Center" },
+  { id: "Landscaped Parks", label: "Parks" },
+  { id: "Jogging Tracks", label: "Jogging Tracks" },
+  { id: "Children's Play Area", label: "Children's Play Area" },
+]
+
+const approvalOptions = [
+  { id: "LDA Approved", label: "LDA Approved" },
+  { id: "RERA Registered", label: "RERA Registered" },
+  { id: "Environmental Clearance", label: "Environmental Clearance" },
+]
 
 export default function AddProject() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      projectName: '',
-      developerName: '',
-      projectType: 'RESIDENTIAL',
-      projectStatus: 'ONGOING',
-      launchDate: '',
-      completionDate: '',
-      city: '',
-      area: '',
-      googleMapsUrl: '',
-      landmarks: '',
-      propertyTypes: [],
-      sizes: '',
-      priceRangeStart: '',
-      priceRangeEnd: '',
-      paymentPlan: 'BOTH',
+      name: "",
+      developerName: "",
+      projectType: "RESIDENTIAL",
+      projectStatus: "UPCOMING",
+      launchDate: "",
+      expectedCompletion: "",
+      city: "",
+      area: "",
+      googleMapsLink: "",
+      nearbyLandmarks: "",
+      availableUnits: [],
+      sizesAndLayouts: "",
+      minPrice: "",
+      maxPrice: "",
+      paymentPlan: "INSTALLMENTS",
       basicAmenities: [],
       luxuryFeatures: [],
-      nearbyFacilities: '',
-      approvalStatus: '',
-      registrationDetails: '',
-      contactPhone: '',
-      contactEmail: '',
-      bookingProcedure: '',
+      nearbyFacilities: "",
+      governmentApprovals: [],
+      registrationDetails: "",
+      developerPhone: "",
+      authorizedAgents: [{ email: "", phone: "" }],
+      bookingProcedure: "",
     },
-  });
+  })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-  try {
-    console.log("Submitting Data:", values); // Debugging
-    const response = await fetch('/api/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
+    // try {
+      // Format the data to match the expected JSON structure
+      const formattedData = {
+        ...values,
+        priceRange: {
+          minPrice: Number(values.minPrice),
+          maxPrice: Number(values.maxPrice),
+        },
+        // Remove the individual price fields that aren't in the final JSON
+        minPrice: undefined,
+        maxPrice: undefined,
+        // Convert dates to ISO format if needed
+        launchDate: new Date(values.launchDate).toISOString(),
+        expectedCompletion: new Date(values.expectedCompletion).toISOString(),
+      }
 
-    if (!response.ok) {
-      throw new Error('Failed to submit project');
-    }
+      console.log("Submitting Data:", formattedData)
 
-    const result = await response.json();
-    console.log('Project submitted successfully:', result);
-    
-    // Optionally, redirect to homepage or reset form
-    form.reset();
-    window.location.href = '/'; // Redirect to homepage
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedData),
+      })
 
-  } catch (error) {
-    console.error('Error submitting project:', error);
+      console.log(response, "response")
+
+      // if (!response.ok) {
+      //   throw new Error("Failed to submit project")
+      // }
+
+      const result = await response.json()
+      console.log("Project submitted successfully:", result)
+
+      // Optionally, redirect to homepage or reset form
+      form.reset()
+      window.location.href = "/" // Redirect to homepage
+    // } catch (error) {
+    //   console.error("Error submitting project:", error)
+    // }
   }
-}
-
 
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
-      <div 
+      <div
         className="relative h-[300px] bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80")',
+          backgroundImage:
+            'url("https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80")',
         }}
       >
         <div className="absolute inset-0 bg-black/50">
@@ -155,7 +187,9 @@ export default function AddProject() {
       <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 -mt-10">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <p className="text-gray-600 text-center">Complete the form below with accurate details about your property project</p>
+            <p className="text-gray-600 text-center">
+              Complete the form below with accurate details about your property project
+            </p>
           </div>
 
           <Form {...form}>
@@ -171,12 +205,12 @@ export default function AddProject() {
                 <CardContent className="space-y-4">
                   <FormField
                     control={form.control}
-                    name="projectName"
+                    name="name"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Project Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Bahria Town Karachi" {...field} />
+                          <Input placeholder="e.g., Emerald Heights Residency" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -189,7 +223,7 @@ export default function AddProject() {
                       <FormItem>
                         <FormLabel>Developer Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., XYZ Builders & Developers" {...field} />
+                          <Input placeholder="e.g., Prestige Developers Ltd." {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -257,7 +291,7 @@ export default function AddProject() {
                     />
                     <FormField
                       control={form.control}
-                      name="completionDate"
+                      name="expectedCompletion"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Expected Completion</FormLabel>
@@ -311,12 +345,12 @@ export default function AddProject() {
                   </div>
                   <FormField
                     control={form.control}
-                    name="googleMapsUrl"
+                    name="googleMapsLink"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Google Maps Location</FormLabel>
                         <FormControl>
-                          <Input placeholder="Google Map Locations" {...field} />
+                          <Input placeholder="Google Maps Link" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -324,7 +358,7 @@ export default function AddProject() {
                   />
                   <FormField
                     control={form.control}
-                    name="landmarks"
+                    name="nearbyLandmarks"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Nearby Landmarks</FormLabel>
@@ -353,7 +387,7 @@ export default function AddProject() {
                 <CardContent className="space-y-4">
                   <FormField
                     control={form.control}
-                    name="propertyTypes"
+                    name="availableUnits"
                     render={() => (
                       <FormItem>
                         <FormLabel>Available Units</FormLabel>
@@ -362,30 +396,21 @@ export default function AddProject() {
                             <FormField
                               key={option.id}
                               control={form.control}
-                              name="propertyTypes"
+                              name="availableUnits"
                               render={({ field }) => {
                                 return (
-                                  <FormItem
-                                    key={option.id}
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
+                                  <FormItem key={option.id} className="flex flex-row items-start space-x-3 space-y-0">
                                     <FormControl>
                                       <Checkbox
                                         checked={field.value?.includes(option.id)}
                                         onCheckedChange={(checked) => {
                                           return checked
                                             ? field.onChange([...field.value, option.id])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                  (value) => value !== option.id
-                                                )
-                                              )
+                                            : field.onChange(field.value?.filter((value) => value !== option.id))
                                         }}
                                       />
                                     </FormControl>
-                                    <FormLabel className="font-normal">
-                                      {option.label}
-                                    </FormLabel>
+                                    <FormLabel className="font-normal">{option.label}</FormLabel>
                                   </FormItem>
                                 )
                               }}
@@ -398,14 +423,14 @@ export default function AddProject() {
                   />
                   <FormField
                     control={form.control}
-                    name="sizes"
+                    name="sizesAndLayouts"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Available Sizes</FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Enter available sizes (e.g., 120 sq yd, 240 sq yd, 5 marla, 10 marla)"
-                            className='bg-white text-gray-800'
+                            placeholder="Enter available sizes (e.g., 5 Marla to 2 Kanal plots, 1500-5000 sq ft apartments)"
+                            className="bg-white text-gray-800"
                             {...field}
                           />
                         </FormControl>
@@ -416,7 +441,7 @@ export default function AddProject() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
-                      name="priceRangeStart"
+                      name="minPrice"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Starting Price (PKR)</FormLabel>
@@ -429,7 +454,7 @@ export default function AddProject() {
                     />
                     <FormField
                       control={form.control}
-                      name="priceRangeEnd"
+                      name="maxPrice"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Maximum Price (PKR)</FormLabel>
@@ -481,7 +506,7 @@ export default function AddProject() {
                     render={() => (
                       <FormItem>
                         <FormLabel>Basic Amenities</FormLabel>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
                           {amenityOptions.map((option) => (
                             <FormField
                               key={option.id}
@@ -489,27 +514,18 @@ export default function AddProject() {
                               name="basicAmenities"
                               render={({ field }) => {
                                 return (
-                                  <FormItem
-                                    key={option.id}
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
+                                  <FormItem key={option.id} className="flex flex-row items-start space-x-3 space-y-0">
                                     <FormControl>
                                       <Checkbox
                                         checked={field.value?.includes(option.id)}
                                         onCheckedChange={(checked) => {
                                           return checked
                                             ? field.onChange([...field.value, option.id])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                  (value) => value !== option.id
-                                                )
-                                              )
+                                            : field.onChange(field.value?.filter((value) => value !== option.id))
                                         }}
                                       />
                                     </FormControl>
-                                    <FormLabel className="font-normal">
-                                      {option.label}
-                                    </FormLabel>
+                                    <FormLabel className="font-normal">{option.label}</FormLabel>
                                   </FormItem>
                                 )
                               }}
@@ -534,27 +550,18 @@ export default function AddProject() {
                               name="luxuryFeatures"
                               render={({ field }) => {
                                 return (
-                                  <FormItem
-                                    key={option.id}
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
+                                  <FormItem key={option.id} className="flex flex-row items-start space-x-3 space-y-0">
                                     <FormControl>
                                       <Checkbox
                                         checked={field.value?.includes(option.id)}
                                         onCheckedChange={(checked) => {
                                           return checked
                                             ? field.onChange([...field.value, option.id])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                  (value) => value !== option.id
-                                                )
-                                              )
+                                            : field.onChange(field.value?.filter((value) => value !== option.id))
                                         }}
                                       />
                                     </FormControl>
-                                    <FormLabel className="font-normal">
-                                      {option.label}
-                                    </FormLabel>
+                                    <FormLabel className="font-normal">{option.label}</FormLabel>
                                   </FormItem>
                                 )
                               }}
@@ -572,7 +579,7 @@ export default function AddProject() {
                         <FormLabel>Nearby Facilities</FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Enter nearby facilities (e.g., schools, hospitals, shopping malls)"
+                            placeholder="Enter nearby facilities (e.g., Lahore American School (2km), Shaukat Khanum Hospital (5km))"
                             className="min-h-[100px] bg-white text-gray-800"
                             {...field}
                           />
@@ -595,21 +602,40 @@ export default function AddProject() {
                 <CardContent className="space-y-4">
                   <FormField
                     control={form.control}
-                    name="approvalStatus"
-                    render={({ field }) => (
+                    name="governmentApprovals"
+                    render={() => (
                       <FormItem>
                         <FormLabel>Government/NOC Approvals</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="e.g, CDA, LDA, SBCA, etc."
-                            className="min-h-[100px] bg-white text-gray-800"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                          {approvalOptions.map((option) => (
+                            <FormField
+                              key={option.id}
+                              control={form.control}
+                              name="governmentApprovals"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem key={option.id} className="flex flex-row items-start space-x-3 space-y-0">
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(option.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, option.id])
+                                            : field.onChange(field.value?.filter((value) => value !== option.id))
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">{option.label}</FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                        </div>
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="registrationDetails"
@@ -618,7 +644,7 @@ export default function AddProject() {
                         <FormLabel>Registration Details</FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Enter registration details"
+                            placeholder="Enter registration details (e.g., Registered with Punjab Housing Authority under File No. PHA-2024-5678)"
                             className="min-h-[100px] bg-white text-gray-800"
                             {...field}
                           />
@@ -639,47 +665,91 @@ export default function AddProject() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="contactPhone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Developer Phone Number</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Optional" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="contactEmail"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Authorized Agents Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="Enter Agent email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="phonenumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Authorized Agents Phone</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter Agent PhoneNumber" {...field} value={field.value || ""} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <FormField
+                    control={form.control}
+                    name="developerPhone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Developer Phone Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., +924201234567" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Authorized Agents */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Authorized Agents</FormLabel>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const currentAgents = form.getValues("authorizedAgents") || []
+                          form.setValue("authorizedAgents", [...currentAgents, { email: "", phone: "" }])
+                        }}
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Agent
+                      </Button>
+                    </div>
+
+                    {form.watch("authorizedAgents")?.map((_, index) => (
+                      <div key={index} className="space-y-4 p-4 border rounded-md">
+                        <div className="flex justify-between items-center">
+                          <h4 className="font-medium">Agent {index + 1}</h4>
+                          {index > 0 && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                const currentAgents = form.getValues("authorizedAgents")
+                                form.setValue(
+                                  "authorizedAgents",
+                                  currentAgents.filter((_, i) => i !== index),
+                                )
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name={`authorizedAgents.${index}.email`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                  <Input type="email" placeholder="agent@example.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`authorizedAgents.${index}.phone`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Phone</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="+923331234567" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
+
                   <FormField
                     control={form.control}
                     name="bookingProcedure"
@@ -688,7 +758,7 @@ export default function AddProject() {
                         <FormLabel>Booking Procedure</FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Enter booking procedure details"
+                            placeholder="Enter booking procedure details (e.g., 20% down payment at booking, remaining in 8 quarterly installments)"
                             className="min-h-[100px] bg-white text-gray-800"
                             {...field}
                           />
@@ -710,5 +780,5 @@ export default function AddProject() {
         </div>
       </div>
     </div>
-  );
+  )
 }

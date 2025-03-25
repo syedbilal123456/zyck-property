@@ -1,4 +1,3 @@
-
 "use client";
 import { Property } from '@/lib/type';
 import PropertyCardsecond from '@/components/views/secondPropertyCard';

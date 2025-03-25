@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
         pathname: "/**", // Allow all images from this host
       },
     ],
-    domains: ["example.com"], // Also add it here for compatibility
+    domains:["example.com", "pearlcity.com"], // Also add it here for compatibility
   },
 };
 

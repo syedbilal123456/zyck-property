@@ -127,6 +127,8 @@ model PropertyTypeDetail {
   created        DateTime     @default(now())
   Property       Property[]
   propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
+  agency   Agency? @relation(fields: [agencyId], references: [id])
+  agencyId String?
 }
 
 model PropertyStatus {
@@ -296,7 +298,7 @@ enum Specialization {
   PROJECTS
 }
 
-model Agency {
+model Agencies {
   id              String  @id @default(uuid())
   name            String
   logo            String?
@@ -315,6 +317,8 @@ model Agency {
   license            String?
   areasCovered       String[]
   totalAgents        Int
+
+  propertyDetails  PropertyTypeDetail[] // Relationship field
 
   servicesOffered ServiceType[]
 

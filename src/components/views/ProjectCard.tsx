@@ -1,85 +1,103 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import Link from "next/link";
-import { Eye } from "lucide-react";
 
-interface Developer {
+interface RealEstateProject {
+  id: string;
   name: string;
+  area: string;
+  city: string;
+  developerName: string;
+  developerPhone: string;
+  expectedCompletion: string;
+  launchDate: string;
+  projectStatus: string;
+  projectType: string;
+  registrationDetails: string;
+  paymentPlan: string;
+  priceRange: {
+    id: string;
+    minPrice: number;
+    maxPrice: number;
+    projectId: string;
+  };
+  availableUnits: string[];
+  basicAmenities: string[];
+  luxuryFeatures: string[];
+  nearbyFacilities: string[];
+  nearbyLandmarks: string;
+  governmentApprovals: string[];
+  bookingProcedure: string;
+  masterPlan: string;
+  googleMapsLink: string;
+  sizesAndLayouts: string;
+  rendersAndPlans: string[];
+  siteImagesVideos: string[];
+  authorizedAgents: AuthorizedAgent[];
+}
+
+interface AuthorizedAgent {
+  id: string;
   email: string;
   phone: string;
+  projectId: string;
 }
 
-interface Project {
-  id: number;
-  image: string;
-  title: string;
-  location: string;
-  projectType: string;
-  priceRange: string;
-  status: string;
-  developer: Developer;
-}
-
-export default function ProjectCard({
-  id,
-  image,
-  title,
-  location,
-  projectType,
-  priceRange,
-  status,
-  developer,
-}: Project) {
+// ProjectCard Component
+const ProjectCard: React.FC<{ project: RealEstateProject }> = ({ project }) => {
   return (
-    <div className="w-full rounded-lg overflow-hidden">
-      {/* Image Section with Badges */}
+    <div className="border rounded-lg shadow-md overflow-hidden">
+      {/* Project Image */}
       <div className="relative">
-        <AspectRatio ratio={16 / 9} className="bg-gray-200">
-          <Image
-            src={image || "https://dummyimage.com/400x400"}
-            alt={title}
-            width={400}
-            height={300}
-            className="object-cover w-full h-full rounded-t-lg"
-          />
-        </AspectRatio>
-        <div className="absolute top-2 left-2 flex gap-2">
-          <Badge className="bg-blue-600 text-white font-normal px-4 py-1 rounded-md">Featured</Badge>
-          <Badge className="bg-green-600 text-white font-normal px-4 py-1 rounded-md">{status}</Badge>
+        <Image 
+          src={project.siteImagesVideos[0] || "https://dummyimage.com/400x400"} 
+          width={400}
+          height={400}
+          alt={project.name} 
+          className="w-full h-48 object-cover"
+        />
+        <div className="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded">
+          {project.projectStatus}
         </div>
       </div>
 
-      {/* Content Without Card Component */}
-      <div className="bg-white p-6 flex flex-col h-52">
-        {/* Title and Location */}
-        <div className="mb-1">
-          <h3 className="font-semibold text-lg truncate">{title}</h3>
-          <p className="text-gray-500 text-sm">{location}, Pakistan</p>
+      {/* Project Details */}
+      <div className="p-4">
+        <h3 className="text-xl font-bold mb-2">{project.name}</h3>
+        <p className="text-gray-600 mb-2">{project.developerName}</p>
+        
+        {/* Key Details */}
+        <div className="grid grid-cols-2 gap-2 text-sm mb-4">
+          <div>
+            <span className="font-semibold">Location:</span> {project.city}
+          </div>
+          <div>
+            <span className="font-semibold">Type:</span> {project.projectType}
+          </div>
+          <div>
+            <span className="font-semibold">Price From:</span> 
+            PKR {project.priceRange.maxPrice} to {project.priceRange.minPrice}
+          </div>
+          <div>
+            <span className="font-semibold">Completion:</span> 
+            {project.launchDate} - {project.expectedCompletion}
+          </div>
         </div>
 
-        {/* Project Features (if needed) */}
-        <div className="flex flex-wrap gap-4 mt-4 mb-2">
-          {/* Add any specific project features here */}
-        </div>
-
-        {/* Price */}
-        <div className="flex items-center justify-between mt-auto mb-2">
-          <span className="text-xl font-bold text-green-600">PKR {priceRange}</span>
-          <Link href={`/projects/${id}`}>
-            <Eye className="text-gray-400" size={20} />
-          </Link>
+        {/* CTA Buttons */}
+        <div className="flex justify-between">
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            View Details
+          </button>
+          <button 
+            className="border border-blue-500 text-blue-500 px-4 py-2 rounded hover:bg-blue-50"
+          >
+            Contact
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default ProjectCard;
