@@ -8,11 +8,11 @@ import PropertyCounters from "@/components/views/PropertyCounter";
 export default function Home() {
 
   const counts = {
-    sellProperties: "127+",
+    sellProperties: "150+",
     rentProperties: "142+",
-    projects: "105+",
-    agents: "156+",
-    agencies: "113+"
+    projects: "15+",
+    agents: "100+",
+    agencies: "20+"
   };
 
   console.log("Home Page");
