@@ -25,7 +25,7 @@ export async function GET() {
 
     // If the user exists, redirect to the homepage (or dashboard)
     if (dbUser) {
-      return NextResponse.redirect(process.env.BASE_URL!);
+      return NextResponse.redirect(`${process.env.BASE_URL!}/user/properties`);
     }
 
     // If the user doesn't exist, create a new user
