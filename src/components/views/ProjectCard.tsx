@@ -43,6 +43,7 @@ interface AuthorizedAgent {
 
 // ProjectCard Component
 const ProjectCard: React.FC<{ project: RealEstateProject }> = ({ project }) => {
+  // const expectedCompletion = project.expectedCompletion || "N/A";
   return (
     <div className="border rounded-lg shadow-md overflow-hidden">
       {/* Project Image */}

@@ -79,6 +79,24 @@ export default function AgentSignUp() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      fullName:'',
+      experience: '',
+      phoneNumber:'',
+      email:'',
+      facebookLink: '',
+      instagramLink: '',
+      linkedinLink: '',
+      agencyName: '',
+      agencyLogo: '',
+      officeAddress: '',
+      clientTestimonials: '',
+      listingsLink: '',
+      activeListings: '',
+      cnicVerification: '',
+      licenseRegistration: '',
+      registrationNumber: '',
+      profilePicture: '',
+      responseTime: '',
       agentType: 'INDIVIDUAL',
       specialization: [],
       services: [],
@@ -88,7 +106,8 @@ export default function AgentSignUp() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    // Log all form values to the console when the form is submitted
+    console.log('Form Submission Values:', values);
   }
 
   return (
@@ -148,7 +167,7 @@ export default function AgentSignUp() {
                       <FormItem>
                         <FormLabel>Profile Picture</FormLabel>
                         <FormControl>
-                          <Input type="file" {...field} value={undefined} onChange={(e) => {
+                          <Input type="file" {...field} value={''} onChange={(e) => {
                             field.onChange(e.target.value);
                           }} />
                         </FormControl>
@@ -385,7 +404,7 @@ export default function AgentSignUp() {
                       <FormItem>
                         <FormLabel>Agency Logo</FormLabel>
                         <FormControl>
-                          <Input type="file" {...field} value={undefined} onChange={(e) => {
+                          <Input type="file" {...field} value={''} onChange={(e) => {
                             field.onChange(e.target.value);
                           }} />
                         </FormControl>
@@ -394,18 +413,50 @@ export default function AgentSignUp() {
                     )}
                   />
                   <FormField
-                      control={form.control}
-                      name="registrationNumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Areas Covered</FormLabel>
-                          <FormControl>
-                            <Input placeholder="e.g., DHA Karachi, Bahria Town Lahore" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    control={form.control}
+                    name="areasCovered"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel>Areas Covered</FormLabel>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                          {areaOptions.map((option) => (
+                            <FormField
+                              key={option.id}
+                              control={form.control}
+                              name="areasCovered"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={option.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(option.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, option.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== option.id
+                                                )
+                                              )
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      {option.label}
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </CardContent>
               </Card>
 
@@ -588,7 +639,7 @@ export default function AgentSignUp() {
                       <FormItem>
                         <FormLabel>CNIC Verification (Optional)</FormLabel>
                         <FormControl>
-                          <Input type="file" {...field} value={undefined} onChange={(e) => {
+                          <Input type="file" {...field} value={''} onChange={(e) => {
                             field.onChange(e.target.value);
                           }} />
                         </FormControl>
@@ -603,7 +654,7 @@ export default function AgentSignUp() {
                       <FormItem>
                         <FormLabel>License/Registration Certificate (if applicable)</FormLabel>
                         <FormControl>
-                          <Input type="file" {...field} value={undefined} onChange={(e) => {
+                          <Input type="file" {...field} value={''} onChange={(e) => {
                             field.onChange(e.target.value);
                           }} />
                         </FormControl>

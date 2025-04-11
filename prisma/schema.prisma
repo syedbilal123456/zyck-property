@@ -26,6 +26,7 @@ model User {
   password        String?
   Property        Property[]
   subscription    Subscriptions[]
+  project         Project[]
 }
 
 model Property {
@@ -117,7 +118,7 @@ model PropertyType {
   created  DateTime             @default(now())
   Property Property[]
   Details  PropertyTypeDetail[]
-  agencies Agency[]
+  agencies Agency[]  // Now properly referencing the Agency model
 }
 
 model PropertyTypeDetail {
@@ -127,8 +128,8 @@ model PropertyTypeDetail {
   created        DateTime     @default(now())
   Property       Property[]
   propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
-  agency   Agency? @relation(fields: [agencyId], references: [id])
-  agencyId String?
+  agency         Agency?      @relation(fields: [agencyId], references: [id])
+  agencyId       String?
 }
 
 model PropertyStatus {
@@ -175,39 +176,40 @@ enum StatusProperty {
 }
 
 model Project {
-  id                 String        @id @default(uuid())
+  id                 String           @id @default(uuid())
+  userId             String
   name               String
   developerName      String
   projectType        ProjectType
   projectStatus      ProjectStatus
   launchDate         DateTime
   expectedCompletion DateTime?
+  city               String
+  area               String
+  googleMapsLink     String?
+  nearbyLandmarks    String
 
-  city            String
-  area            String
-  googleMapsLink  String?
-  nearbyLandmarks String
-
-  availableUnits  PropertyUnit[]
-  sizesAndLayouts String
-  priceRange      PriceRange?
-  paymentPlan     PaymentPlan
-
-  basicAmenities   String[]
-  luxuryFeatures   String[]
-  nearbyFacilities String[]
-
-  masterPlan       String?
-  rendersAndPlans  String[]
-  siteImagesVideos String[]
-
+  // Optional or complex fields
+  availableUnits     Json?
+  sizesAndLayouts    Json?
+  paymentPlan        Json?
+  basicAmenities     String[]
+  luxuryFeatures     String[]
+  nearbyFacilities   String[]
+  masterPlan         String?
+  rendersAndPlans    String[]
+  siteImagesVideos   String[]
   governmentApprovals String[]
   registrationDetails String?
+  developerPhone     String
+  bookingProcedure   String
 
-  developerPhone   String
-  authorizedAgents AuthorizedAgent[]
-  bookingProcedure String
+  // Relations
+  authorizedAgents   AuthorizedAgent[]
+  priceRange         PriceRange?
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
 
 model AuthorizedAgent {
   id        String  @id @default(uuid())
@@ -298,7 +300,7 @@ enum Specialization {
   PROJECTS
 }
 
-model Agencies {
+model Agency {
   id              String  @id @default(uuid())
   name            String
   logo            String?

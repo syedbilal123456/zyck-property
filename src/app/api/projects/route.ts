@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { useKindeAuth, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+// import { useKindeAuth, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 
 const prisma = new PrismaClient();
 
@@ -31,11 +31,13 @@ const PaymentPlan = {
 };
 
 export async function POST(request: Request) {
-  try {
+  // try {
+
     const body = await request.json();
 
     // Validate required fields
     const requiredFields = [
+      "userId",
       'name',
       'developerName',
       'projectType',
@@ -163,6 +165,7 @@ export async function POST(request: Request) {
       // Create the project first
       const project = await prisma.project.create({
         data: {
+          userId: body.userId,
           name: body.name,
           developerName: body.developerName,
           projectType: body.projectType,
@@ -185,9 +188,10 @@ export async function POST(request: Request) {
           governmentApprovals: body.governmentApprovals || [],
           registrationDetails: body.registrationDetails || null,
           developerPhone: body.developerPhone,
-          bookingProcedure: body.bookingProcedure
+          bookingProcedure: body.bookingProcedure,
         }
       });
+      
 
       // Create price range if provided
       if (body.priceRange) {
@@ -221,15 +225,19 @@ export async function POST(request: Request) {
       }
     });
 
+    if (!createdProject) {
+      return NextResponse.json({ error: 'Failed to fetch created project' }, { status: 500 });
+    }
+
     return NextResponse.json(createdProject, { status: 201 });
-  } catch (error: any) {
-    console.error('Error creating project:', error);
-    return NextResponse.json(
-      { error: 'Internal server error', details: error.message },
-      { status: 500 }
-    );
+  // } catch (error: any) {
+    // console.error('Error creating project:', error);
+    // return NextResponse.json(
+    //   { error: 'Internal server error', details: error.message },
+    //   { status: 500 }
+    // );
   }
-}
+// }
 
 // You can also add other HTTP methods like GET, PUT, DELETE as named exports
 export async function GET() {
@@ -239,7 +247,7 @@ export async function GET() {
         area: true,
         authorizedAgents: true,
         availableUnits: true,
-        basicAmenities: true,
+        basicAmenities: true, 
         bookingProcedure: true,
         city: true,
         developerName: true,

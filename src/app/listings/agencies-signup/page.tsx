@@ -87,22 +87,86 @@ export default function AgencySignup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      agencyName: '',
+      agencyLogo: '',
+      tagline: '',
+      establishedYear: '',
       agencyType: 'INDEPENDENT',
-      exclusiveProperties: 'NO',
-      overallRating: '5',
-      servicesOffered: [],
-      propertyTypesManaged: [],
-      areasCovered: [],
+      officeAddress: '',
+      phoneNumber: '',
+      emailAddress: '',
+      website: '',
       socialMedia: {
         facebook: '',
         instagram: '',
         linkedin: '',
       },
+      registrationNumber: '',
+      licenseInfo: '',
+      areasCovered: [],
+      totalAgents: '',
+      totalListings: '',
+      listingsLink: '',
+      propertyTypesManaged: [],
+      testimonials: '',
+      responseTime: '',
+      exclusiveProperties: 'NO',
+      overallRating: '5',
+      servicesOffered: [],
+      businessRegistrationCertificate: '',
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // Log the entire form values object
+    console.log('Form submitted with the following values:');
     console.log(values);
+    
+    // Log individual field categories for better debugging
+    console.log('--- Basic Agency Information ---');
+    console.log('Agency Name:', values.agencyName);
+    console.log('Agency Logo:', values.agencyLogo);
+    console.log('Tagline:', values.tagline);
+    console.log('Established Year:', values.establishedYear);
+    console.log('Agency Type:', values.agencyType);
+    
+    console.log('--- Contact Details ---');
+    console.log('Office Address:', values.officeAddress);
+    console.log('Phone Number:', values.phoneNumber);
+    console.log('Email Address:', values.emailAddress);
+    console.log('Website:', values.website);
+    console.log('Social Media:', values.socialMedia);
+    
+    console.log('--- Business Details ---');
+    console.log('Registration Number:', values.registrationNumber);
+    console.log('License Info:', values.licenseInfo);
+    console.log('Areas Covered:', values.areasCovered);
+    console.log('Total Agents:', values.totalAgents);
+    
+    console.log('--- Services Offered ---');
+    console.log('Services:', values.servicesOffered);
+    
+    console.log('--- Listings Managed ---');
+    console.log('Total Listings:', values.totalListings);
+    console.log('Property Types Managed:', values.propertyTypesManaged);
+    console.log('Exclusive Properties:', values.exclusiveProperties);
+    console.log('Listings Link:', values.listingsLink);
+    
+    console.log('--- Customer Reviews ---');
+    console.log('Testimonials:', values.testimonials);
+    console.log('Overall Rating:', values.overallRating);
+    console.log('Response Time:', values.responseTime);
+    
+    console.log('--- Verification ---');
+    console.log('Business Registration Certificate:', values.businessRegistrationCertificate);
+    
+    // Here you would typically send this data to your backend API
+    // For example: 
+    // fetch('/api/agencies', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(values)
+    // });
   }
 
   return (
