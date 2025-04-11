@@ -45,6 +45,11 @@ const UserProfilePanel = ({ user }: Props) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link href="/user/properties/add" className="text-lg ">
+            Add Property
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Link href="/user/properties" className="text-lg">
             Properties
           </Link>

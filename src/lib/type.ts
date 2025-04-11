@@ -21,6 +21,47 @@ export interface Features {
   propertyId: number;
 }
 
+export interface PriceRange {
+  minPrice: number;
+  maxPrice: number;
+  projectId: string;
+}
+
+export interface AuthorizedAgent {
+  email: string;
+  phone: string;
+  projectId: string;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  developerName: string;
+  projectType: 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED_USE';
+  projectStatus: 'ONGOING' | 'COMPLETED' | 'UPCOMING';
+  launchDate: string;
+  expectedCompletion?: string;
+  city: string;
+  area: string;
+  googleMapsLink?: string;
+  nearbyLandmarks: string[];
+  availableUnits: ('APARTMENTS' | 'VILLAS' | 'SHOPS' | 'OFFICES' | 'PLOTS')[];
+  sizesAndLayouts: string[];
+  paymentPlan: 'INSTALLMENTS' | 'FULL_PAYMENT';
+  basicAmenities: string[];
+  luxuryFeatures: string[];
+  nearbyFacilities: string[];
+  masterPlan?: string;
+  rendersAndPlans: string[];
+  siteImagesVideos: string[];
+  governmentApprovals: string[];
+  registrationDetails?: string;
+  developerPhone: string;
+  bookingProcedure: string;
+  priceRange?: PriceRange;
+  authorizedAgents: AuthorizedAgent[];
+}
+
 interface Images {
   id: number;
   url: string;

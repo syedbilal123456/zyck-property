@@ -23,10 +23,10 @@ export function Searchbar() {
           BUY
         </TabsTrigger>
         <TabsTrigger value="SELL" className="text-sm">
-          SELL
+          RENT
         </TabsTrigger>
         <TabsTrigger value="RENT" className="text-sm">
-          RENT
+          PROJECTS
         </TabsTrigger>
 
         {/* Arrow Down Dropdown */}
@@ -64,14 +64,14 @@ export function Searchbar() {
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setShowDropdown(false)} // Close dropdown on selection
               >
-                CO-WORK SPACE
+                AGENTS
               </TabsTrigger>
               <TabsTrigger
                 value="PROJECT"
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setShowDropdown(false)} // Close dropdown on selection
               >
-                PROJECT
+                AGENCIES
               </TabsTrigger>
             </div>
           )}
@@ -79,10 +79,10 @@ export function Searchbar() {
 
         {/* Full Tabs on Larger Screens */}
         <TabsTrigger value="CO-WORK SPACE" className="hidden md:block text-sm">
-          CO-WORK SPACE
+          AGENTS
         </TabsTrigger>
         <TabsTrigger value="PROJECT" className="hidden md:block text-sm">
-          PROJECT
+          AGENCIES
         </TabsTrigger>
       </TabsList>
 
@@ -92,7 +92,7 @@ export function Searchbar() {
           <Card className="w-full max-w">
             <CardContent className="w-full flex flex-col p-2 bg-background text-white gap-3">
               {/* Search Input */}
-              <Select>
+              {/* <Select>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Property Type" />
                 </SelectTrigger>
@@ -102,12 +102,20 @@ export function Searchbar() {
                   <SelectItem value="commercial">Commercial</SelectItem>
                   <SelectItem value="plot">Plot</SelectItem>
                 </SelectContent>
-              </Select>
-              <Input
+              </Select> */}
+              <div className="flex gap-2 justify-center items-center">
+              <label htmlFor="">City</label>
+              <Input placeholder="Karachi, Lahore, Islamabad" />
+              </div>
+              <div className="flex gap-2 justify-center items-center">
+              <label htmlFor="">Areas</label>
+              <Input placeholder="DHA, Gulshan, Johar" />
+              </div>
+              {/* <Input
                 id={`${tab.toLowerCase()}-search`}
                 placeholder="Search"
                 className="w-full"
-              />
+              /> */}
 
               {/* Search Button */}
               

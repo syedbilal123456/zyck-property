@@ -29,24 +29,24 @@ model User {
 }
 
 model Property {
-  id          Int                @id @default(autoincrement())
-  name        String
-  description String
-  price       Int
-  userId      String
-  typeId      Int
-  statusId    Int
-  DetailId    Int
-  StatusProperty      StatusProperty     @default(ACCEPTED) 
-  createdAt   DateTime           @default(now())
-  contact     Contact?
-  typeDetail  PropertyTypeDetail @relation(fields: [DetailId], references: [id])
-  status      PropertyStatus     @relation(fields: [statusId], references: [id])
-  type        PropertyType       @relation(fields: [typeId], references: [id])
-  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature     PropertyFeature?
-  images      PropertyImage[]
-  location    PropertyLocation?
+  id             Int                @id @default(autoincrement())
+  name           String
+  description    String
+  price          Int
+  userId         String
+  typeId         Int
+  statusId       Int
+  DetailId       Int
+  StatusProperty StatusProperty     @default(ACCEPTED)
+  createdAt      DateTime           @default(now())
+  contact        Contact?
+  typeDetail     PropertyTypeDetail @relation(fields: [DetailId], references: [id])
+  status         PropertyStatus     @relation(fields: [statusId], references: [id])
+  type           PropertyType       @relation(fields: [typeId], references: [id])
+  user           User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature        PropertyFeature?
+  images         PropertyImage[]
+  location       PropertyLocation?
 }
 
 model Contact {
@@ -117,6 +117,7 @@ model PropertyType {
   created  DateTime             @default(now())
   Property Property[]
   Details  PropertyTypeDetail[]
+  agencies Agency[]
 }
 
 model PropertyTypeDetail {
@@ -126,6 +127,8 @@ model PropertyTypeDetail {
   created        DateTime     @default(now())
   Property       Property[]
   propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
+  agency   Agency? @relation(fields: [agencyId], references: [id])
+  agencyId String?
 }
 
 model PropertyStatus {
@@ -164,8 +167,190 @@ enum AreaType {
   MARLA
   KANAL
 }
+
 enum StatusProperty {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model Project {
+  id                 String        @id @default(uuid())
+  name               String
+  developerName      String
+  projectType        ProjectType
+  projectStatus      ProjectStatus
+  launchDate         DateTime
+  expectedCompletion DateTime?
+
+  city            String
+  area            String
+  googleMapsLink  String?
+  nearbyLandmarks String
+
+  availableUnits  PropertyUnit[]
+  sizesAndLayouts String
+  priceRange      PriceRange?
+  paymentPlan     PaymentPlan
+
+  basicAmenities   String[]
+  luxuryFeatures   String[]
+  nearbyFacilities String[]
+
+  masterPlan       String?
+  rendersAndPlans  String[]
+  siteImagesVideos String[]
+
+  governmentApprovals String[]
+  registrationDetails String?
+
+  developerPhone   String
+  authorizedAgents AuthorizedAgent[]
+  bookingProcedure String
+}
+
+model AuthorizedAgent {
+  id        String  @id @default(uuid())
+  email     String
+  phone     String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+enum ProjectType {
+  RESIDENTIAL
+  COMMERCIAL
+  MIXED_USE
+}
+
+enum ProjectStatus {
+  ONGOING
+  COMPLETED
+  UPCOMING
+}
+
+enum PropertyUnit {
+  APARTMENTS
+  VILLAS
+  SHOPS
+  OFFICES
+  PLOTS
+}
+
+enum PaymentPlan {
+  INSTALLMENTS
+  FULL_PAYMENT
+}
+
+model PriceRange {
+  id        String  @id @default(uuid())
+  minPrice  Float
+  maxPrice  Float
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Agent {
+  id             String           @id @default(uuid())
+  fullName       String
+  profilePicture String?
+  agentType      String // Individual Agent / Agency Representative
+  experience     String
+  specialization Specialization[]
+
+  phoneNumber      String
+  email            String            @unique
+  officeAddress    String?
+  socialMediaLinks SocialMediaLinks?
+
+  agencyName      String?
+  agencyLogo      String?
+  agencyRegNumber String?
+  areasCovered    String[]
+
+  servicesOffered ServiceType[]
+
+  totalListings Int
+  listingLink   String?
+
+  testimonials  String[]
+  overallRating Float    @default(0.0)
+  responseTime  String
+
+  cnicVerification   Boolean            @default(false)
+  licenseCertificate String?
+  approvalStatus     VerificationStatus @default(PENDING)
+}
+
+model SocialMediaLinks {
+  id        String  @id @default(uuid())
+  agentId   String  @unique
+  facebook  String?
+  instagram String?
+  linkedin  String?
+  agent     Agent   @relation(fields: [agentId], references: [id])
+}
+
+enum Specialization {
+  RESIDENTIAL
+  COMMERCIAL
+  PLOTS
+  PROJECTS
+}
+
+model Agencies {
+  id              String  @id @default(uuid())
+  name            String
+  logo            String?
+  tagline         String?
+  establishedYear Int
+  agencyType      String // Independent / Franchise
+
+  officeAddress String
+  phoneNumber   String
+  email         String  @unique
+  website       String?
+
+  socialMedia Json?
+
+  registrationNumber String?
+  license            String?
+  areasCovered       String[]
+  totalAgents        Int
+
+  propertyDetails  PropertyTypeDetail[] // Relationship field
+
+  servicesOffered ServiceType[]
+
+  totalListings Int
+  propertyTypes PropertyType[]
+  exclusive     Boolean
+  listingLink   String?
+
+  testimonials  String[]
+  overallRating Float    @default(0.0)
+  responseTime  String
+
+  businessCertificate String?
+  verificationStatus  VerificationStatus @default(PENDING)
+}
+
+enum ServiceType {
+  BUY_SELL
+  RENTAL
+  INVESTMENT
+  MARKETING
+}
+
+enum PropertyCategory {
+  HOUSES
+  APARTMENTS
+  COMMERCIAL
+  PLOTS
+  PROJECTS
+}
+
+enum VerificationStatus {
+  VERIFIED
+  PENDING
 }

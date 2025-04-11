@@ -2,6 +2,7 @@ import ChooseUs from "@/components/Home/component/choose";
 import Heroend from "@/components/Home/component/heroend";
 import Cities from "@/components/Home/component/Cities";
 import FeatureProduct from "@/components/views/FeatureProduct";
+import Projects from '@/components/views/FeaturedProjects'
 import Hero from "@/components/views/Hero";
 import PropertyCounters from "@/components/views/PropertyCounter";
 
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <>
     <Hero/>
+    <Projects />
     <FeatureProduct/>
     <Heroend/>
     <PropertyCounters initialCounts={counts} />

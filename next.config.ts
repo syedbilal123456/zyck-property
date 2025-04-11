@@ -16,7 +16,13 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'jaghufeohfcrwkhqisxt.supabase.co', // Add your Supabase domain
       },
+      {
+        protocol: "https",
+        hostname: "example.com", // Add your image host here
+        pathname: "/**", // Allow all images from this host
+      },
     ],
+    domains:["example.com", "pearlcity.com"], // Also add it here for compatibility
   },
 };
 
