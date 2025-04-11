@@ -72,7 +72,7 @@ export default function PropertyCard({ PropertType, id, image, title, price, loc
     }
   }
 
-  const { user } = useSelector((state: RootState) => state.auth)
+  // const { user } = useSelector((state: RootState) => state.auth)
 
   return (
     <div className="w-full mx-auto rounded-xl shadow-sm shadow-gray-800 border-gray-100 bg-zinc-900 text-white dark:bg-gray-800 dark:border-gray-700 overflow-hidden transition-all duration-300">
@@ -88,14 +88,14 @@ export default function PropertyCard({ PropertType, id, image, title, price, loc
           <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground px-2 py-1 text-xs font-semibold rounded">
             {status}
           </Badge>
-          {user?.isAdmin && (
+          {/* { && (
             <button 
               onClick={(e) => deletePropertyById(e, id)}
               className="absolute top-3 left-16 bg-red-700 hover:bg-red-500 px-2 py-1 text-xs font-semibold rounded text-white"
             >
               Delete
             </button>
-          )}
+          )} */}
         </div>
 
         <div className="p-5">

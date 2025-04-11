@@ -28,7 +28,12 @@ export async function GET() {
                 area: true,
                 propertyId: true,
             }
-        }
+        },
+        location: {
+          select: {
+            streetAddress : true,
+          }
+        },
          // Add other fields you want to include
       },
     });
