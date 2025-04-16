@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -12,6 +13,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
+import DataDisplay from "./data-display"
+import { useRouter } from "next/navigation"
+import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs"
+import { RootState } from "@/redux/store"
+import { useSelector } from "react-redux"
 
 const formSchema = z.object({
   // Basic Information
@@ -90,6 +96,8 @@ const approvalOptions = [
 ]
 
 export default function AddProject() {
+  const [formData, setFormData] = useState<any>(null)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -119,50 +127,61 @@ export default function AddProject() {
     },
   })
 
+  const userId = useSelector((state: RootState) => state.auth.user?.id);
+
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // try {
-      // Format the data to match the expected JSON structure
-      const formattedData = {
-        ...values,
-        priceRange: {
-          minPrice: Number(values.minPrice),
-          maxPrice: Number(values.maxPrice),
-        },
-        // Remove the individual price fields that aren't in the final JSON
-        minPrice: undefined,
-        maxPrice: undefined,
-        // Convert dates to ISO format if needed
-        launchDate: new Date(values.launchDate).toISOString(),
-        expectedCompletion: new Date(values.expectedCompletion).toISOString(),
-      }
+    // Format the data to match the expected JSON structure
+    const formattedData = {
+      id : userId,
+      ...values,
+      priceRange: {
+        minPrice: Number(values.minPrice),
+        maxPrice: Number(values.maxPrice),
+      },
+      // Remove the individual price fields that aren't in the final JSON
+      minPrice: undefined,
+      maxPrice: undefined,
+      // Convert dates to ISO format if needed
+      launchDate: new Date(values.launchDate).toISOString(),
+      expectedCompletion: new Date(values.expectedCompletion).toISOString(),
+    }
 
-      console.log("Submitting Data:", formattedData)
+    // Just store the data in state
+    setFormData(formattedData)
 
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formattedData),
+    // Log to console for debugging
+    console.log("Form Data:", formattedData)
+
+    await fetch("/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        return response.json()
       })
-
-      console.log(response, "response")
-
-      // if (!response.ok) {
-      //   throw new Error("Failed to submit project")
-      // }
-
-      const result = await response.json()
-      console.log("Project submitted successfully:", result)
-
-      // Optionally, redirect to homepage or reset form
-      form.reset()
-      window.location.href = "/" // Redirect to homepage
-    // } catch (error) {
-    //   console.error("Error submitting project:", error)
-    // }
+      .then((data) => {
+        console.log("Success:", data)
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+    })
   }
 
+   const { isAuthenticated } = useKindeAuth()
+    const router = useRouter()
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        router.push('/auth')
+      }
+    }, [isAuthenticated, router])
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
@@ -777,6 +796,9 @@ export default function AddProject() {
               </div>
             </form>
           </Form>
+
+          {/* Display submitted data */}
+          {formData && <DataDisplay data={formData} />}
         </div>
       </div>
     </div>
