@@ -147,9 +147,9 @@ export default function AgentSignUp() {
 
       console.log('Form Submission Values:', formattedData);
 
-      // Here you would typically send the data to your API
-      const loadingToast = toast.loading("Registering your agency...")
+      const loadingToast = toast.loading("Registering your agent...")
 
+      // Here you would typically send the data to your API
       const response = await fetch("/api/agents", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -158,6 +158,17 @@ export default function AgentSignUp() {
 
       // Update toast based on response
       toast.dismiss(loadingToast)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: `Error Status ${response.status}` }))
+        console.error("API Error:", errorData)
+        toast.error(errorData.message || `Failed to register Agent (Status: ${response.status})`)
+        return
+      }
+
+      const responseData = await response.json()
+      console.log("API Response:", responseData)
+      toast.success("Agent Registered Successfully")
 
     } catch (error) {
       console.error('Error submitting form:', error);
