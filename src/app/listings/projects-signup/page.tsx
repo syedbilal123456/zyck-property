@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation"
 import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs"
 import { RootState } from "@/redux/store"
 import { useSelector } from "react-redux"
+import { toast } from "react-toastify"
 
 const formSchema = z.object({
   // Basic Information
@@ -132,9 +133,10 @@ export default function AddProject() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Format the data to match the expected JSON structure
+    try{
     const formattedData = {
       id : userId,
-      ...values,
+      ...values, 
       priceRange: {
         minPrice: Number(values.minPrice),
         maxPrice: Number(values.maxPrice),
@@ -152,27 +154,33 @@ export default function AddProject() {
 
     // Log to console for debugging
     console.log("Form Data:", formattedData)
+    const loadingToast = toast.loading("Registering your agent...")
 
-    await fetch("/api/projects", {
+    // Here you would typically send the data to your API
+    const response = await fetch("/api/agents", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formattedData),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-        return response.json()
-      })
-      .then((data) => {
-        console.log("Success:", data)
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-    })
+
+    // Update toast based on response
+    toast.dismiss(loadingToast)
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: `Error Status ${response.status}` }))
+      console.error("API Error:", errorData)
+      toast.error(errorData.message || `Failed to register Agent (Status: ${response.status})`)
+      return
+    }
+
+    const responseData = await response.json()
+    console.log("API Response:", responseData)
+    toast.success("Agent Registered Successfully")
+
+  } catch (error) {
+    console.error('Error submitting form:', error);
   }
+}
 
    const { isAuthenticated } = useKindeAuth()
     const router = useRouter()

@@ -46,7 +46,9 @@ export async function POST(request: Request) {
       listingLink: data.listingLink,
       testimonials: Array.isArray(data.testimonials)
         ? data.testimonials
-        : data.testimonials.split("\n").filter((t: string) => t.trim() !== ""),
+        : typeof data.testimonials === "string"
+          ? data.testimonials.split("\n").filter((t: string) => t.trim() !== "")
+          : [],
       overallRating: data.overallRating,
       responseTime: data.responseTime,
       cnicVerification: data.cnicVerification,
