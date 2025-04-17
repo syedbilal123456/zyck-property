@@ -246,7 +246,7 @@ model SocialMediaLinks {
 }
 
 model Agency {
-  id                  String               @id @default(uuid())
+  id                  String                @id @default(uuid())
   name                String
   logo                String?
   tagline             String?
@@ -254,7 +254,7 @@ model Agency {
   agencyType          String
   officeAddress       String
   phoneNumber         String
-  email               String               @unique
+  email               String                @unique
   website             String?
   socialMedia         Json?
   registrationNumber  String?
@@ -266,14 +266,14 @@ model Agency {
   exclusive           Boolean
   listingLink         String?
   testimonials        String[]
-  overallRating       Float                @default(0.0)
+  overallRating       Float                 @default(0.0)
   responseTime        String
   businessCertificate String?
-  verificationStatus  VerificationStatus   @default(PENDING)
+  verificationStatus  VerificationStatus    @default(PENDING)
   userId              String
   propertyTypes       propertyType[]
-  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   propertyDetails     propertyTypeDetails[]
+  user                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum AreaType {
