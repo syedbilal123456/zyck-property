@@ -17,16 +17,18 @@ model User {
   isAdmin         Boolean         @default(false)
   ProfileComplete Boolean         @default(false)
   city            String?
-  latitude        String?
-  longitude       String?
   province        String?
   streetAddress   String?
   phoneNumber     String?
   isActive        Boolean         @default(true)
   password        String?
+  latitude        String?
+  longitude       String?
+  Agency          Agency[]
+  Agent           Agent[]
+  project         Project[]
   Property        Property[]
   subscription    Subscriptions[]
-  project         Project[]
 }
 
 model Property {
@@ -38,8 +40,8 @@ model Property {
   typeId         Int
   statusId       Int
   DetailId       Int
-  StatusProperty StatusProperty     @default(ACCEPTED)
   createdAt      DateTime           @default(now())
+  StatusProperty StatusProperty     @default(ACCEPTED)
   contact        Contact?
   typeDetail     PropertyTypeDetail @relation(fields: [DetailId], references: [id])
   status         PropertyStatus     @relation(fields: [statusId], references: [id])
@@ -118,7 +120,6 @@ model PropertyType {
   created  DateTime             @default(now())
   Property Property[]
   Details  PropertyTypeDetail[]
-  agencies Agency[]  // Now properly referencing the Agency model
 }
 
 model PropertyTypeDetail {
@@ -126,10 +127,9 @@ model PropertyTypeDetail {
   value          String
   propertyTypeId Int
   created        DateTime     @default(now())
+  agencyId       String?
   Property       Property[]
   propertyType   PropertyType @relation(fields: [propertyTypeId], references: [id])
-  agency         Agency?      @relation(fields: [agencyId], references: [id])
-  agencyId       String?
 }
 
 model PropertyStatus {
@@ -161,6 +161,121 @@ model Subscriptions {
   user      User             @relation(fields: [userId], references: [id])
 }
 
+model Project {
+  id                  String            @id @default(uuid())
+  name                String
+  developerName       String
+  projectType         ProjectType
+  projectStatus       ProjectStatus
+  launchDate          DateTime
+  expectedCompletion  DateTime?
+  city                String
+  area                String
+  googleMapsLink      String?
+  nearbyLandmarks     String
+  userId              String
+  availableUnits      Json?
+  basicAmenities      String[]
+  bookingProcedure    String
+  developerPhone      String
+  governmentApprovals String[]
+  luxuryFeatures      String[]
+  masterPlan          String?
+  nearbyFacilities    String
+  paymentPlan         Json?
+  registrationDetails String?
+  rendersAndPlans     String[]
+  siteImagesVideos    String[]
+  sizesAndLayouts     Json?
+  authorizedAgents    AuthorizedAgent[]
+  priceRange          PriceRange?
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuthorizedAgent {
+  id        String  @id @default(uuid())
+  projectId String
+  email     String
+  phone     String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model PriceRange {
+  id        String  @id @default(uuid())
+  projectId String  @unique
+  minPrice  Float
+  maxPrice  Float
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Agent {
+  id                 String             @id @default(uuid())
+  fullName           String
+  profilePicture     String?
+  agentType          String
+  experience         String
+  specialization     Specialization[]
+  phoneNumber        String
+  email              String             @unique
+  officeAddress      String?
+  agencyName         String?
+  agencyLogo         String?
+  agencyRegNumber    String?
+  areasCovered       String[]
+  servicesOffered    ServiceType[]
+  totalListings      Int
+  listingLink        String?
+  testimonials       String[]
+  overallRating      Float              @default(0.0)
+  responseTime       String
+  cnicVerification   Boolean            @default(false)
+  licenseCertificate String?
+  approvalStatus     VerificationStatus @default(PENDING)
+  userId             String
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  socialMediaLinks   SocialMediaLinks?
+}
+
+model SocialMediaLinks {
+  id        String  @id @default(uuid())
+  agentId   String  @unique
+  facebook  String?
+  instagram String?
+  linkedin  String?
+  agent     Agent   @relation(fields: [agentId], references: [id])
+}
+
+model Agency {
+  id                  String               @id @default(uuid())
+  name                String
+  logo                String?
+  tagline             String?
+  establishedYear     Int
+  agencyType          String
+  officeAddress       String
+  phoneNumber         String
+  email               String               @unique
+  website             String?
+  socialMedia         Json?
+  registrationNumber  String?
+  license             String?
+  areasCovered        String[]
+  totalAgents         Int
+  servicesOffered     ServiceType[]
+  totalListings       Int
+  exclusive           Boolean
+  listingLink         String?
+  testimonials        String[]
+  overallRating       Float                @default(0.0)
+  responseTime        String
+  businessCertificate String?
+  verificationStatus  VerificationStatus   @default(PENDING)
+  userId              String
+  propertyTypes       propertyType[]
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyDetails     propertyTypeDetails[]
+}
+
 enum AreaType {
   SQUARE_METER
   SQUARE_FEET
@@ -173,50 +288,6 @@ enum StatusProperty {
   PENDING
   ACCEPTED
   REJECTED
-}
-
-model Project {
-  id                 String           @id @default(uuid())
-  userId             String
-  name               String
-  developerName      String
-  projectType        ProjectType
-  projectStatus      ProjectStatus
-  launchDate         DateTime
-  expectedCompletion DateTime?
-  city               String
-  area               String
-  googleMapsLink     String?
-  nearbyLandmarks    String
-
-  // Optional or complex fields
-  availableUnits     Json?
-  sizesAndLayouts    Json?
-  paymentPlan        Json?
-  basicAmenities     String[]
-  luxuryFeatures     String[]
-  nearbyFacilities   String[]
-  masterPlan         String?
-  rendersAndPlans    String[]
-  siteImagesVideos   String[]
-  governmentApprovals String[]
-  registrationDetails String?
-  developerPhone     String
-  bookingProcedure   String
-
-  // Relations
-  authorizedAgents   AuthorizedAgent[]
-  priceRange         PriceRange?
-  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-
-model AuthorizedAgent {
-  id        String  @id @default(uuid())
-  email     String
-  phone     String
-  projectId String
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 enum ProjectType {
@@ -244,97 +315,11 @@ enum PaymentPlan {
   FULL_PAYMENT
 }
 
-model PriceRange {
-  id        String  @id @default(uuid())
-  minPrice  Float
-  maxPrice  Float
-  projectId String  @unique
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-}
-
-model Agent {
-  id             String           @id @default(uuid())
-  fullName       String
-  profilePicture String?
-  agentType      String // Individual Agent / Agency Representative
-  experience     String
-  specialization Specialization[]
-
-  phoneNumber      String
-  email            String            @unique
-  officeAddress    String?
-  socialMediaLinks SocialMediaLinks?
-
-  agencyName      String?
-  agencyLogo      String?
-  agencyRegNumber String?
-  areasCovered    String[]
-
-  servicesOffered ServiceType[]
-
-  totalListings Int
-  listingLink   String?
-
-  testimonials  String[]
-  overallRating Float    @default(0.0)
-  responseTime  String
-
-  cnicVerification   Boolean            @default(false)
-  licenseCertificate String?
-  approvalStatus     VerificationStatus @default(PENDING)
-}
-
-model SocialMediaLinks {
-  id        String  @id @default(uuid())
-  agentId   String  @unique
-  facebook  String?
-  instagram String?
-  linkedin  String?
-  agent     Agent   @relation(fields: [agentId], references: [id])
-}
-
 enum Specialization {
   RESIDENTIAL
   COMMERCIAL
   PLOTS
   PROJECTS
-}
-
-model Agency {
-  id              String  @id @default(uuid())
-  name            String
-  logo            String?
-  tagline         String?
-  establishedYear Int
-  agencyType      String // Independent / Franchise
-
-  officeAddress String
-  phoneNumber   String
-  email         String  @unique
-  website       String?
-
-  socialMedia Json?
-
-  registrationNumber String?
-  license            String?
-  areasCovered       String[]
-  totalAgents        Int
-
-  propertyDetails  PropertyTypeDetail[] // Relationship field
-
-  servicesOffered ServiceType[]
-
-  totalListings Int
-  propertyTypes PropertyType[]
-  exclusive     Boolean
-  listingLink   String?
-
-  testimonials  String[]
-  overallRating Float    @default(0.0)
-  responseTime  String
-
-  businessCertificate String?
-  verificationStatus  VerificationStatus @default(PENDING)
 }
 
 enum ServiceType {
@@ -355,4 +340,35 @@ enum PropertyCategory {
 enum VerificationStatus {
   VERIFIED
   PENDING
+}
+
+enum propertyType {
+  HOME
+  PLOTS
+  COMMERCIAL
+  CO_WORK_SPACE
+}
+
+enum propertyTypeDetails {
+  House
+  Flat
+  Upper_Portion
+  Lower_Portion
+  Farm_House
+  Room
+  Penthouse
+  Residential_Plot
+  Commercial_Plot
+  Agriculture_Land
+  Industrial_Land
+  Plot_File
+  PLot_Form
+  Office
+  Shop
+  Factory
+  Warehouse
+  Building
+  Other
+  Office_Room
+  Software_House
 }

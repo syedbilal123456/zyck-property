@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Battery, Signal, Wifi } from "lucide-react";
+import Image from "next/image";
 
 interface PropertyFeature {
   bedrooms?: number;
@@ -106,7 +107,7 @@ const PreviewCard = ({ savedImagesUrl, formData }: Props) => {
         {/* Property Image */}
         <div className="w-full h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
           {images[0] ? (
-            <img src={images[0]} alt="Property" className="w-full h-full object-cover" />
+            <Image width={500} height={500} src={images[0]} alt="Property" className="w-full h-full object-cover" />
           ) : (
             <div className="text-gray-500 text-sm">Property Image</div>
           )}
